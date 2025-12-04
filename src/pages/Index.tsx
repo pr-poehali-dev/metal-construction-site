@@ -324,10 +324,18 @@ const Index = () => {
                       </div>
                     </RadioGroup>
                     <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        <Icon name="MessageCircle" size={16} className="inline mr-2 text-primary" />
-                        <span className="text-foreground font-medium">Не переживайте за точность формулировок!</span> Главное — чтобы я понял суть. Все технические нюансы и детали мы обязательно уточним и обсудим.
-                      </p>
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
+                          <img 
+                            src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                            alt="Владислав"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                          <span className="text-foreground font-medium">Не переживайте за точность формулировок!</span> Главное — чтобы я понял суть. Все технические нюансы и детали мы обязательно уточним и обсудим.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 )}
