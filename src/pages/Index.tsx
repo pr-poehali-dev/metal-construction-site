@@ -109,26 +109,16 @@ const Index = () => {
                 </linearGradient>
               </defs>
               <path 
-                d="M 50,0 Q 30,25 45,50 Q 30,75 50,100" 
-                fill="url(#curveGradient)" 
-                className="animate-wave"
-                style={{ transformOrigin: 'center' }}
+                d="M 50,0 Q 42,50 50,100" 
+                fill="url(#curveGradient)"
               />
               <path 
-                d="M 50,0 Q 30,25 45,50 Q 30,75 50,100" 
+                d="M 50,0 Q 42,50 50,100" 
                 fill="none" 
                 stroke="hsl(var(--primary))" 
-                strokeWidth="0.4"
-                opacity="0.7"
+                strokeWidth="0.3"
+                opacity="0.6"
                 className="drop-shadow-lg"
-              />
-              <path 
-                d="M 50,0 Q 30,25 45,50 Q 30,75 50,100" 
-                fill="none" 
-                stroke="hsl(var(--primary))" 
-                strokeWidth="0.1"
-                opacity="0.3"
-                className="blur-sm"
               />
             </svg>
           </div>
