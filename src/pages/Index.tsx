@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -24,10 +24,22 @@ const Index = () => {
   });
   
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState(2);
+  const [parallaxOffset, setParallaxOffset] = useState(0);
   const galleryRef = useRef<HTMLDivElement>(null);
 
   const isWeldingFlow = quizData.type === 'выездная';
   const totalSteps = isWeldingFlow ? 5 : 6;
+
+  // Parallax effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY;
+      setParallaxOffset(scrolled * 0.5);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleQuizNext = () => {
     if (quizStep < totalSteps - 1) {
@@ -145,15 +157,19 @@ const Index = () => {
         <div className="absolute inset-0 flex">
           {/* Left Side - Metal Texture Background */}
           <div className="flex-1 metal-texture relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-primary/10"></div>
+            <div 
+              className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-primary/10"
+              style={{ transform: `translateY(${parallaxOffset}px)` }}
+            ></div>
           </div>
           
-          {/* Right Side - Image */}
+          {/* Right Side - Image with Parallax */}
           <div className="flex-1 relative">
             <img 
               src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/4ea4c64f-c726-4453-8227-e4d18ec3d3a9.jpg"
               alt="Металлоконструкции"
               className="w-full h-full object-cover"
+              style={{ transform: `translateY(${parallaxOffset}px)` }}
             />
             <div className="absolute inset-0 bg-gradient-to-l from-transparent to-background/20"></div>
           </div>
@@ -1176,9 +1192,9 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Work Process Section - Compact Timeline */}
+      {/* Work Process Section - Horizontal Timeline */}
       <section className="py-16 px-4 metal-texture relative overflow-hidden">
-        <div className="container mx-auto max-w-6xl relative z-10">
+        <div className="container mx-auto max-w-7xl relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-3">
               Этапы <span className="text-primary">работы</span>
@@ -1188,52 +1204,45 @@ const Index = () => {
             </p>
           </div>
           
-          {/* Vertical Timeline for Desktop */}
+          {/* Horizontal Timeline for Desktop */}
           <div className="hidden lg:block relative">
-            {/* Central vertical line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/20 via-primary to-primary/20 -translate-x-1/2"></div>
+            {/* Horizontal line */}
+            <div className="absolute top-16 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/20 via-primary to-primary/20"></div>
             
-            <div className="space-y-16">
+            <div className="grid grid-cols-6 gap-4">
               {works.map((work, index) => {
-                const isEven = index % 2 === 0;
                 const icons: ('Phone' | 'FileText' | 'Factory' | 'Truck' | 'CheckCircle2' | 'Star')[] = ['Phone', 'FileText', 'Factory', 'Truck', 'CheckCircle2', 'Star'];
                 
                 return (
-                  <div key={index} className="relative">
-                    {/* Central Circle */}
-                    <div className="absolute left-1/2 top-0 -translate-x-1/2 z-20">
+                  <div key={index} className="relative group">
+                    {/* Icon Circle */}
+                    <div className="flex justify-center mb-4">
                       <div className="relative">
-                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                           <Icon name={icons[index]} size={24} className="text-white" />
                         </div>
-                        <div className="absolute -inset-2 rounded-full bg-primary/20 blur-lg"></div>
+                        <div className="absolute -inset-2 rounded-full bg-primary/20 blur-lg group-hover:bg-primary/30 transition-colors"></div>
                         {/* Step number badge */}
-                        <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-background border-2 border-primary flex items-center justify-center text-xs font-bold">
+                        <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-background border-2 border-primary flex items-center justify-center text-xs font-bold">
                           {index + 1}
                         </div>
                       </div>
                     </div>
                     
-                    {/* Content Card */}
-                    <div className={`flex items-start ${isEven ? 'justify-end pr-[52%]' : 'justify-start pl-[52%]'}`}>
-                      <div className="group relative max-w-sm">
-                        <Card className="relative border-border/50 hover:border-primary/50 transition-all duration-300">
-                          <CardContent className="p-6">
-                            <div className={`${isEven ? 'text-right' : 'text-left'}`}>
-                              <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">
-                                {work.title}
-                              </h3>
-                              <p className="text-sm text-muted-foreground leading-relaxed">
-                                {work.description}
-                              </p>
-                            </div>
-                          </CardContent>
-                        </Card>
-                        
-                        {/* Connecting line to central circle */}
-                        <div className={`absolute top-6 ${isEven ? '-right-12' : '-left-12'} w-12 h-0.5 bg-gradient-to-${isEven ? 'l' : 'r'} from-primary/50 to-transparent`}></div>
-                      </div>
+                    {/* Content */}
+                    <div className="text-center">
+                      <h3 className="text-sm font-bold mb-2 group-hover:text-primary transition-colors leading-tight">
+                        {work.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        {work.description}
+                      </p>
                     </div>
+                    
+                    {/* Connecting line */}
+                    {index < works.length - 1 && (
+                      <div className="absolute top-8 left-[calc(50%+2rem)] w-[calc(100%-2rem)] h-0.5 bg-transparent"></div>
+                    )}
                   </div>
                 );
               })}
@@ -1289,11 +1298,11 @@ const Index = () => {
             Оставьте заявку и мы свяжемся с вами в ближайшее время
           </p>
           
-          <div className="grid md:grid-cols-[1.5fr_1fr] gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-8 items-start">
             {/* Form */}
-            <Card className="border-border/50 shadow-xl">
-              <CardContent className="p-8">
-                <form onSubmit={handleCallRequest} className="space-y-6">
+            <Card className="border-border/50 shadow-xl h-full">
+              <CardContent className="p-8 flex flex-col h-full">
+                <form onSubmit={handleCallRequest} className="space-y-6 flex-1 flex flex-col">
                   <div>
                     <Label htmlFor="contact-name" className="text-base">Ваше имя</Label>
                     <Input id="contact-name" placeholder="Иван Иванов" required className="h-12 text-base mt-2" />
@@ -1302,11 +1311,11 @@ const Index = () => {
                     <Label htmlFor="contact-phone" className="text-base">Телефон</Label>
                     <Input id="contact-phone" type="tel" placeholder="+7 (999) 123-45-67" required className="h-12 text-base mt-2" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <Label htmlFor="contact-message" className="text-base">Сообщение (необязательно)</Label>
                     <Input id="contact-message" placeholder="Опишите ваш проект" className="h-12 text-base mt-2" />
                   </div>
-                  <Button type="submit" className="w-full metal-shine h-12 text-base">
+                  <Button type="submit" className="w-full metal-shine h-12 text-base mt-auto">
                     Отправить заявку
                   </Button>
                 </form>
@@ -1314,23 +1323,23 @@ const Index = () => {
             </Card>
 
             {/* Manager Card */}
-            <div className="space-y-6">
-              <Card className="border-border/50 overflow-hidden">
-                <CardContent className="p-0">
-                  <div className="relative h-64 overflow-hidden">
-                    <img 
-                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=400&fit=crop"
-                      alt="Менеджер"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <p className="text-white font-bold text-xl mb-1">Вероника</p>
-                      <p className="text-gray-300 text-sm">Менеджер по работе с клиентами</p>
-                    </div>
+            <Card className="border-border/50 overflow-hidden h-full">
+              <CardContent className="p-0 flex flex-col h-full">
+                <div className="relative h-72 overflow-hidden flex-shrink-0">
+                  <img 
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=400&fit=crop"
+                    alt="Менеджер"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <p className="text-white font-bold text-xl mb-1">Вероника</p>
+                    <p className="text-gray-300 text-sm">Менеджер по работе с клиентами</p>
                   </div>
-                  <div className="p-6 bg-card">
-                    <div className="flex items-start gap-3 mb-4">
+                </div>
+                <div className="p-6 bg-card flex-1 flex flex-col justify-between">
+                  <div className="space-y-4 flex-1">
+                    <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
                         <Icon name="Clock" size={20} className="text-primary" />
                       </div>
@@ -1349,27 +1358,27 @@ const Index = () => {
                       </div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-              
-              {/* Compact Messenger Buttons */}
-              <div className="flex gap-3 justify-center">
-                <Button 
-                  size="icon"
-                  className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#25D366]/90"
-                  onClick={() => window.open('https://wa.me/79773804500', '_blank')}
-                >
-                  <Icon name="MessageCircle" size={24} className="text-white" />
-                </Button>
-                <Button 
-                  size="icon"
-                  className="w-14 h-14 rounded-full bg-[#0088cc] hover:bg-[#0088cc]/90"
-                  onClick={() => window.open('https://t.me/Ivan_517', '_blank')}
-                >
-                  <Icon name="Send" size={24} className="text-white" />
-                </Button>
-              </div>
-            </div>
+                  
+                  {/* Compact Messenger Buttons */}
+                  <div className="flex gap-3 justify-center mt-4 pt-4 border-t border-border/50">
+                    <Button 
+                      size="icon"
+                      className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#25D366]/90"
+                      onClick={() => window.open('https://wa.me/79773804500', '_blank')}
+                    >
+                      <Icon name="MessageCircle" size={24} className="text-white" />
+                    </Button>
+                    <Button 
+                      size="icon"
+                      className="w-14 h-14 rounded-full bg-[#0088cc] hover:bg-[#0088cc]/90"
+                      onClick={() => window.open('https://t.me/Ivan_517', '_blank')}
+                    >
+                      <Icon name="Send" size={24} className="text-white" />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
