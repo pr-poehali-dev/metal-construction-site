@@ -27,6 +27,7 @@ const Index = () => {
   const [parallaxOffset, setParallaxOffset] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const galleryRef = useRef<HTMLDivElement>(null);
+  const quizRef = useRef<HTMLDivElement>(null);
 
   const isWeldingFlow = quizData.type === 'выездная';
   const totalSteps = isWeldingFlow ? 5 : 6;
@@ -43,8 +44,17 @@ const Index = () => {
   }, []);
 
   const handleQuizNext = () => {
+    const currentScrollPos = quizRef.current?.offsetTop;
+    
     if (quizStep < totalSteps - 1) {
       setQuizStep(quizStep + 1);
+      
+      // Сохраняем позицию прокрутки
+      setTimeout(() => {
+        if (currentScrollPos && window.scrollY !== currentScrollPos - 100) {
+          window.scrollTo({ top: currentScrollPos - 100, behavior: 'smooth' });
+        }
+      }, 50);
     } else {
       toast.success('Спасибо! Мы рассчитаем стоимость и свяжемся с вами.');
       setQuizStep(0);
@@ -62,6 +72,26 @@ const Index = () => {
         files: []
       });
     }
+  };
+
+  const handleRadioSelect = (field: string, value: string) => {
+    const currentScrollPos = quizRef.current?.offsetTop;
+    
+    setQuizData({...quizData, [field]: value});
+    
+    // Автоматический переход к следующему шагу
+    setTimeout(() => {
+      if (quizStep < totalSteps - 1) {
+        setQuizStep(quizStep + 1);
+        
+        // Сохраняем позицию прокрутки
+        setTimeout(() => {
+          if (currentScrollPos && window.scrollY !== currentScrollPos - 100) {
+            window.scrollTo({ top: currentScrollPos - 100, behavior: 'smooth' });
+          }
+        }, 50);
+      }
+    }, 300);
   };
 
   const handleServiceToggle = (service: string) => {
@@ -421,7 +451,7 @@ const Index = () => {
               </div>
             </div>
             
-            <Card className="metal-texture border-border/50">
+            <Card className="metal-texture border-border/50" ref={quizRef}>
               <CardHeader className="p-4 sm:p-6">
                 <CardTitle className="text-lg sm:text-xl md:text-2xl">Шаг {quizStep + 1} из {totalSteps}</CardTitle>
                 <div className="mt-4">
@@ -437,43 +467,43 @@ const Index = () => {
                 {quizStep === 0 && (
                   <div className="space-y-3 sm:space-y-4">
                     <Label className="text-base sm:text-lg font-semibold">Какой тип конструкции вам нужен?</Label>
-                    <RadioGroup value={quizData.type} onValueChange={(value) => setQuizData({...quizData, type: value})}>
-                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'каркас'})}>
+                    <RadioGroup value={quizData.type}>
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('type', 'каркас')}>
                         <RadioGroupItem value="каркас" id="каркас" className="mt-1 flex-shrink-0" />
                         <Label htmlFor="каркас" className="cursor-pointer flex-1">
                           <div className="text-sm sm:text-base font-semibold mb-1">Каркас здания</div>
                           <div className="text-xs sm:text-sm text-muted-foreground leading-snug">промышленные цеха, склады, торговые центры, ангары</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'антресоль'})}>
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('type', 'антресоль')}>
                         <RadioGroupItem value="антресоль" id="антресоль" className="mt-1 flex-shrink-0" />
                         <Label htmlFor="антресоль" className="cursor-pointer flex-1">
                           <div className="text-sm sm:text-base font-semibold mb-1">Антресольные этажи</div>
                           <div className="text-xs sm:text-sm text-muted-foreground leading-snug">межэтажные перекрытия, технологические площадки, балконы</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'лестницы'})}>
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('type', 'лестницы')}>
                         <RadioGroupItem value="лестницы" id="лестницы" className="mt-1 flex-shrink-0" />
                         <Label htmlFor="лестницы" className="cursor-pointer flex-1">
                           <div className="text-sm sm:text-base font-semibold mb-1">Лестницы и ограждения</div>
                           <div className="text-xs sm:text-sm text-muted-foreground leading-snug">внутренние и наружные лестницы, перила, поручни</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'мелкие'})}>
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('type', 'мелкие')}>
                         <RadioGroupItem value="мелкие" id="мелкие" className="mt-1 flex-shrink-0" />
                         <Label htmlFor="мелкие" className="cursor-pointer flex-1">
                           <div className="text-sm sm:text-base font-semibold mb-1">Мелкие конструкции</div>
                           <div className="text-xs sm:text-sm text-muted-foreground leading-snug">козырьки, навесы, стеллажи, индивидуальные изделия</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'другое'})}>
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('type', 'другое')}>
                         <RadioGroupItem value="другое" id="другое" className="mt-1 flex-shrink-0" />
                         <Label htmlFor="другое" className="cursor-pointer flex-1">
                           <div className="text-sm sm:text-base font-semibold mb-1">Другое</div>
                           <div className="text-xs sm:text-sm text-muted-foreground leading-snug">специальные конструкции, нестандартные решения</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'выездная'})}>
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('type', 'выездная')}>
                         <RadioGroupItem value="выездная" id="выездная" className="mt-1 flex-shrink-0" />
                         <Label htmlFor="выездная" className="cursor-pointer flex-1">
                           <div className="text-sm sm:text-base font-semibold mb-1">Выездные сварочные работы</div>
@@ -502,17 +532,17 @@ const Index = () => {
                   <div className="space-y-4">
                     <Label className="text-lg">Какой тип металла требуется?</Label>
                     <div className="grid md:grid-cols-2 gap-4">
-                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, material: 'конструкционная'})}>
+                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('material', 'конструкционная')}>
                         <img src="https://cdn.poehali.dev/files/dbf0f0d2-320e-41f7-8fc4-1303ab8384c4.png" alt="Конструкционная сталь" className="w-full h-32 object-cover rounded mb-3" />
                         <div className="font-semibold mb-2">Конструкционная (черная) сталь</div>
                         {quizData.material === 'конструкционная' && <Icon name="CheckCircle" size={20} className="text-primary" />}
                       </div>
-                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, material: 'нержавеющая'})}>
+                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('material', 'нержавеющая')}>
                         <img src="https://cdn.poehali.dev/files/dbf0f0d2-320e-41f7-8fc4-1303ab8384c4.png" alt="Нержавеющая сталь" className="w-full h-32 object-cover rounded mb-3" />
                         <div className="font-semibold mb-2">Нержавеющая сталь</div>
                         {quizData.material === 'нержавеющая' && <Icon name="CheckCircle" size={20} className="text-primary" />}
                       </div>
-                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, material: 'цветные'})}>
+                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('material', 'цветные')}>
                         <img src="https://cdn.poehali.dev/files/dbf0f0d2-320e-41f7-8fc4-1303ab8384c4.png" alt="Цветные металлы" className="w-full h-32 object-cover rounded mb-3" />
                         <div className="font-semibold mb-2">Цветные металлы (алюминий и сплавы)</div>
                         {quizData.material === 'цветные' && <Icon name="CheckCircle" size={20} className="text-primary" />}
@@ -548,29 +578,29 @@ const Index = () => {
                 {quizStep === 1 && isWeldingFlow && (
                   <div className="space-y-4">
                     <Label className="text-lg">Какой тип сварки вам нужен?</Label>
-                    <RadioGroup value={quizData.weldingType} onValueChange={(value) => setQuizData({...quizData, weldingType: value})}>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                    <RadioGroup value={quizData.weldingType}>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('weldingType', 'ручная')}>
                         <RadioGroupItem value="ручная" id="ручная" className="mt-1" />
                         <Label htmlFor="ручная" className="cursor-pointer flex-1">
                           <div className="font-semibold mb-1">Ручная дуговая сварка (MMA)</div>
                           <div className="text-sm text-muted-foreground">универсальный метод для большинства задач</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('weldingType', 'полуавтомат')}>
                         <RadioGroupItem value="полуавтомат" id="полуавтомат" className="mt-1" />
                         <Label htmlFor="полуавтомат" className="cursor-pointer flex-1">
                           <div className="font-semibold mb-1">Полуавтоматическая (MIG/MAG)</div>
                           <div className="text-sm text-muted-foreground">быстрая сварка тонких металлов</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('weldingType', 'аргон')}>
                         <RadioGroupItem value="аргон" id="аргон" className="mt-1" />
                         <Label htmlFor="аргон" className="cursor-pointer flex-1">
                           <div className="font-semibold mb-1">Аргонодуговая (TIG)</div>
                           <div className="text-sm text-muted-foreground">высокоточная сварка нержавейки и алюминия</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('weldingType', 'незнаю')}>
                         <RadioGroupItem value="незнаю" id="незнаю" className="mt-1" />
                         <Label htmlFor="незнаю" className="cursor-pointer flex-1">
                           <div className="font-semibold mb-1">Не знаю, нужна консультация</div>
@@ -583,26 +613,26 @@ const Index = () => {
                 {quizStep === 2 && !isWeldingFlow && (
                   <div className="space-y-4">
                     <Label className="text-lg">Какой уровень сложности проекта?</Label>
-                    <RadioGroup value={quizData.complexity} onValueChange={(value) => setQuizData({...quizData, complexity: value})}>
-                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                    <RadioGroup value={quizData.complexity}>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('complexity', 'простой')}>
                         <RadioGroupItem value="простой" id="простой" />
                         <Label htmlFor="простой" className="cursor-pointer flex-1">
                           <div className="font-semibold mb-1">Простой (типовые решения, стандартные чертежи)</div>
                         </Label>
                       </div>
-                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('complexity', 'средний')}>
                         <RadioGroupItem value="средний" id="средний" />
                         <Label htmlFor="средний" className="cursor-pointer flex-1">
                           <div className="font-semibold mb-1">Средний (адаптация типовых решений, индивидуальные размеры)</div>
                         </Label>
                       </div>
-                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('complexity', 'сложный')}>
                         <RadioGroupItem value="сложный" id="сложный" />
                         <Label htmlFor="сложный" className="cursor-pointer flex-1">
                           <div className="font-semibold mb-1">Сложный (индивидуальное проектирование, сложные расчеты)</div>
                         </Label>
                       </div>
-                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('complexity', 'экспертный')}>
                         <RadioGroupItem value="экспертный" id="экспертный" />
                         <Label htmlFor="экспертный" className="cursor-pointer flex-1">
                           <div className="font-semibold mb-1">Экспертный (уникальные конструкции, инженерный анализ)</div>
@@ -715,20 +745,20 @@ const Index = () => {
                 {quizStep === 3 && isWeldingFlow && (
                   <div className="space-y-4">
                     <Label className="text-lg">Укажите ориентировочные сроки</Label>
-                    <RadioGroup value={quizData.deadline} onValueChange={(value) => setQuizData({...quizData, deadline: value})}>
-                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                    <RadioGroup value={quizData.deadline}>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('deadline', 'срочно')}>
                         <RadioGroupItem value="срочно" id="срочно" />
                         <Label htmlFor="срочно" className="cursor-pointer flex-1">
                           <div className="font-semibold">Срочно (24-48 часов)</div>
                         </Label>
                       </div>
-                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('deadline', 'гибкие')}>
                         <RadioGroupItem value="гибкие" id="гибкие" />
                         <Label htmlFor="гибкие" className="cursor-pointer flex-1">
                           <div className="font-semibold">Гибкие сроки</div>
                         </Label>
                       </div>
-                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('deadline', 'стандарт')}>
                         <RadioGroupItem value="стандарт" id="стандарт" />
                         <Label htmlFor="стандарт" className="cursor-pointer flex-1">
                           <div className="font-semibold">Стандартные (3-7 дней)</div>
@@ -759,20 +789,20 @@ const Index = () => {
                 {quizStep === 4 && !isWeldingFlow && (
                   <div className="space-y-4">
                     <Label className="text-lg">Укажите ориентировочные сроки</Label>
-                    <RadioGroup value={quizData.deadline} onValueChange={(value) => setQuizData({...quizData, deadline: value})}>
-                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                    <RadioGroup value={quizData.deadline}>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('deadline', 'срочно')}>
                         <RadioGroupItem value="срочно" id="срочно-prod" />
                         <Label htmlFor="срочно-prod" className="cursor-pointer flex-1">
                           <div className="font-semibold">Срочно (24-48 часов)</div>
                         </Label>
                       </div>
-                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('deadline', 'гибкие')}>
                         <RadioGroupItem value="гибкие" id="гибкие-prod" />
                         <Label htmlFor="гибкие-prod" className="cursor-pointer flex-1">
                           <div className="font-semibold">Гибкие сроки</div>
                         </Label>
                       </div>
-                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('deadline', 'стандарт')}>
                         <RadioGroupItem value="стандарт" id="стандарт-prod" />
                         <Label htmlFor="стандарт-prod" className="cursor-pointer flex-1">
                           <div className="font-semibold">Стандартные (3-7 дней)</div>
