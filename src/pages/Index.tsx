@@ -150,6 +150,55 @@ const Index = () => {
               </Card>
             </div>
           </div>
+
+          {/* Director Comment */}
+          <div className="mt-16 max-w-4xl mx-auto">
+            <Card className="metal-texture border-primary/30 shadow-lg">
+              <CardContent className="p-8">
+                <div className="flex flex-col md:flex-row gap-6 items-start">
+                  <div className="flex-shrink-0">
+                    <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-primary">
+                      <img 
+                        src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/5279e763-b752-4a7c-b4b0-02957f429ac5.jpg"
+                        alt="Михаил Соколов"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <Icon name="Quote" size={32} className="text-primary/50 mb-4" />
+                    <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                      <span className="text-primary font-bold">«Основа»</span> — современное производство полного цикла. Мы создаем надежную основу для ваших проектов: от крупных промышленных конструкций до срочных выездных работ.
+                    </p>
+                    <p className="text-base text-muted-foreground leading-relaxed mb-3">
+                      <span className="text-foreground font-semibold">Наши ключевые направления:</span>
+                    </p>
+                    <ul className="space-y-2 mb-4">
+                      <li className="flex items-start gap-2">
+                        <Icon name="CheckCircle" size={20} className="text-primary flex-shrink-0 mt-0.5" />
+                        <span className="text-muted-foreground"><span className="text-foreground font-medium">Производство:</span> Каркасы зданий, ангары, а также лестницы, ограждения и другие изделия по вашим чертежам.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Icon name="CheckCircle" size={20} className="text-primary flex-shrink-0 mt-0.5" />
+                        <span className="text-muted-foreground"><span className="text-foreground font-medium">Выездные услуги:</span> Сварка, монтаж и ремонт конструкций непосредственно на вашей площадке.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Icon name="CheckCircle" size={20} className="text-primary flex-shrink-0 mt-0.5" />
+                        <span className="text-muted-foreground"><span className="text-foreground font-medium">Поддержка:</span> Проектирование (КМ/КМД), доставка и антикоррозийная обработка.</span>
+                      </li>
+                    </ul>
+                    <p className="text-base text-muted-foreground leading-relaxed mb-6">
+                      Наше отличие — <span className="text-primary font-semibold">гибкость</span>: одинаково ответственно беремся и за масштабный проект, и за срочный заказ.
+                    </p>
+                    <div className="border-t border-border/50 pt-4">
+                      <p className="text-foreground font-semibold text-lg">Михаил Соколов</p>
+                      <p className="text-sm text-muted-foreground">Директор по производству</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
