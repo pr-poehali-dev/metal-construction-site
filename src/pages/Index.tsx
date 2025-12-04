@@ -117,10 +117,28 @@ const Index = () => {
             <a href="#gallery" className="hover:text-primary transition-colors">Галерея</a>
             <a href="#contact" className="hover:text-primary transition-colors">Контакты</a>
           </nav>
-          <Button className="metal-shine">
-            <Icon name="Phone" size={18} className="mr-2" />
-            +7 (999) 123-45-67
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button 
+              size="icon" 
+              variant="ghost"
+              className="hover:bg-[#25D366]/10 hover:text-[#25D366]"
+              onClick={() => window.open('https://wa.me/79773804500', '_blank')}
+            >
+              <Icon name="MessageCircle" size={20} />
+            </Button>
+            <Button 
+              size="icon" 
+              variant="ghost"
+              className="hover:bg-[#0088cc]/10 hover:text-[#0088cc]"
+              onClick={() => window.open('https://t.me/Ivan_517', '_blank')}
+            >
+              <Icon name="Send" size={20} />
+            </Button>
+            <Button className="metal-shine">
+              <Icon name="Phone" size={18} className="mr-2" />
+              +7(499)840-33-12
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -173,7 +191,7 @@ const Index = () => {
             <div className="max-w-xl">
               <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white animate-slide-right">
                 Производство<br />
-                <span className="text-primary">Металлоконструкций</span>
+                <span className="bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 text-transparent bg-clip-text drop-shadow-lg">Металлоконструкций</span>
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-gray-300 animate-slide-right" style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
                 Профессиональная сварка и монтаж любой сложности
@@ -183,27 +201,9 @@ const Index = () => {
                   <Icon name="Calculator" size={20} className="mr-2" />
                   Рассчитать стоимость
                 </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8 border-primary text-primary hover:bg-primary hover:text-white">
+                <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white hover:text-background">
                   <Icon name="Phone" size={20} className="mr-2" />
                   +7(499)840-33-12
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="text-lg px-6 border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white"
-                  onClick={() => window.open('https://wa.me/79773804500', '_blank')}
-                >
-                  <Icon name="MessageCircle" size={20} className="mr-2" />
-                  WhatsApp
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="text-lg px-6 border-[#0088cc] text-[#0088cc] hover:bg-[#0088cc] hover:text-white"
-                  onClick={() => window.open('https://t.me/Ivan_517', '_blank')}
-                >
-                  <Icon name="Send" size={20} className="mr-2" />
-                  Telegram
                 </Button>
               </div>
             </div>
@@ -1289,117 +1289,95 @@ const Index = () => {
       </section>
 
       {/* Contact Form Section */}
-      <section id="contact" className="py-20 px-4 metal-texture">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+      <section id="contact" className="py-20 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
             Заказать звонок
           </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="border-border/50">
-              <CardHeader>
-                <CardTitle>Оставьте заявку</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleCallRequest} className="space-y-4">
+          <p className="text-center text-muted-foreground text-lg mb-12">
+            Оставьте заявку и мы свяжемся с вами в ближайшее время
+          </p>
+          
+          <div className="grid md:grid-cols-[1.5fr_1fr] gap-12 items-center">
+            {/* Form */}
+            <Card className="border-border/50 shadow-xl">
+              <CardContent className="p-8">
+                <form onSubmit={handleCallRequest} className="space-y-6">
                   <div>
-                    <Label htmlFor="name">Ваше имя</Label>
-                    <Input id="name" placeholder="Иван Иванов" required />
+                    <Label htmlFor="contact-name" className="text-base">Ваше имя</Label>
+                    <Input id="contact-name" placeholder="Иван Иванов" required className="h-12 text-base mt-2" />
                   </div>
                   <div>
-                    <Label htmlFor="phone">Телефон</Label>
-                    <Input id="phone" type="tel" placeholder="+7 (999) 123-45-67" required />
+                    <Label htmlFor="contact-phone" className="text-base">Телефон</Label>
+                    <Input id="contact-phone" type="tel" placeholder="+7 (999) 123-45-67" required className="h-12 text-base mt-2" />
                   </div>
                   <div>
-                    <Label htmlFor="message">Сообщение</Label>
-                    <Input id="message" placeholder="Опишите ваш проект" />
+                    <Label htmlFor="contact-message" className="text-base">Сообщение (необязательно)</Label>
+                    <Input id="contact-message" placeholder="Опишите ваш проект" className="h-12 text-base mt-2" />
                   </div>
-                  <Button type="submit" className="w-full metal-shine">
+                  <Button type="submit" className="w-full metal-shine h-12 text-base">
                     Отправить заявку
                   </Button>
                 </form>
               </CardContent>
             </Card>
 
+            {/* Manager Card */}
             <div className="space-y-6">
-              <Card className="border-border/50">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Icon name="Phone" size={24} className="text-primary" />
-                    Телефон
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <a href="tel:+74998403312" className="text-lg hover:text-primary transition-colors block mb-1">+7(499)840-33-12</a>
-                  <p className="text-sm text-muted-foreground">Работаем 24/7</p>
+              <Card className="border-border/50 overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="relative h-64 overflow-hidden">
+                    <img 
+                      src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                      alt="Менеджер"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <p className="text-white font-bold text-xl mb-1">Владислав</p>
+                      <p className="text-gray-300 text-sm">Менеджер по работе с клиентами</p>
+                    </div>
+                  </div>
+                  <div className="p-6 bg-card">
+                    <div className="flex items-start gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                        <Icon name="Clock" size={20} className="text-primary" />
+                      </div>
+                      <div>
+                        <p className="font-semibold mb-1">Быстрая обработка заявок</p>
+                        <p className="text-sm text-muted-foreground">Свяжемся с вами в течение 15 минут в рабочее время</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                        <Icon name="CheckCircle2" size={20} className="text-primary" />
+                      </div>
+                      <div>
+                        <p className="font-semibold mb-1">Бесплатная консультация</p>
+                        <p className="text-sm text-muted-foreground">Ответим на все вопросы и поможем с выбором</p>
+                      </div>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
-
-              <Card className="border-border/50">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Icon name="MessageCircle" size={24} className="text-[#25D366]" />
-                    WhatsApp
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <a 
-                    href="https://wa.me/79773804500" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-lg hover:text-[#25D366] transition-colors flex items-center gap-2"
-                  >
-                    <span>+7 (977) 380-45-00</span>
-                    <Icon name="ExternalLink" size={16} />
-                  </a>
-                  <p className="text-sm text-muted-foreground">Быстрый ответ</p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-border/50">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Icon name="Send" size={24} className="text-[#0088cc]" />
-                    Telegram
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <a 
-                    href="https://t.me/Ivan_517" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-lg hover:text-[#0088cc] transition-colors flex items-center gap-2"
-                  >
-                    <span>@Ivan_517</span>
-                    <Icon name="ExternalLink" size={16} />
-                  </a>
-                  <p className="text-sm text-muted-foreground">Онлайн консультация</p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-border/50">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Icon name="Mail" size={24} className="text-primary" />
-                    Email
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-lg">info@metallprom.ru</p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-border/50">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Icon name="MapPin" size={24} className="text-primary" />
-                    Адрес
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-lg">г. Москва, ул. Промышленная, 15</p>
-                  <p className="text-sm text-muted-foreground">Производственная база</p>
-                </CardContent>
-              </Card>
+              
+              {/* Compact Messenger Buttons */}
+              <div className="flex gap-3 justify-center">
+                <Button 
+                  size="icon"
+                  className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#25D366]/90"
+                  onClick={() => window.open('https://wa.me/79773804500', '_blank')}
+                >
+                  <Icon name="MessageCircle" size={24} className="text-white" />
+                </Button>
+                <Button 
+                  size="icon"
+                  className="w-14 h-14 rounded-full bg-[#0088cc] hover:bg-[#0088cc]/90"
+                  onClick={() => window.open('https://t.me/Ivan_517', '_blank')}
+                >
+                  <Icon name="Send" size={24} className="text-white" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -1439,28 +1417,26 @@ const Index = () => {
               </div>
             </div>
             
-            {/* Messengers */}
+            {/* Messengers - Compact Icons */}
             <div>
               <h3 className="font-bold mb-4">Мессенджеры</h3>
-              <div className="space-y-3">
-                <a 
-                  href="https://wa.me/79773804500" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-[#25D366] transition-colors"
+              <div className="flex gap-3">
+                <Button 
+                  size="icon"
+                  variant="outline"
+                  className="w-12 h-12 rounded-full border-[#25D366] hover:bg-[#25D366] hover:text-white"
+                  onClick={() => window.open('https://wa.me/79773804500', '_blank')}
                 >
-                  <Icon name="MessageCircle" size={18} />
-                  <span>WhatsApp: +7 (977) 380-45-00</span>
-                </a>
-                <a 
-                  href="https://t.me/Ivan_517" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-[#0088cc] transition-colors"
+                  <Icon name="MessageCircle" size={20} />
+                </Button>
+                <Button 
+                  size="icon"
+                  variant="outline"
+                  className="w-12 h-12 rounded-full border-[#0088cc] hover:bg-[#0088cc] hover:text-white"
+                  onClick={() => window.open('https://t.me/Ivan_517', '_blank')}
                 >
-                  <Icon name="Send" size={18} />
-                  <span>Telegram: @Ivan_517</span>
-                </a>
+                  <Icon name="Send" size={20} />
+                </Button>
               </div>
             </div>
           </div>
