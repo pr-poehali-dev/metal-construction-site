@@ -247,6 +247,94 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Advantages Section */}
+      <section className="py-20 px-4">
+        <div className="container mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+            Наши преимущества
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Card 1 - Large */}
+            <div className="md:row-span-2 group relative overflow-hidden rounded-2xl h-[500px] animate-scale-in">
+              <img 
+                src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/4e7663e3-7955-426e-af78-f7af02052a0a.jpg"
+                alt="Надежный партнер"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-8">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                  Вы получаете надежного партнера
+                </h3>
+                <p className="text-gray-200 text-lg">
+                  Опытные инженеры и сварщики гарантируют качество и точное соответствие чертежам.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2 - Small */}
+            <div className="group relative overflow-hidden rounded-2xl h-60 bg-[#527a94] animate-scale-in" style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
+              <div className="absolute inset-0 p-8 flex flex-col justify-center">
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  Вы экономите время и ресурсы
+                </h3>
+                <p className="text-gray-100">
+                  Мы берем на себя все задачи "под ключ" — от проектирования до монтажа.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3 - Large */}
+            <div className="md:row-span-2 group relative overflow-hidden rounded-2xl h-[500px] animate-scale-in" style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
+              <img 
+                src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/f2e393da-c868-40e8-91d5-db3c39afe690.jpg"
+                alt="Выгода"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-8">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                  Вы получаете выгоду
+                </h3>
+                <p className="text-gray-200 text-lg">
+                  Оптимальные решения и конкурентные цены за счет грамотного проектирования.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 4 - Small */}
+            <div className="group relative overflow-hidden rounded-2xl h-60 bg-[#446580] animate-scale-in" style={{ animationDelay: '0.3s', opacity: 0, animationFillMode: 'forwards' }}>
+              <div className="absolute inset-0 p-8 flex flex-col justify-center">
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  Вы застрахованы от ошибок
+                </h3>
+                <p className="text-gray-100">
+                  Наш многолетний опыт — это Ваша уверенность в успехе проекта.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 5 - Large */}
+            <div className="md:col-span-2 group relative overflow-hidden rounded-2xl h-80 animate-scale-in" style={{ animationDelay: '0.4s', opacity: 0, animationFillMode: 'forwards' }}>
+              <img 
+                src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/e4bdbcad-4666-434e-8bdd-e0c70943b60e.jpg"
+                alt="Современное производство"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-8">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                  Собственное современное производство
+                </h3>
+                <p className="text-gray-200 text-lg">
+                  Полный контроль над сроками и качеством на всех этапах.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Services Section */}
       <section id="services" className="py-20 px-4 metal-texture">
         <div className="container mx-auto">
