@@ -244,6 +244,170 @@ const Index = () => {
               </CardContent>
             </Card>
           </div>
+
+          {/* Quiz Section - moved here after Director Comment */}
+          <div className="mt-16">
+            <div className="mb-12 metal-texture border border-border/50 rounded-lg p-8">
+              <div className="grid md:grid-cols-[1fr_auto] gap-8 items-center">
+                <div>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                    Расчет стоимости металлоконструкций
+                  </h2>
+                  <p className="text-lg text-muted-foreground mb-6">
+                    Ответьте на несколько вопросов и получите точный расчет стоимости вашего проекта с учетом всех особенностей и требований
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0" />
+                      <span className="text-foreground">Пройдите короткий опрос</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0" />
+                      <span className="text-foreground">Заполните основные параметры</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0" />
+                      <span className="text-foreground">Укажите ключевые данные</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex-shrink-0 text-center">
+                  <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-primary shadow-lg mx-auto mb-3">
+                    <img 
+                      src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                      alt="Владислав"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <p className="text-foreground font-semibold">Владислав</p>
+                  <p className="text-sm text-muted-foreground">менеджер по продажам</p>
+                </div>
+              </div>
+            </div>
+            
+            <Card className="metal-texture border-border/50">
+              <CardHeader>
+                <CardTitle>Шаг {quizStep + 1} из 4</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {quizStep === 0 && (
+                  <div className="space-y-4">
+                    <Label className="text-lg">Какой тип конструкции вам нужен?</Label>
+                    <RadioGroup value={quizData.type} onValueChange={(value) => setQuizData({...quizData, type: value})}>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="каркас" id="каркас" className="mt-1" />
+                        <Label htmlFor="каркас" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Каркас здания</div>
+                          <div className="text-sm text-muted-foreground">промышленные цеха, склады, торговые центры, ангары</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="антресоль" id="антресоль" className="mt-1" />
+                        <Label htmlFor="антресоль" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Антресольные этажи</div>
+                          <div className="text-sm text-muted-foreground">межэтажные перекрытия, технологические площадки, балконы</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="лестницы" id="лестницы" className="mt-1" />
+                        <Label htmlFor="лестницы" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Лестницы и ограждения</div>
+                          <div className="text-sm text-muted-foreground">внутренние и наружные лестницы, перила, поручни</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="мелкие" id="мелкие" className="mt-1" />
+                        <Label htmlFor="мелкие" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Мелкие конструкции</div>
+                          <div className="text-sm text-muted-foreground">козырьки, навесы, стеллажи, индивидуальные изделия</div>
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                    <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        <Icon name="MessageCircle" size={16} className="inline mr-2 text-primary" />
+                        <span className="text-foreground font-medium">Не переживайте за точность формулировок!</span> Главное — чтобы я понял суть. Все технические нюансы и детали мы обязательно уточним и обсудим.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {quizStep === 1 && (
+                  <div className="space-y-4">
+                    <Label className="text-lg">Материал</Label>
+                    <RadioGroup value={quizData.material} onValueChange={(value) => setQuizData({...quizData, material: value})}>
+                      <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="черная сталь" id="черная" />
+                        <Label htmlFor="черная" className="cursor-pointer flex-1">Черная сталь</Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="нержавейка" id="нержавейка" />
+                        <Label htmlFor="нержавейка" className="cursor-pointer flex-1">Нержавеющая сталь</Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="оцинковка" id="оцинковка" />
+                        <Label htmlFor="оцинковка" className="cursor-pointer flex-1">Оцинкованная сталь</Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="алюминий" id="алюминий" />
+                        <Label htmlFor="алюминий" className="cursor-pointer flex-1">Алюминий</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                )}
+
+                {quizStep === 2 && (
+                  <div className="space-y-4">
+                    <Label className="text-lg" htmlFor="dimensions">Примерные размеры (м)</Label>
+                    <Input 
+                      id="dimensions"
+                      placeholder="Например: 10x20x5"
+                      value={quizData.dimensions}
+                      onChange={(e) => setQuizData({...quizData, dimensions: e.target.value})}
+                      className="text-lg p-6"
+                    />
+                    <p className="text-sm text-muted-foreground">Укажите длину х ширину х высоту</p>
+                  </div>
+                )}
+
+                {quizStep === 3 && (
+                  <div className="space-y-4">
+                    <Label className="text-lg" htmlFor="quantity">Количество / Дополнительная информация</Label>
+                    <Input 
+                      id="quantity"
+                      placeholder="Например: 1 шт, срочно"
+                      value={quizData.quantity}
+                      onChange={(e) => setQuizData({...quizData, quantity: e.target.value})}
+                      className="text-lg p-6"
+                    />
+                  </div>
+                )}
+
+                <div className="flex gap-4">
+                  {quizStep > 0 && (
+                    <Button 
+                      variant="outline" 
+                      onClick={() => setQuizStep(quizStep - 1)}
+                      className="flex-1"
+                    >
+                      Назад
+                    </Button>
+                  )}
+                  <Button 
+                    onClick={handleQuizNext}
+                    disabled={
+                      (quizStep === 0 && !quizData.type) ||
+                      (quizStep === 1 && !quizData.material) ||
+                      (quizStep === 2 && !quizData.dimensions)
+                    }
+                    className="flex-1 metal-shine"
+                  >
+                    {quizStep === 3 ? 'Получить расчет' : 'Далее'}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
@@ -362,157 +526,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Quiz Section */}
-      <section id="quiz" className="py-20 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <div className="mb-12 metal-texture border border-border/50 rounded-lg p-8">
-            <div className="grid md:grid-cols-[1fr_auto] gap-8 items-center">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                  Расчет стоимости металлоконструкций
-                </h2>
-                <p className="text-lg text-muted-foreground mb-6">
-                  Ответьте на несколько вопросов и получите точный расчет стоимости вашего проекта с учетом всех особенностей и требований
-                </p>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0" />
-                    <span className="text-foreground">Пройдите короткий опрос</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0" />
-                    <span className="text-foreground">Заполните основные параметры</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0" />
-                    <span className="text-foreground">Укажите ключевые данные</span>
-                  </div>
-                </div>
-              </div>
-              <div className="flex-shrink-0 text-center">
-                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-primary shadow-lg mx-auto mb-3">
-                  <img 
-                    src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
-                    alt="Владислав"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <p className="text-foreground font-semibold">Владислав</p>
-                <p className="text-sm text-muted-foreground">менеджер по продажам</p>
-              </div>
-            </div>
-          </div>
-          
-          <Card className="metal-texture border-border/50">
-            <CardHeader>
-              <CardTitle>Шаг {quizStep + 1} из 4</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {quizStep === 0 && (
-                <div className="space-y-4">
-                  <Label className="text-lg">Тип конструкции</Label>
-                  <RadioGroup value={quizData.type} onValueChange={(value) => setQuizData({...quizData, type: value})}>
-                    <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
-                      <RadioGroupItem value="каркас" id="каркас" />
-                      <Label htmlFor="каркас" className="cursor-pointer flex-1">Металлокаркас здания</Label>
-                    </div>
-                    <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
-                      <RadioGroupItem value="ангар" id="ангар" />
-                      <Label htmlFor="ангар" className="cursor-pointer flex-1">Ангар/Навес</Label>
-                    </div>
-                    <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
-                      <RadioGroupItem value="лестница" id="лестница" />
-                      <Label htmlFor="лестница" className="cursor-pointer flex-1">Лестница</Label>
-                    </div>
-                    <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
-                      <RadioGroupItem value="ограждение" id="ограждение" />
-                      <Label htmlFor="ограждение" className="cursor-pointer flex-1">Ограждение/Забор</Label>
-                    </div>
-                    <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
-                      <RadioGroupItem value="другое" id="другое" />
-                      <Label htmlFor="другое" className="cursor-pointer flex-1">Другое</Label>
-                    </div>
-                  </RadioGroup>
-                </div>
-              )}
-
-              {quizStep === 1 && (
-                <div className="space-y-4">
-                  <Label className="text-lg">Материал</Label>
-                  <RadioGroup value={quizData.material} onValueChange={(value) => setQuizData({...quizData, material: value})}>
-                    <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
-                      <RadioGroupItem value="черная сталь" id="черная" />
-                      <Label htmlFor="черная" className="cursor-pointer flex-1">Черная сталь</Label>
-                    </div>
-                    <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
-                      <RadioGroupItem value="нержавейка" id="нержавейка" />
-                      <Label htmlFor="нержавейка" className="cursor-pointer flex-1">Нержавеющая сталь</Label>
-                    </div>
-                    <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
-                      <RadioGroupItem value="оцинковка" id="оцинковка" />
-                      <Label htmlFor="оцинковка" className="cursor-pointer flex-1">Оцинкованная сталь</Label>
-                    </div>
-                    <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
-                      <RadioGroupItem value="алюминий" id="алюминий" />
-                      <Label htmlFor="алюминий" className="cursor-pointer flex-1">Алюминий</Label>
-                    </div>
-                  </RadioGroup>
-                </div>
-              )}
-
-              {quizStep === 2 && (
-                <div className="space-y-4">
-                  <Label className="text-lg" htmlFor="dimensions">Примерные размеры (м)</Label>
-                  <Input 
-                    id="dimensions"
-                    placeholder="Например: 10x20x5"
-                    value={quizData.dimensions}
-                    onChange={(e) => setQuizData({...quizData, dimensions: e.target.value})}
-                    className="text-lg p-6"
-                  />
-                  <p className="text-sm text-muted-foreground">Укажите длину х ширину х высоту</p>
-                </div>
-              )}
-
-              {quizStep === 3 && (
-                <div className="space-y-4">
-                  <Label className="text-lg" htmlFor="quantity">Количество / Дополнительная информация</Label>
-                  <Input 
-                    id="quantity"
-                    placeholder="Например: 1 шт, срочно"
-                    value={quizData.quantity}
-                    onChange={(e) => setQuizData({...quizData, quantity: e.target.value})}
-                    className="text-lg p-6"
-                  />
-                </div>
-              )}
-
-              <div className="flex gap-4">
-                {quizStep > 0 && (
-                  <Button 
-                    variant="outline" 
-                    onClick={() => setQuizStep(quizStep - 1)}
-                    className="flex-1"
-                  >
-                    Назад
-                  </Button>
-                )}
-                <Button 
-                  onClick={handleQuizNext}
-                  disabled={
-                    (quizStep === 0 && !quizData.type) ||
-                    (quizStep === 1 && !quizData.material) ||
-                    (quizStep === 2 && !quizData.dimensions)
-                  }
-                  className="flex-1 metal-shine"
-                >
-                  {quizStep === 3 ? 'Получить расчет' : 'Далее'}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+      {/* Services Section - kept here for navigation anchor */}
+      <section id="quiz"></section>
 
       {/* Gallery Section */}
       <section id="gallery" className="py-20 px-4 metal-texture">
