@@ -82,25 +82,65 @@ const Index = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative h-[600px] metal-texture flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-transparent to-primary/20"></div>
-        <div className="relative z-10 text-center px-4 animate-fade-in">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
-            Производство<br />
-            <span className="text-primary">Металлоконструкций</span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-gray-300">
-            Профессиональная сварка и монтаж любой сложности
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Button size="lg" className="metal-shine text-lg px-8">
-              <Icon name="Calculator" size={20} className="mr-2" />
-              Рассчитать стоимость
-            </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 border-primary text-primary hover:bg-primary hover:text-white">
-              <Icon name="Phone" size={20} className="mr-2" />
-              Заказать звонок
-            </Button>
+      <section className="relative h-[600px] overflow-hidden">
+        <div className="absolute inset-0 flex">
+          {/* Left Side - Metal Texture Background */}
+          <div className="flex-1 metal-texture relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-primary/10"></div>
+          </div>
+          
+          {/* Right Side - Image */}
+          <div className="flex-1 relative">
+            <img 
+              src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/4ea4c64f-c726-4453-8227-e4d18ec3d3a9.jpg"
+              alt="Металлоконструкции"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent to-background/20"></div>
+          </div>
+
+          {/* Curved Divider */}
+          <div className="absolute inset-0 pointer-events-none">
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <path 
+                d="M 50,0 Q 35,50 50,100" 
+                fill="hsl(var(--background))" 
+                opacity="0.95"
+                className="metal-texture"
+              />
+              <path 
+                d="M 50,0 Q 35,50 50,100" 
+                fill="none" 
+                stroke="hsl(var(--primary))" 
+                strokeWidth="0.3"
+                opacity="0.5"
+              />
+            </svg>
+          </div>
+        </div>
+
+        {/* Content Overlay */}
+        <div className="absolute inset-0 flex items-center justify-start z-10">
+          <div className="container mx-auto px-4">
+            <div className="max-w-xl animate-fade-in">
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
+                Производство<br />
+                <span className="text-primary">Металлоконструкций</span>
+              </h1>
+              <p className="text-xl md:text-2xl mb-8 text-gray-300">
+                Профессиональная сварка и монтаж любой сложности
+              </p>
+              <div className="flex gap-4 flex-wrap">
+                <Button size="lg" className="metal-shine text-lg px-8">
+                  <Icon name="Calculator" size={20} className="mr-2" />
+                  Рассчитать стоимость
+                </Button>
+                <Button size="lg" variant="outline" className="text-lg px-8 border-primary text-primary hover:bg-primary hover:text-white">
+                  <Icon name="Phone" size={20} className="mr-2" />
+                  Заказать звонок
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
