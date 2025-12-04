@@ -16,11 +16,15 @@ const Index = () => {
     services: [] as string[],
     deadline: '',
     weldingType: '',
-    weldingServices: [] as string[]
+    weldingServices: [] as string[],
+    name: '',
+    phone: '',
+    email: '',
+    files: [] as string[]
   });
 
   const isWeldingFlow = quizData.type === 'выездная';
-  const totalSteps = isWeldingFlow ? 4 : 5;
+  const totalSteps = isWeldingFlow ? 5 : 6;
 
   const handleQuizNext = () => {
     if (quizStep < totalSteps - 1) {
@@ -35,7 +39,11 @@ const Index = () => {
         services: [], 
         deadline: '',
         weldingType: '',
-        weldingServices: []
+        weldingServices: [],
+        name: '',
+        phone: '',
+        email: '',
+        files: []
       });
     }
   };
@@ -320,48 +328,56 @@ const Index = () => {
             <Card className="metal-texture border-border/50">
               <CardHeader>
                 <CardTitle>Шаг {quizStep + 1} из {totalSteps}</CardTitle>
+                <div className="mt-4">
+                  <div className="w-full bg-muted rounded-full h-2">
+                    <div 
+                      className="bg-primary h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${((quizStep + 1) / totalSteps) * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent className="space-y-6">
                 {quizStep === 0 && (
                   <div className="space-y-4">
                     <Label className="text-lg">Какой тип конструкции вам нужен?</Label>
                     <RadioGroup value={quizData.type} onValueChange={(value) => setQuizData({...quizData, type: value})}>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'каркас'})}>
                         <RadioGroupItem value="каркас" id="каркас" className="mt-1" />
                         <Label htmlFor="каркас" className="cursor-pointer flex-1">
                           <div className="font-semibold mb-1">Каркас здания</div>
                           <div className="text-sm text-muted-foreground">промышленные цеха, склады, торговые центры, ангары</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'антресоль'})}>
                         <RadioGroupItem value="антресоль" id="антресоль" className="mt-1" />
                         <Label htmlFor="антресоль" className="cursor-pointer flex-1">
                           <div className="font-semibold mb-1">Антресольные этажи</div>
                           <div className="text-sm text-muted-foreground">межэтажные перекрытия, технологические площадки, балконы</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'лестницы'})}>
                         <RadioGroupItem value="лестницы" id="лестницы" className="mt-1" />
                         <Label htmlFor="лестницы" className="cursor-pointer flex-1">
                           <div className="font-semibold mb-1">Лестницы и ограждения</div>
                           <div className="text-sm text-muted-foreground">внутренние и наружные лестницы, перила, поручни</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'мелкие'})}>
                         <RadioGroupItem value="мелкие" id="мелкие" className="mt-1" />
                         <Label htmlFor="мелкие" className="cursor-pointer flex-1">
                           <div className="font-semibold mb-1">Мелкие конструкции</div>
                           <div className="text-sm text-muted-foreground">козырьки, навесы, стеллажи, индивидуальные изделия</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'другое'})}>
                         <RadioGroupItem value="другое" id="другое" className="mt-1" />
                         <Label htmlFor="другое" className="cursor-pointer flex-1">
                           <div className="font-semibold mb-1">Другое</div>
                           <div className="text-sm text-muted-foreground">специальные конструкции, нестандартные решения</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'выездная'})}>
                         <RadioGroupItem value="выездная" id="выездная" className="mt-1" />
                         <Label htmlFor="выездная" className="cursor-pointer flex-1">
                           <div className="font-semibold mb-1">Выездные сварочные работы</div>
@@ -688,6 +704,72 @@ const Index = () => {
                   </div>
                 )}
 
+                {((quizStep === 5 && !isWeldingFlow) || (quizStep === 4 && isWeldingFlow)) && (
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-bold">Оставьте контакты для связи</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="name" className="text-base mb-2 block">Ваше имя</Label>
+                        <Input 
+                          id="name"
+                          placeholder="Иван"
+                          value={quizData.name}
+                          onChange={(e) => setQuizData({...quizData, name: e.target.value})}
+                          className="text-lg p-6"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="phone" className="text-base mb-2 block">Ваш телефон</Label>
+                        <Input 
+                          id="phone"
+                          type="tel"
+                          placeholder="+7 (999) 123-45-67"
+                          value={quizData.phone}
+                          onChange={(e) => setQuizData({...quizData, phone: e.target.value})}
+                          className="text-lg p-6"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="email" className="text-base mb-2 block">Ваш email</Label>
+                        <Input 
+                          id="email"
+                          type="email"
+                          placeholder="example@mail.ru"
+                          value={quizData.email}
+                          onChange={(e) => setQuizData({...quizData, email: e.target.value})}
+                          className="text-lg p-6"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="files" className="text-base mb-2 block">Прикрепить ТЗ или чертеж</Label>
+                        <p className="text-sm text-muted-foreground mb-2">Любой формат (не более 10)</p>
+                        <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                          <Icon name="Upload" size={32} className="mx-auto mb-2 text-muted-foreground" />
+                          <p className="text-sm text-muted-foreground">Нажмите для загрузки файлов</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
+                          <img 
+                            src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                            alt="Владислав"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-foreground font-semibold mb-1">Владислав</p>
+                          <p className="text-xs text-muted-foreground mb-2">Менеджер</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            <span className="text-foreground font-medium">Файлы можно не прикреплять</span> — мы сможем все уточнить в ходе беседы. Однако, если у вас есть эскизы, ТЗ или чертежи — их наличие <span className="text-foreground font-medium">существенно ускорит</span> процесс обработки заявки.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex gap-4">
                   {quizStep > 0 && (
                     <Button 
@@ -707,11 +789,13 @@ const Index = () => {
                       (quizStep === 2 && !isWeldingFlow && !quizData.complexity) ||
                       (quizStep === 3 && !isWeldingFlow && quizData.services.length === 0) ||
                       (quizStep === 4 && !isWeldingFlow && !quizData.deadline) ||
-                      (quizStep === 3 && isWeldingFlow && !quizData.deadline)
+                      (quizStep === 3 && isWeldingFlow && !quizData.deadline) ||
+                      (quizStep === 5 && !isWeldingFlow && (!quizData.name || !quizData.phone)) ||
+                      (quizStep === 4 && isWeldingFlow && (!quizData.name || !quizData.phone))
                     }
                     className="flex-1 metal-shine"
                   >
-                    {quizStep === totalSteps - 1 ? 'Получить расчет' : 'Далее'}
+                    {quizStep === totalSteps - 1 ? 'Отправить' : 'Далее'}
                   </Button>
                 </div>
               </CardContent>
@@ -864,28 +948,47 @@ const Index = () => {
       </section>
 
       {/* Work Process Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+      <section className="py-20 px-4 metal-texture">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
             Этапы работы
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {works.map((work, index) => (
-              <div key={index} className="relative">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary flex items-center justify-center text-xl font-bold">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-2">{work.title}</h3>
-                    <p className="text-muted-foreground">{work.description}</p>
-                  </div>
+          <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
+            Прозрачный процесс от заявки до завершения проекта
+          </p>
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="hidden lg:block absolute top-12 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/20 via-primary to-primary/20"></div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+              {works.map((work, index) => (
+                <div key={index} className="relative group">
+                  <Card className="h-full border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-xl bg-card/50 backdrop-blur">
+                    <CardContent className="pt-6">
+                      <div className="flex flex-col items-center text-center">
+                        <div className="relative mb-6">
+                          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            {index + 1}
+                          </div>
+                          <div className="absolute -inset-2 rounded-full bg-primary/20 blur-md group-hover:bg-primary/30 transition-colors"></div>
+                        </div>
+                        <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                          {work.title}
+                        </h3>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {work.description}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  {index < works.length - 1 && (
+                    <div className="hidden lg:block absolute top-10 left-[calc(100%+1.5rem)] w-12">
+                      <Icon name="ArrowRight" size={24} className="text-primary/50" />
+                    </div>
+                  )}
                 </div>
-                {index < works.length - 1 && (
-                  <div className="hidden lg:block absolute top-6 left-[calc(100%+1rem)] w-8 h-0.5 bg-primary/30"></div>
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
