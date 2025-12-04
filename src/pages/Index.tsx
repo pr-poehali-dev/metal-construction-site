@@ -12,18 +12,50 @@ const Index = () => {
   const [quizData, setQuizData] = useState({
     type: '',
     material: '',
-    dimensions: '',
-    quantity: ''
+    complexity: '',
+    services: [] as string[],
+    deadline: '',
+    weldingType: '',
+    weldingServices: [] as string[]
   });
 
+  const isWeldingFlow = quizData.type === 'выездная';
+  const totalSteps = isWeldingFlow ? 4 : 5;
+
   const handleQuizNext = () => {
-    if (quizStep < 3) {
+    if (quizStep < totalSteps - 1) {
       setQuizStep(quizStep + 1);
     } else {
       toast.success('Спасибо! Мы рассчитаем стоимость и свяжемся с вами.');
       setQuizStep(0);
-      setQuizData({ type: '', material: '', dimensions: '', quantity: '' });
+      setQuizData({ 
+        type: '', 
+        material: '', 
+        complexity: '', 
+        services: [], 
+        deadline: '',
+        weldingType: '',
+        weldingServices: []
+      });
     }
+  };
+
+  const handleServiceToggle = (service: string) => {
+    setQuizData(prev => ({
+      ...prev,
+      services: prev.services.includes(service)
+        ? prev.services.filter(s => s !== service)
+        : [...prev.services, service]
+    }));
+  };
+
+  const handleWeldingServiceToggle = (service: string) => {
+    setQuizData(prev => ({
+      ...prev,
+      weldingServices: prev.weldingServices.includes(service)
+        ? prev.weldingServices.filter(s => s !== service)
+        : [...prev.weldingServices, service]
+    }));
   };
 
   const handleCallRequest = (e: React.FormEvent) => {
@@ -287,7 +319,7 @@ const Index = () => {
             
             <Card className="metal-texture border-border/50">
               <CardHeader>
-                <CardTitle>Шаг {quizStep + 1} из 4</CardTitle>
+                <CardTitle>Шаг {quizStep + 1} из {totalSteps}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 {quizStep === 0 && (
@@ -322,6 +354,20 @@ const Index = () => {
                           <div className="text-sm text-muted-foreground">козырьки, навесы, стеллажи, индивидуальные изделия</div>
                         </Label>
                       </div>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="другое" id="другое" className="mt-1" />
+                        <Label htmlFor="другое" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Другое</div>
+                          <div className="text-sm text-muted-foreground">специальные конструкции, нестандартные решения</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="выездная" id="выездная" className="mt-1" />
+                        <Label htmlFor="выездная" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Выездные сварочные работы</div>
+                          <div className="text-sm text-muted-foreground">сварка на объекте, ремонт, монтаж конструкций</div>
+                        </Label>
+                      </div>
                     </RadioGroup>
                     <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
                       <div className="flex items-start gap-3">
@@ -340,54 +386,305 @@ const Index = () => {
                   </div>
                 )}
 
-                {quizStep === 1 && (
+                {quizStep === 1 && !isWeldingFlow && (
                   <div className="space-y-4">
-                    <Label className="text-lg">Материал</Label>
-                    <RadioGroup value={quizData.material} onValueChange={(value) => setQuizData({...quizData, material: value})}>
-                      <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
-                        <RadioGroupItem value="черная сталь" id="черная" />
-                        <Label htmlFor="черная" className="cursor-pointer flex-1">Черная сталь</Label>
+                    <Label className="text-lg">Какой тип металла требуется?</Label>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, material: 'конструкционная'})}>
+                        <img src="https://cdn.poehali.dev/files/dbf0f0d2-320e-41f7-8fc4-1303ab8384c4.png" alt="Конструкционная сталь" className="w-full h-32 object-cover rounded mb-3" />
+                        <div className="font-semibold mb-2">Конструкционная (черная) сталь</div>
+                        {quizData.material === 'конструкционная' && <Icon name="CheckCircle" size={20} className="text-primary" />}
                       </div>
-                      <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
-                        <RadioGroupItem value="нержавейка" id="нержавейка" />
-                        <Label htmlFor="нержавейка" className="cursor-pointer flex-1">Нержавеющая сталь</Label>
+                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, material: 'нержавеющая'})}>
+                        <img src="https://cdn.poehali.dev/files/dbf0f0d2-320e-41f7-8fc4-1303ab8384c4.png" alt="Нержавеющая сталь" className="w-full h-32 object-cover rounded mb-3" />
+                        <div className="font-semibold mb-2">Нержавеющая сталь</div>
+                        {quizData.material === 'нержавеющая' && <Icon name="CheckCircle" size={20} className="text-primary" />}
                       </div>
-                      <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
-                        <RadioGroupItem value="оцинковка" id="оцинковка" />
-                        <Label htmlFor="оцинковка" className="cursor-pointer flex-1">Оцинкованная сталь</Label>
+                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, material: 'цветные'})}>
+                        <img src="https://cdn.poehali.dev/files/dbf0f0d2-320e-41f7-8fc4-1303ab8384c4.png" alt="Цветные металлы" className="w-full h-32 object-cover rounded mb-3" />
+                        <div className="font-semibold mb-2">Цветные металлы (алюминий и сплавы)</div>
+                        {quizData.material === 'цветные' && <Icon name="CheckCircle" size={20} className="text-primary" />}
                       </div>
-                      <div className="flex items-center space-x-2 p-3 border border-border rounded-md hover:border-primary transition-colors">
-                        <RadioGroupItem value="алюминий" id="алюминий" />
-                        <Label htmlFor="алюминий" className="cursor-pointer flex-1">Алюминий</Label>
+                    </div>
+                    <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
+                          <img 
+                            src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                            alt="Владислав"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-foreground font-semibold mb-1">Владислав</p>
+                          <p className="text-xs text-muted-foreground mb-2">Менеджер</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            <span className="text-foreground font-medium">Чтобы подобрать идеальный тип металла, давайте вместе разберемся:</span>
+                            <br/>
+                            • <span className="text-foreground font-medium">Конструкционная сталь</span> — лучший выбор для несущих конструкций, каркасов зданий и промышленных объектов. Максимальная прочность по доступной цене.
+                            <br/>
+                            • <span className="text-foreground font-medium">Нержавеющая сталь</span> — идеальное решение для агрессивных сред, пищевого производства и архитектурных элементов. Не требует дополнительной защиты.
+                            <br/>
+                            • <span className="text-foreground font-medium">Алюминий и сплавы</span> — оптимален когда важны легкость, коррозионная стойкость и простота монтажа.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {quizStep === 1 && isWeldingFlow && (
+                  <div className="space-y-4">
+                    <Label className="text-lg">Какой тип сварки вам нужен?</Label>
+                    <RadioGroup value={quizData.weldingType} onValueChange={(value) => setQuizData({...quizData, weldingType: value})}>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="ручная" id="ручная" className="mt-1" />
+                        <Label htmlFor="ручная" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Ручная дуговая сварка (MMA)</div>
+                          <div className="text-sm text-muted-foreground">универсальный метод для большинства задач</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="полуавтомат" id="полуавтомат" className="mt-1" />
+                        <Label htmlFor="полуавтомат" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Полуавтоматическая (MIG/MAG)</div>
+                          <div className="text-sm text-muted-foreground">быстрая сварка тонких металлов</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="аргон" id="аргон" className="mt-1" />
+                        <Label htmlFor="аргон" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Аргонодуговая (TIG)</div>
+                          <div className="text-sm text-muted-foreground">высокоточная сварка нержавейки и алюминия</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="незнаю" id="незнаю" className="mt-1" />
+                        <Label htmlFor="незнаю" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Не знаю, нужна консультация</div>
+                        </Label>
                       </div>
                     </RadioGroup>
                   </div>
                 )}
 
-                {quizStep === 2 && (
+                {quizStep === 2 && !isWeldingFlow && (
                   <div className="space-y-4">
-                    <Label className="text-lg" htmlFor="dimensions">Примерные размеры (м)</Label>
-                    <Input 
-                      id="dimensions"
-                      placeholder="Например: 10x20x5"
-                      value={quizData.dimensions}
-                      onChange={(e) => setQuizData({...quizData, dimensions: e.target.value})}
-                      className="text-lg p-6"
-                    />
-                    <p className="text-sm text-muted-foreground">Укажите длину х ширину х высоту</p>
+                    <Label className="text-lg">Какой уровень сложности проекта?</Label>
+                    <RadioGroup value={quizData.complexity} onValueChange={(value) => setQuizData({...quizData, complexity: value})}>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="простой" id="простой" />
+                        <Label htmlFor="простой" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Простой (типовые решения, стандартные чертежи)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="средний" id="средний" />
+                        <Label htmlFor="средний" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Средний (адаптация типовых решений, индивидуальные размеры)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="сложный" id="сложный" />
+                        <Label htmlFor="сложный" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Сложный (индивидуальное проектирование, сложные расчеты)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="экспертный" id="экспертный" />
+                        <Label htmlFor="экспертный" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Экспертный (уникальные конструкции, инженерный анализ)</div>
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                    <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
+                          <img 
+                            src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                            alt="Владислав"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-foreground font-semibold mb-1">Владислав</p>
+                          <p className="text-xs text-muted-foreground mb-2">Менеджер</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            <span className="text-foreground font-medium">Оценим сложность вашего проекта и сразу подготовим персональное решение!</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
 
-                {quizStep === 3 && (
+                {quizStep === 2 && isWeldingFlow && (
                   <div className="space-y-4">
-                    <Label className="text-lg" htmlFor="quantity">Количество / Дополнительная информация</Label>
-                    <Input 
-                      id="quantity"
-                      placeholder="Например: 1 шт, срочно"
-                      value={quizData.quantity}
-                      onChange={(e) => setQuizData({...quizData, quantity: e.target.value})}
-                      className="text-lg p-6"
-                    />
+                    <Label className="text-lg">Какие дополнительные услуги требуются?</Label>
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleWeldingServiceToggle('резка')}>
+                        <input type="checkbox" checked={quizData.weldingServices.includes('резка')} readOnly className="w-5 h-5" />
+                        <Label className="cursor-pointer flex-1">
+                          <div className="font-semibold">Резка металла</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleWeldingServiceToggle('подготовка')}>
+                        <input type="checkbox" checked={quizData.weldingServices.includes('подготовка')} readOnly className="w-5 h-5" />
+                        <Label className="cursor-pointer flex-1">
+                          <div className="font-semibold">Подготовка поверхностей</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleWeldingServiceToggle('монтаж')}>
+                        <input type="checkbox" checked={quizData.weldingServices.includes('монтаж')} readOnly className="w-5 h-5" />
+                        <Label className="cursor-pointer flex-1">
+                          <div className="font-semibold">Монтаж конструкций</div>
+                        </Label>
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground">*Отметьте один или несколько вариантов</p>
+                  </div>
+                )}
+
+                {quizStep === 3 && !isWeldingFlow && (
+                  <div className="space-y-4">
+                    <Label className="text-lg">Какие дополнительные услуги требуются?</Label>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleServiceToggle('проектирование')}>
+                        <input type="checkbox" checked={quizData.services.includes('проектирование')} readOnly className="w-5 h-5" />
+                        <Label className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Проектирование</div>
+                          <div className="text-xs text-muted-foreground">(разработка КМ и КМД чертежей)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleServiceToggle('доставка')}>
+                        <input type="checkbox" checked={quizData.services.includes('доставка')} readOnly className="w-5 h-5" />
+                        <Label className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Доставка</div>
+                          <div className="text-xs text-muted-foreground">(транспортировка до Вашего объекта)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleServiceToggle('монтаж')}>
+                        <input type="checkbox" checked={quizData.services.includes('монтаж')} readOnly className="w-5 h-5" />
+                        <Label className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Монтаж</div>
+                          <div className="text-xs text-muted-foreground">(профессиональная сборка на месте)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleServiceToggle('полный')}>
+                        <input type="checkbox" checked={quizData.services.includes('полный')} readOnly className="w-5 h-5" />
+                        <Label className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Полный цикл</div>
+                          <div className="text-xs text-muted-foreground">(проектирование, изготовление, доставка и монтаж)</div>
+                        </Label>
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground">*Отметьте один или несколько вариантов</p>
+                    <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
+                          <img 
+                            src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                            alt="Владислав"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-foreground font-semibold mb-1">Владислав</p>
+                          <p className="text-xs text-muted-foreground mb-2">Менеджер</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            <span className="text-foreground font-medium">Чтобы мы могли сформировать для вас комплексное предложение, отметьте, какие этапы работ взять на себя нам.</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {quizStep === 3 && isWeldingFlow && (
+                  <div className="space-y-4">
+                    <Label className="text-lg">Укажите ориентировочные сроки</Label>
+                    <RadioGroup value={quizData.deadline} onValueChange={(value) => setQuizData({...quizData, deadline: value})}>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="срочно" id="срочно" />
+                        <Label htmlFor="срочно" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Срочно (24-48 часов)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="гибкие" id="гибкие" />
+                        <Label htmlFor="гибкие" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Гибкие сроки</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="стандарт" id="стандарт" />
+                        <Label htmlFor="стандарт" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Стандартные (3-7 дней)</div>
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                    <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
+                          <img 
+                            src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                            alt="Владислав"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-foreground font-semibold mb-1">Владислав</p>
+                          <p className="text-xs text-muted-foreground mb-2">Менеджер</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            <span className="text-foreground font-medium">Понимаю, что сроки — это важно!</span> Укажите ваш ориентир, и я сразу уточню дату исполнения заказа под ваш график.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {quizStep === 4 && !isWeldingFlow && (
+                  <div className="space-y-4">
+                    <Label className="text-lg">Укажите ориентировочные сроки</Label>
+                    <RadioGroup value={quizData.deadline} onValueChange={(value) => setQuizData({...quizData, deadline: value})}>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="срочно" id="срочно-prod" />
+                        <Label htmlFor="срочно-prod" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Срочно (24-48 часов)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="гибкие" id="гибкие-prod" />
+                        <Label htmlFor="гибкие-prod" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Гибкие сроки</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors">
+                        <RadioGroupItem value="стандарт" id="стандарт-prod" />
+                        <Label htmlFor="стандарт-prod" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Стандартные (3-7 дней)</div>
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                    <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
+                          <img 
+                            src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                            alt="Владислав"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-foreground font-semibold mb-1">Владислав</p>
+                          <p className="text-xs text-muted-foreground mb-2">Менеджер</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            <span className="text-foreground font-medium">Понимаю, что сроки — это важно!</span> Укажите ваш ориентир, и я сразу уточню дату исполнения заказа под ваш график.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
 
@@ -405,12 +702,16 @@ const Index = () => {
                     onClick={handleQuizNext}
                     disabled={
                       (quizStep === 0 && !quizData.type) ||
-                      (quizStep === 1 && !quizData.material) ||
-                      (quizStep === 2 && !quizData.dimensions)
+                      (quizStep === 1 && !isWeldingFlow && !quizData.material) ||
+                      (quizStep === 1 && isWeldingFlow && !quizData.weldingType) ||
+                      (quizStep === 2 && !isWeldingFlow && !quizData.complexity) ||
+                      (quizStep === 3 && !isWeldingFlow && quizData.services.length === 0) ||
+                      (quizStep === 4 && !isWeldingFlow && !quizData.deadline) ||
+                      (quizStep === 3 && isWeldingFlow && !quizData.deadline)
                     }
                     className="flex-1 metal-shine"
                   >
-                    {quizStep === 3 ? 'Получить расчет' : 'Далее'}
+                    {quizStep === totalSteps - 1 ? 'Получить расчет' : 'Далее'}
                   </Button>
                 </div>
               </CardContent>
