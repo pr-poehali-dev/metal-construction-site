@@ -84,13 +84,28 @@ export default {
 				'slide-up': {
 					'0%': { opacity: '0', transform: 'translateY(20px)' },
 					'100%': { opacity: '1', transform: 'translateY(0)' }
+				},
+				'slide-right': {
+					'0%': { opacity: '0', transform: 'translateX(-50px)' },
+					'100%': { opacity: '1', transform: 'translateX(0)' }
+				},
+				'scale-in': {
+					'0%': { opacity: '0', transform: 'scale(0.9)' },
+					'100%': { opacity: '1', transform: 'scale(1)' }
+				},
+				'wave': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.5s ease-out',
-				'slide-up': 'slide-up 0.6s ease-out'
+				'slide-up': 'slide-up 0.6s ease-out',
+				'slide-right': 'slide-right 0.8s ease-out',
+				'scale-in': 'scale-in 0.7s ease-out',
+				'wave': 'wave 3s ease-in-out infinite'
 			}
 		}
 	},

@@ -102,18 +102,33 @@ const Index = () => {
           {/* Curved Divider */}
           <div className="absolute inset-0 pointer-events-none">
             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="hsl(var(--background))" stopOpacity="1" />
+                  <stop offset="100%" stopColor="hsl(var(--background))" stopOpacity="0.9" />
+                </linearGradient>
+              </defs>
               <path 
-                d="M 50,0 Q 35,50 50,100" 
-                fill="hsl(var(--background))" 
-                opacity="0.95"
-                className="metal-texture"
+                d="M 50,0 Q 30,25 45,50 Q 30,75 50,100" 
+                fill="url(#curveGradient)" 
+                className="animate-wave"
+                style={{ transformOrigin: 'center' }}
               />
               <path 
-                d="M 50,0 Q 35,50 50,100" 
+                d="M 50,0 Q 30,25 45,50 Q 30,75 50,100" 
                 fill="none" 
                 stroke="hsl(var(--primary))" 
-                strokeWidth="0.3"
-                opacity="0.5"
+                strokeWidth="0.4"
+                opacity="0.7"
+                className="drop-shadow-lg"
+              />
+              <path 
+                d="M 50,0 Q 30,25 45,50 Q 30,75 50,100" 
+                fill="none" 
+                stroke="hsl(var(--primary))" 
+                strokeWidth="0.1"
+                opacity="0.3"
+                className="blur-sm"
               />
             </svg>
           </div>
@@ -122,15 +137,15 @@ const Index = () => {
         {/* Content Overlay */}
         <div className="absolute inset-0 flex items-center justify-start z-10">
           <div className="container mx-auto px-4">
-            <div className="max-w-xl animate-fade-in">
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
+            <div className="max-w-xl">
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white animate-slide-right">
                 Производство<br />
                 <span className="text-primary">Металлоконструкций</span>
               </h1>
-              <p className="text-xl md:text-2xl mb-8 text-gray-300">
+              <p className="text-xl md:text-2xl mb-8 text-gray-300 animate-slide-right" style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
                 Профессиональная сварка и монтаж любой сложности
               </p>
-              <div className="flex gap-4 flex-wrap">
+              <div className="flex gap-4 flex-wrap animate-scale-in" style={{ animationDelay: '0.4s', opacity: 0, animationFillMode: 'forwards' }}>
                 <Button size="lg" className="metal-shine text-lg px-8">
                   <Icon name="Calculator" size={20} className="mr-2" />
                   Рассчитать стоимость
