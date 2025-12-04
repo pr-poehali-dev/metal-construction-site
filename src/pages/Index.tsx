@@ -117,10 +117,10 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-50 metal-texture border-b border-border/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Icon name="Hammer" size={32} className="text-primary" />
-            <span className="text-2xl font-bold">Основа</span>
+        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <Icon name="Hammer" size={24} className="text-primary sm:w-8 sm:h-8" />
+            <span className="text-xl sm:text-2xl font-bold">Основа</span>
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <a href="#about" className="hover:text-primary transition-colors">О компании</a>
@@ -129,22 +129,22 @@ const Index = () => {
             <a href="#gallery" className="hover:text-primary transition-colors">Галерея</a>
             <a href="#contact" className="hover:text-primary transition-colors">Контакты</a>
           </nav>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <Button 
               size="icon" 
-              className="w-11 h-11 rounded-full bg-[#25D366]/10 hover:bg-[#25D366] hover:text-white border border-[#25D366]/30"
+              className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#25D366]/10 hover:bg-[#25D366] hover:text-white border border-[#25D366]/30"
               onClick={() => window.open('https://wa.me/79773804500', '_blank')}
             >
-              <Icon name="MessageCircle" size={22} />
+              <Icon name="MessageCircle" className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
             </Button>
             <Button 
               size="icon" 
-              className="w-11 h-11 rounded-full bg-[#0088cc]/10 hover:bg-[#0088cc] hover:text-white border border-[#0088cc]/30"
+              className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#0088cc]/10 hover:bg-[#0088cc] hover:text-white border border-[#0088cc]/30"
               onClick={() => window.open('https://t.me/Ivan_517', '_blank')}
             >
-              <Icon name="Send" size={22} />
+              <Icon name="Send" className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
             </Button>
-            <Button className="metal-shine ml-2">
+            <Button className="metal-shine ml-1 sm:ml-2 hidden sm:flex">
               <Icon name="Phone" size={18} className="mr-2" />
               +7(499)840-33-12
             </Button>
@@ -153,7 +153,7 @@ const Index = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative h-[600px] overflow-hidden">
+      <section className="relative h-[500px] sm:h-[600px] overflow-hidden">
         <div className="absolute inset-0 flex">
           {/* Left Side - Metal Texture Background */}
           <div className="flex-1 metal-texture relative">
@@ -203,25 +203,25 @@ const Index = () => {
         <div className="absolute inset-0 flex items-center justify-start z-10">
           <div className="container mx-auto px-4">
             <div className="max-w-xl">
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white animate-slide-right">
+              <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 text-white animate-slide-right">
                 Производство<br />
                 <span className="bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 text-transparent bg-clip-text drop-shadow-lg">Металлоконструкций</span>
               </h1>
-              <p className="text-xl md:text-2xl mb-8 text-gray-300 animate-slide-right" style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
+              <p className="text-base sm:text-xl md:text-2xl mb-6 sm:mb-8 text-gray-300 animate-slide-right" style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
                 Профессиональная сварка и монтаж любой сложности
               </p>
-              <div className="flex gap-4 flex-wrap animate-scale-in" style={{ animationDelay: '0.4s', opacity: 0, animationFillMode: 'forwards' }}>
-                <Button size="lg" className="metal-shine text-lg px-8">
-                  <Icon name="Calculator" size={20} className="mr-2" />
+              <div className="flex gap-2 sm:gap-4 flex-wrap animate-scale-in" style={{ animationDelay: '0.4s', opacity: 0, animationFillMode: 'forwards' }}>
+                <Button size="lg" className="metal-shine text-sm sm:text-lg px-4 sm:px-8 h-11 sm:h-12">
+                  <Icon name="Calculator" className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" />
                   Рассчитать стоимость
                 </Button>
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="text-lg px-8 border-white text-white hover:bg-white hover:text-background"
+                  className="text-sm sm:text-lg px-4 sm:px-8 h-11 sm:h-12 border-white text-white hover:bg-white hover:text-background"
                   onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  <Icon name="Phone" size={20} className="mr-2" />
+                  <Icon name="Phone" className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" />
                   Заказать звонок
                 </Button>
               </div>
@@ -231,24 +231,24 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-4">
+      <section id="about" className="py-12 sm:py-16 md:py-20 px-4">
         <div className="container mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 animate-fade-in">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 animate-fade-in">
             О компании
           </h2>
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
             <div className="animate-slide-up">
-              <p className="text-lg mb-4 text-muted-foreground leading-relaxed">
+              <p className="text-base sm:text-lg mb-4 text-muted-foreground leading-relaxed">
                 <span className="text-primary font-bold">Основа</span> — это команда профессионалов с более чем 15-летним опытом в производстве металлоконструкций и выездной сварке.
               </p>
-              <p className="text-lg mb-4 text-muted-foreground leading-relaxed">
+              <p className="text-base sm:text-lg mb-4 text-muted-foreground leading-relaxed">
                 Мы специализируемся на изготовлении металлокаркасов зданий, ангаров, навесов, лестниц, ограждений и нестандартных металлических изделий любой сложности.
               </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
                 Современное оборудование, квалифицированные сварщики и контроль качества на каждом этапе гарантируют надежность наших конструкций.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <Card className="metal-texture border-border/50">
                 <CardContent className="pt-6 text-center">
                   <div className="text-4xl font-bold text-primary mb-2">15+</div>
@@ -277,12 +277,12 @@ const Index = () => {
           </div>
 
           {/* Director Comment */}
-          <div className="mt-16 max-w-4xl mx-auto">
+          <div className="mt-12 sm:mt-16 max-w-4xl mx-auto">
             <Card className="metal-texture border-primary/30 shadow-lg">
-              <CardContent className="p-8">
-                <div className="flex flex-col md:flex-row gap-6 items-start">
-                  <div className="flex-shrink-0">
-                    <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-primary">
+              <CardContent className="p-6 sm:p-8">
+                <div className="flex flex-col md:flex-row gap-4 sm:gap-6 items-start">
+                  <div className="flex-shrink-0 mx-auto md:mx-0">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-primary">
                       <img 
                         src="https://cdn.poehali.dev/files/bcaf8d50-0a16-4cce-b05d-e7cf807bcd02.jpg"
                         alt="Михаил Соколов"
@@ -291,8 +291,8 @@ const Index = () => {
                     </div>
                   </div>
                   <div className="flex-1">
-                    <Icon name="Quote" size={32} className="text-primary/50 mb-4" />
-                    <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                    <Icon name="Quote" className="w-6 h-6 sm:w-8 sm:h-8 text-primary/50 mb-4" />
+                    <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
                       <span className="text-primary font-bold">«Основа»</span> — современное производство полного цикла. Мы создаем надежную основу для ваших проектов: от крупных промышленных конструкций до срочных выездных работ.
                     </p>
                     <p className="text-base text-muted-foreground leading-relaxed mb-3">
@@ -845,14 +845,14 @@ const Index = () => {
       </section>
 
       {/* Advantages Section */}
-      <section className="py-20 px-4">
+      <section className="py-12 sm:py-16 md:py-20 px-4">
         <div className="container mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">
             Наши преимущества
           </h2>
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {/* Card 1 - Top Left (2 cols wide) */}
-            <div className="md:col-span-2 group relative overflow-hidden rounded-2xl h-80 animate-scale-in">
+            <div className="sm:col-span-2 group relative overflow-hidden rounded-2xl h-64 sm:h-80 animate-scale-in">
               <img 
                 src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/4e7663e3-7955-426e-af78-f7af02052a0a.jpg"
                 alt="Надежный партнер"
@@ -870,9 +870,9 @@ const Index = () => {
             </div>
 
             {/* Card 2 - Top Right (1 col) */}
-            <div className="group relative overflow-hidden rounded-2xl h-80 bg-[#527a94] animate-scale-in" style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
-              <div className="absolute inset-0 p-8 flex flex-col justify-center">
-                <h3 className="text-2xl font-bold text-white mb-3">
+            <div className="group relative overflow-hidden rounded-2xl h-64 sm:h-80 bg-[#527a94] animate-scale-in" style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
+              <div className="absolute inset-0 p-4 sm:p-8 flex flex-col justify-center">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3">
                   Вы экономите время и ресурсы
                 </h3>
                 <p className="text-gray-100">
@@ -882,9 +882,9 @@ const Index = () => {
             </div>
 
             {/* Card 3 - Top Far Right (1 col) */}
-            <div className="group relative overflow-hidden rounded-2xl h-80 bg-[#446580] animate-scale-in" style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
-              <div className="absolute inset-0 p-8 flex flex-col justify-center">
-                <h3 className="text-2xl font-bold text-white mb-3">
+            <div className="group relative overflow-hidden rounded-2xl h-64 sm:h-80 bg-[#446580] animate-scale-in" style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
+              <div className="absolute inset-0 p-4 sm:p-8 flex flex-col justify-center">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3">
                   Вы застрахованы от ошибок
                 </h3>
                 <p className="text-gray-100">
@@ -894,36 +894,36 @@ const Index = () => {
             </div>
 
             {/* Card 4 - Bottom Left (1 col) */}
-            <div className="group relative overflow-hidden rounded-2xl h-80 animate-scale-in" style={{ animationDelay: '0.3s', opacity: 0, animationFillMode: 'forwards' }}>
+            <div className="group relative overflow-hidden rounded-2xl h-64 sm:h-80 animate-scale-in" style={{ animationDelay: '0.3s', opacity: 0, animationFillMode: 'forwards' }}>
               <img 
                 src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/f2e393da-c868-40e8-91d5-db3c39afe690.jpg"
                 alt="Выгода"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-8">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-8">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3">
                   Вы получаете выгоду
                 </h3>
-                <p className="text-gray-200 text-lg">
+                <p className="text-gray-200 text-sm sm:text-base md:text-lg">
                   Оптимальные решения и конкурентные цены за счет грамотного проектирования.
                 </p>
               </div>
             </div>
 
             {/* Card 5 - Bottom Right (3 cols wide) */}
-            <div className="md:col-span-3 group relative overflow-hidden rounded-2xl h-80 animate-scale-in" style={{ animationDelay: '0.4s', opacity: 0, animationFillMode: 'forwards' }}>
+            <div className="sm:col-span-2 md:col-span-3 group relative overflow-hidden rounded-2xl h-64 sm:h-80 animate-scale-in" style={{ animationDelay: '0.4s', opacity: 0, animationFillMode: 'forwards' }}>
               <img 
                 src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/e4bdbcad-4666-434e-8bdd-e0c70943b60e.jpg"
                 alt="Современное производство"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-8">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-8">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3">
                   Собственное современное производство
                 </h3>
-                <p className="text-gray-200 text-lg">
+                <p className="text-gray-200 text-sm sm:text-base md:text-lg">
                   Полный контроль над сроками и качеством на всех этапах.
                 </p>
               </div>
@@ -933,7 +933,7 @@ const Index = () => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 px-4 metal-texture">
+      <section id="services" className="py-12 sm:py-16 md:py-20 px-4 metal-texture">
         <div className="container mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
             Наши услуги
@@ -963,12 +963,12 @@ const Index = () => {
       <section id="quiz"></section>
 
       {/* Gallery Section - Carousel */}
-      <section id="gallery" className="py-20 px-4">
+      <section id="gallery" className="py-12 sm:py-16 md:py-20 px-4">
         <div className="container mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 sm:mb-4">
             Наши работы
           </h2>
-          <p className="text-center text-muted-foreground text-lg mb-12">
+          <p className="text-center text-muted-foreground text-base sm:text-lg mb-8 sm:mb-12">
             Проекты, которыми мы гордимся
           </p>
           
@@ -1059,7 +1059,7 @@ const Index = () => {
       </section>
 
       {/* Why Choose Us - Creative Block */}
-      <section className="py-20 px-4 overflow-hidden">
+      <section className="py-12 sm:py-16 md:py-20 px-4 overflow-hidden">
         <div className="container mx-auto max-w-7xl">
           <div className="relative">
             {/* Background decorative elements */}
@@ -1067,16 +1067,16 @@ const Index = () => {
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
             
             <div className="relative z-10">
-              <div className="text-center mb-16">
-                <h2 className="text-5xl md:text-6xl font-bold mb-4">
+              <div className="text-center mb-12 sm:mb-16">
+                <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-3 sm:mb-4">
                   Почему <span className="text-primary">Основа</span>?
                 </h2>
-                <p className="text-xl text-muted-foreground">
+                <p className="text-base sm:text-xl text-muted-foreground">
                   Мы не просто выполняем заказы — мы создаём надёжность
                 </p>
               </div>
               
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
                 {/* Feature 1 */}
                 <div className="group relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
@@ -1169,22 +1169,22 @@ const Index = () => {
               </div>
               
               {/* Stats Section */}
-              <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
                 <div className="text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">500+</div>
-                  <div className="text-muted-foreground">Завершённых проектов</div>
+                  <div className="text-3xl sm:text-5xl font-bold text-primary mb-2">500+</div>
+                  <div className="text-sm sm:text-base text-muted-foreground">Завершённых проектов</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">15</div>
-                  <div className="text-muted-foreground">Лет на рынке</div>
+                  <div className="text-3xl sm:text-5xl font-bold text-primary mb-2">15</div>
+                  <div className="text-sm sm:text-base text-muted-foreground">Лет на рынке</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">98%</div>
-                  <div className="text-muted-foreground">Довольных клиентов</div>
+                  <div className="text-3xl sm:text-5xl font-bold text-primary mb-2">98%</div>
+                  <div className="text-sm sm:text-base text-muted-foreground">Довольных клиентов</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">24/7</div>
-                  <div className="text-muted-foreground">Техподдержка</div>
+                  <div className="text-3xl sm:text-5xl font-bold text-primary mb-2">24/7</div>
+                  <div className="text-sm sm:text-base text-muted-foreground">Техподдержка</div>
                 </div>
               </div>
             </div>
@@ -1193,13 +1193,13 @@ const Index = () => {
       </section>
 
       {/* Work Process Section - Horizontal Timeline */}
-      <section className="py-16 px-4 metal-texture relative overflow-hidden">
+      <section className="py-12 sm:py-16 px-4 metal-texture relative overflow-hidden">
         <div className="container mx-auto max-w-7xl relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-3">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-3">
               Этапы <span className="text-primary">работы</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
               От первого звонка до сдачи объекта
             </p>
           </div>
@@ -1289,19 +1289,19 @@ const Index = () => {
       </section>
 
       {/* Contact Form Section */}
-      <section id="contact" className="py-20 px-4">
+      <section id="contact" className="py-12 sm:py-16 md:py-20 px-4">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 sm:mb-4">
             Заказать звонок
           </h2>
-          <p className="text-center text-muted-foreground text-lg mb-12">
+          <p className="text-center text-muted-foreground text-base sm:text-lg mb-8 sm:mb-12">
             Оставьте заявку и мы свяжемся с вами в ближайшее время
           </p>
           
-          <div className="grid md:grid-cols-2 gap-8 items-start">
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-start">
             {/* Form */}
             <Card className="border-border/50 shadow-xl h-full">
-              <CardContent className="p-8 flex flex-col h-full">
+              <CardContent className="p-6 sm:p-8 flex flex-col h-full">
                 <form onSubmit={handleCallRequest} className="space-y-6 flex-1 flex flex-col">
                   <div>
                     <Label htmlFor="contact-name" className="text-base">Ваше имя</Label>
@@ -1325,19 +1325,19 @@ const Index = () => {
             {/* Manager Card */}
             <Card className="border-border/50 overflow-hidden h-full">
               <CardContent className="p-0 flex flex-col h-full">
-                <div className="relative h-72 overflow-hidden flex-shrink-0">
+                <div className="relative h-56 sm:h-72 overflow-hidden flex-shrink-0">
                   <img 
                     src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=400&fit=crop"
                     alt="Менеджер"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <p className="text-white font-bold text-xl mb-1">Вероника</p>
-                    <p className="text-gray-300 text-sm">Менеджер по работе с клиентами</p>
+                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+                    <p className="text-white font-bold text-lg sm:text-xl mb-1">Вероника</p>
+                    <p className="text-gray-300 text-xs sm:text-sm">Менеджер по работе с клиентами</p>
                   </div>
                 </div>
-                <div className="p-6 bg-card flex-1 flex flex-col justify-between">
+                <div className="p-4 sm:p-6 bg-card flex-1 flex flex-col justify-between">
                   <div className="space-y-4 flex-1">
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
@@ -1384,7 +1384,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 border-t border-border/50 metal-texture">
+      <footer className="py-8 sm:py-12 px-4 border-t border-border/50 metal-texture">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             {/* Company Info */}
