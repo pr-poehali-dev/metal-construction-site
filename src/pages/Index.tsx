@@ -25,6 +25,7 @@ const Index = () => {
   
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState(2);
   const [parallaxOffset, setParallaxOffset] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const galleryRef = useRef<HTMLDivElement>(null);
 
   const isWeldingFlow = quizData.type === 'выездная';
@@ -131,6 +132,14 @@ const Index = () => {
           </nav>
           <div className="flex items-center gap-1.5 sm:gap-2">
             <Button 
+              size="icon"
+              variant="ghost"
+              className="md:hidden w-9 h-9"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <Icon name={isMobileMenuOpen ? "X" : "Menu"} size={24} />
+            </Button>
+            <Button 
               size="icon" 
               className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#25D366]/10 hover:bg-[#25D366] hover:text-white border border-[#25D366]/30"
               onClick={() => window.open('https://wa.me/79773804500', '_blank')}
@@ -150,6 +159,53 @@ const Index = () => {
             </Button>
           </div>
         </div>
+        
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-sm">
+            <nav className="container mx-auto px-4 py-4 flex flex-col gap-3">
+              <a 
+                href="#about" 
+                className="py-2 hover:text-primary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                О компании
+              </a>
+              <a 
+                href="#services" 
+                className="py-2 hover:text-primary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Услуги
+              </a>
+              <a 
+                href="#quiz" 
+                className="py-2 hover:text-primary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Расчет
+              </a>
+              <a 
+                href="#gallery" 
+                className="py-2 hover:text-primary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Галерея
+              </a>
+              <a 
+                href="#contact" 
+                className="py-2 hover:text-primary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Контакты
+              </a>
+              <Button className="metal-shine mt-2 w-full" onClick={() => setIsMobileMenuOpen(false)}>
+                <Icon name="Phone" size={18} className="mr-2" />
+                +7(499)840-33-12
+              </Button>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}
@@ -250,27 +306,27 @@ const Index = () => {
             </div>
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <Card className="metal-texture border-border/50">
-                <CardContent className="pt-6 text-center">
-                  <div className="text-4xl font-bold text-primary mb-2">15+</div>
-                  <p className="text-sm text-muted-foreground">лет опыта</p>
+                <CardContent className="py-5 sm:pt-6 text-center flex flex-col items-center justify-center h-full">
+                  <div className="text-3xl sm:text-4xl font-bold text-primary mb-1.5 sm:mb-2">15+</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">лет опыта</p>
                 </CardContent>
               </Card>
               <Card className="metal-texture border-border/50">
-                <CardContent className="pt-6 text-center">
-                  <div className="text-4xl font-bold text-primary mb-2">500+</div>
-                  <p className="text-sm text-muted-foreground">проектов</p>
+                <CardContent className="py-5 sm:pt-6 text-center flex flex-col items-center justify-center h-full">
+                  <div className="text-3xl sm:text-4xl font-bold text-primary mb-1.5 sm:mb-2">500+</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">проектов</p>
                 </CardContent>
               </Card>
               <Card className="metal-texture border-border/50">
-                <CardContent className="pt-6 text-center">
-                  <div className="text-4xl font-bold text-primary mb-2">24/7</div>
-                  <p className="text-sm text-muted-foreground">выездная сварка</p>
+                <CardContent className="py-5 sm:pt-6 text-center flex flex-col items-center justify-center h-full">
+                  <div className="text-3xl sm:text-4xl font-bold text-primary mb-1.5 sm:mb-2">24/7</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-tight">выездная<br />сварка</p>
                 </CardContent>
               </Card>
               <Card className="metal-texture border-border/50">
-                <CardContent className="pt-6 text-center">
-                  <div className="text-4xl font-bold text-primary mb-2">100%</div>
-                  <p className="text-sm text-muted-foreground">гарантия качества</p>
+                <CardContent className="py-5 sm:pt-6 text-center flex flex-col items-center justify-center h-full">
+                  <div className="text-3xl sm:text-4xl font-bold text-primary mb-1.5 sm:mb-2">100%</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-tight">гарантия<br />качества</p>
                 </CardContent>
               </Card>
             </div>
@@ -326,48 +382,48 @@ const Index = () => {
           </div>
 
           {/* Quiz Section - moved here after Director Comment */}
-          <div className="mt-16">
-            <div className="mb-12 metal-texture border border-border/50 rounded-lg p-8">
-              <div className="grid md:grid-cols-[1fr_auto] gap-8 items-center">
+          <div className="mt-12 sm:mt-16">
+            <div className="mb-8 sm:mb-12 metal-texture border border-border/50 rounded-lg p-4 sm:p-6 md:p-8">
+              <div className="grid md:grid-cols-[1fr_auto] gap-6 sm:gap-8 items-center">
                 <div>
-                  <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
                     Расчет стоимости металлоконструкций
                   </h2>
-                  <p className="text-lg text-muted-foreground mb-6">
-                    Ответьте на несколько вопросов и получите точный расчет стоимости вашего проекта с учетом всех особенностей и требований
+                  <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-4 sm:mb-6">
+                    Ответьте на несколько вопросов и получите точный расчет стоимости вашего проекта
                   </p>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0" />
-                      <span className="text-foreground">Пройдите короткий опрос</span>
+                  <div className="space-y-2 sm:space-y-3 hidden sm:block">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Icon name="CheckCircle2" className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+                      <span className="text-sm sm:text-base text-foreground">Пройдите короткий опрос</span>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0" />
-                      <span className="text-foreground">Заполните основные параметры</span>
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Icon name="CheckCircle2" className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+                      <span className="text-sm sm:text-base text-foreground">Заполните основные параметры</span>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0" />
-                      <span className="text-foreground">Укажите ключевые данные</span>
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Icon name="CheckCircle2" className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+                      <span className="text-sm sm:text-base text-foreground">Укажите ключевые данные</span>
                     </div>
                   </div>
                 </div>
                 <div className="flex-shrink-0 text-center">
-                  <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-primary shadow-lg mx-auto mb-3">
+                  <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-primary shadow-lg mx-auto mb-2 sm:mb-3">
                     <img 
                       src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
                       alt="Владислав"
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <p className="text-foreground font-semibold">Владислав</p>
-                  <p className="text-sm text-muted-foreground">менеджер по продажам</p>
+                  <p className="text-sm sm:text-base text-foreground font-semibold">Владислав</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">менеджер по продажам</p>
                 </div>
               </div>
             </div>
             
             <Card className="metal-texture border-border/50">
-              <CardHeader>
-                <CardTitle>Шаг {quizStep + 1} из {totalSteps}</CardTitle>
+              <CardHeader className="p-4 sm:p-6">
+                <CardTitle className="text-lg sm:text-xl md:text-2xl">Шаг {quizStep + 1} из {totalSteps}</CardTitle>
                 <div className="mt-4">
                   <div className="w-full bg-muted rounded-full h-2">
                     <div 
@@ -377,51 +433,51 @@ const Index = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
                 {quizStep === 0 && (
-                  <div className="space-y-4">
-                    <Label className="text-lg">Какой тип конструкции вам нужен?</Label>
+                  <div className="space-y-3 sm:space-y-4">
+                    <Label className="text-base sm:text-lg font-semibold">Какой тип конструкции вам нужен?</Label>
                     <RadioGroup value={quizData.type} onValueChange={(value) => setQuizData({...quizData, type: value})}>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'каркас'})}>
-                        <RadioGroupItem value="каркас" id="каркас" className="mt-1" />
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'каркас'})}>
+                        <RadioGroupItem value="каркас" id="каркас" className="mt-1 flex-shrink-0" />
                         <Label htmlFor="каркас" className="cursor-pointer flex-1">
-                          <div className="font-semibold mb-1">Каркас здания</div>
-                          <div className="text-sm text-muted-foreground">промышленные цеха, склады, торговые центры, ангары</div>
+                          <div className="text-sm sm:text-base font-semibold mb-1">Каркас здания</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground leading-snug">промышленные цеха, склады, торговые центры, ангары</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'антресоль'})}>
-                        <RadioGroupItem value="антресоль" id="антресоль" className="mt-1" />
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'антресоль'})}>
+                        <RadioGroupItem value="антресоль" id="антресоль" className="mt-1 flex-shrink-0" />
                         <Label htmlFor="антресоль" className="cursor-pointer flex-1">
-                          <div className="font-semibold mb-1">Антресольные этажи</div>
-                          <div className="text-sm text-muted-foreground">межэтажные перекрытия, технологические площадки, балконы</div>
+                          <div className="text-sm sm:text-base font-semibold mb-1">Антресольные этажи</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground leading-snug">межэтажные перекрытия, технологические площадки, балконы</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'лестницы'})}>
-                        <RadioGroupItem value="лестницы" id="лестницы" className="mt-1" />
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'лестницы'})}>
+                        <RadioGroupItem value="лестницы" id="лестницы" className="mt-1 flex-shrink-0" />
                         <Label htmlFor="лестницы" className="cursor-pointer flex-1">
-                          <div className="font-semibold mb-1">Лестницы и ограждения</div>
-                          <div className="text-sm text-muted-foreground">внутренние и наружные лестницы, перила, поручни</div>
+                          <div className="text-sm sm:text-base font-semibold mb-1">Лестницы и ограждения</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground leading-snug">внутренние и наружные лестницы, перила, поручни</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'мелкие'})}>
-                        <RadioGroupItem value="мелкие" id="мелкие" className="mt-1" />
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'мелкие'})}>
+                        <RadioGroupItem value="мелкие" id="мелкие" className="mt-1 flex-shrink-0" />
                         <Label htmlFor="мелкие" className="cursor-pointer flex-1">
-                          <div className="font-semibold mb-1">Мелкие конструкции</div>
-                          <div className="text-sm text-muted-foreground">козырьки, навесы, стеллажи, индивидуальные изделия</div>
+                          <div className="text-sm sm:text-base font-semibold mb-1">Мелкие конструкции</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground leading-snug">козырьки, навесы, стеллажи, индивидуальные изделия</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'другое'})}>
-                        <RadioGroupItem value="другое" id="другое" className="mt-1" />
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'другое'})}>
+                        <RadioGroupItem value="другое" id="другое" className="mt-1 flex-shrink-0" />
                         <Label htmlFor="другое" className="cursor-pointer flex-1">
-                          <div className="font-semibold mb-1">Другое</div>
-                          <div className="text-sm text-muted-foreground">специальные конструкции, нестандартные решения</div>
+                          <div className="text-sm sm:text-base font-semibold mb-1">Другое</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground leading-snug">специальные конструкции, нестандартные решения</div>
                         </Label>
                       </div>
-                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'выездная'})}>
-                        <RadioGroupItem value="выездная" id="выездная" className="mt-1" />
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => setQuizData({...quizData, type: 'выездная'})}>
+                        <RadioGroupItem value="выездная" id="выездная" className="mt-1 flex-shrink-0" />
                         <Label htmlFor="выездная" className="cursor-pointer flex-1">
-                          <div className="font-semibold mb-1">Выездные сварочные работы</div>
-                          <div className="text-sm text-muted-foreground">сварка на объекте, ремонт, монтаж конструкций</div>
+                          <div className="text-sm sm:text-base font-semibold mb-1">Выездные сварочные работы</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground leading-snug">сварка на объекте, ремонт, монтаж конструкций</div>
                         </Label>
                       </div>
                     </RadioGroup>
@@ -859,36 +915,36 @@ const Index = () => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-8">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
+                <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 sm:mb-3 leading-tight">
                   Вы получаете надежного партнера
                 </h3>
-                <p className="text-gray-200 text-lg">
-                  Опытные инженеры и сварщики гарантируют качество и точное соответствие чертежам.
+                <p className="text-gray-200 text-xs sm:text-sm md:text-base lg:text-lg leading-tight sm:leading-normal">
+                  Опытные инженеры и сварщики гарантируют качество
                 </p>
               </div>
             </div>
 
             {/* Card 2 - Top Right (1 col) */}
             <div className="group relative overflow-hidden rounded-2xl h-64 sm:h-80 bg-[#527a94] animate-scale-in" style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
-              <div className="absolute inset-0 p-4 sm:p-8 flex flex-col justify-center">
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3">
+              <div className="absolute inset-0 p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col justify-center">
+                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white mb-1.5 sm:mb-2 md:mb-3 leading-tight">
                   Вы экономите время и ресурсы
                 </h3>
-                <p className="text-gray-100">
-                  Мы берем на себя все задачи "под ключ" — от проектирования до монтажа.
+                <p className="text-xs sm:text-sm md:text-base text-gray-100 leading-tight sm:leading-normal">
+                  Мы берем на себя все задачи "под ключ"
                 </p>
               </div>
             </div>
 
             {/* Card 3 - Top Far Right (1 col) */}
             <div className="group relative overflow-hidden rounded-2xl h-64 sm:h-80 bg-[#446580] animate-scale-in" style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
-              <div className="absolute inset-0 p-4 sm:p-8 flex flex-col justify-center">
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3">
+              <div className="absolute inset-0 p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col justify-center">
+                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white mb-1.5 sm:mb-2 md:mb-3 leading-tight">
                   Вы застрахованы от ошибок
                 </h3>
-                <p className="text-gray-100">
-                  Наш многолетний опыт — это Ваша уверенность в успехе проекта.
+                <p className="text-xs sm:text-sm md:text-base text-gray-100 leading-tight sm:leading-normal">
+                  Наш многолетний опыт — Ваша уверенность
                 </p>
               </div>
             </div>
@@ -901,12 +957,12 @@ const Index = () => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-8">
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3">
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
+                <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 sm:mb-3 leading-tight">
                   Вы получаете выгоду
                 </h3>
-                <p className="text-gray-200 text-sm sm:text-base md:text-lg">
-                  Оптимальные решения и конкурентные цены за счет грамотного проектирования.
+                <p className="text-gray-200 text-xs sm:text-sm md:text-base lg:text-lg leading-tight sm:leading-normal">
+                  Оптимальные решения и конкурентные цены
                 </p>
               </div>
             </div>
@@ -919,12 +975,12 @@ const Index = () => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-8">
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3">
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
+                <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 sm:mb-3 leading-tight">
                   Собственное современное производство
                 </h3>
-                <p className="text-gray-200 text-sm sm:text-base md:text-lg">
-                  Полный контроль над сроками и качеством на всех этапах.
+                <p className="text-gray-200 text-xs sm:text-sm md:text-base lg:text-lg leading-tight sm:leading-normal">
+                  Полный контроль над сроками и качеством
                 </p>
               </div>
             </div>
@@ -935,22 +991,22 @@ const Index = () => {
       {/* Services Section */}
       <section id="services" className="py-12 sm:py-16 md:py-20 px-4 metal-texture">
         <div className="container mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">
             Наши услуги
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {services.map((service, index) => (
               <Card key={index} className="overflow-hidden border-border/50 hover:border-primary/50 transition-all group animate-scale-in" style={{ animationDelay: `${index * 0.1}s`, opacity: 0, animationFillMode: 'forwards' }}>
-                <div className="relative h-56 overflow-hidden">
+                <div className="relative h-52 sm:h-56 overflow-hidden">
                   <img 
                     src={service.image}
                     alt={service.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-xl font-bold text-white mb-1">{service.title}</h3>
-                    <p className="text-sm text-gray-300">{service.description}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6">
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1 leading-tight">{service.title}</h3>
+                    <p className="text-xs sm:text-sm text-gray-300 leading-tight">{service.description}</p>
                   </div>
                 </div>
               </Card>
@@ -976,7 +1032,7 @@ const Index = () => {
             {/* Carousel Container */}
             <div className="overflow-hidden" ref={galleryRef}>
               <div 
-                className="flex items-center gap-8 transition-transform duration-700 ease-in-out py-8"
+                className="flex items-center gap-4 sm:gap-8 transition-transform duration-700 ease-in-out py-6 sm:py-8"
                 style={{
                   transform: `translateX(calc(50% - ${currentGalleryIndex * 632}px - 300px))`
                 }}
@@ -990,12 +1046,12 @@ const Index = () => {
                     <div
                       key={index}
                       onClick={() => setCurrentGalleryIndex(index)}
-                      className={`relative flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${
+                      className={`relative flex-shrink-0 rounded-xl sm:rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${
                         isCenter 
-                          ? 'w-[600px] h-[400px] scale-105 z-30 shadow-2xl' 
+                          ? 'w-[280px] h-[200px] sm:w-[600px] sm:h-[400px] scale-105 z-30 shadow-2xl' 
                           : isNear 
-                          ? 'w-[600px] h-[400px] scale-90 z-20 opacity-40' 
-                          : 'w-[600px] h-[400px] scale-75 z-10 opacity-20'
+                          ? 'w-[280px] h-[200px] sm:w-[600px] sm:h-[400px] scale-90 z-20 opacity-40' 
+                          : 'w-[280px] h-[200px] sm:w-[600px] sm:h-[400px] scale-75 z-10 opacity-20'
                       }`}
                     >
                       <img 
@@ -1007,10 +1063,10 @@ const Index = () => {
                         isCenter ? 'opacity-0' : 'opacity-70'
                       }`}></div>
                       {isCenter && (
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end">
-                          <div className="p-8 w-full">
-                            <h3 className="text-2xl font-bold text-white mb-2">{item.title}</h3>
-                            <div className="h-1 w-20 bg-primary rounded-full"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex items-end">
+                          <div className="p-4 sm:p-6 md:p-8 w-full">
+                            <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white mb-2 leading-tight">{item.title}</h3>
+                            <div className="h-1 w-16 sm:w-20 bg-primary rounded-full"></div>
                           </div>
                         </div>
                       )}
