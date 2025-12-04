@@ -117,24 +117,22 @@ const Index = () => {
             <a href="#gallery" className="hover:text-primary transition-colors">Галерея</a>
             <a href="#contact" className="hover:text-primary transition-colors">Контакты</a>
           </nav>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <Button 
               size="icon" 
-              variant="ghost"
-              className="hover:bg-[#25D366]/10 hover:text-[#25D366]"
+              className="w-11 h-11 rounded-full bg-[#25D366]/10 hover:bg-[#25D366] hover:text-white border border-[#25D366]/30"
               onClick={() => window.open('https://wa.me/79773804500', '_blank')}
             >
-              <Icon name="MessageCircle" size={20} />
+              <Icon name="MessageCircle" size={22} />
             </Button>
             <Button 
               size="icon" 
-              variant="ghost"
-              className="hover:bg-[#0088cc]/10 hover:text-[#0088cc]"
+              className="w-11 h-11 rounded-full bg-[#0088cc]/10 hover:bg-[#0088cc] hover:text-white border border-[#0088cc]/30"
               onClick={() => window.open('https://t.me/Ivan_517', '_blank')}
             >
-              <Icon name="Send" size={20} />
+              <Icon name="Send" size={22} />
             </Button>
-            <Button className="metal-shine">
+            <Button className="metal-shine ml-2">
               <Icon name="Phone" size={18} className="mr-2" />
               +7(499)840-33-12
             </Button>
@@ -201,9 +199,14 @@ const Index = () => {
                   <Icon name="Calculator" size={20} className="mr-2" />
                   Рассчитать стоимость
                 </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white hover:text-background">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="text-lg px-8 border-white text-white hover:bg-white hover:text-background"
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                >
                   <Icon name="Phone" size={20} className="mr-2" />
-                  +7(499)840-33-12
+                  Заказать звонок
                 </Button>
               </div>
             </div>
@@ -953,13 +956,13 @@ const Index = () => {
             Проекты, которыми мы гордимся
           </p>
           
-          <div className="relative">
+          <div className="relative max-w-[1400px] mx-auto">
             {/* Carousel Container */}
             <div className="overflow-hidden" ref={galleryRef}>
               <div 
-                className="flex items-center justify-start gap-8 transition-transform duration-700 ease-out py-8 px-[50%]"
+                className="flex items-center gap-8 transition-transform duration-700 ease-in-out py-8"
                 style={{
-                  transform: `translateX(-${currentGalleryIndex * (600 + 32)}px)`
+                  transform: `translateX(calc(50% - ${currentGalleryIndex * 632}px - 300px))`
                 }}
               >
                 {gallery.map((item, index) => {
@@ -971,12 +974,12 @@ const Index = () => {
                     <div
                       key={index}
                       onClick={() => setCurrentGalleryIndex(index)}
-                      className={`relative flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ${
+                      className={`relative flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${
                         isCenter 
-                          ? 'w-[600px] h-[400px] scale-100 z-30 shadow-2xl' 
+                          ? 'w-[600px] h-[400px] scale-105 z-30 shadow-2xl' 
                           : isNear 
-                          ? 'w-[450px] h-[320px] scale-95 z-20 opacity-50' 
-                          : 'w-[350px] h-[260px] scale-90 z-10 opacity-25'
+                          ? 'w-[600px] h-[400px] scale-90 z-20 opacity-40' 
+                          : 'w-[600px] h-[400px] scale-75 z-10 opacity-20'
                       }`}
                     >
                       <img 
@@ -985,7 +988,7 @@ const Index = () => {
                         className="w-full h-full object-cover"
                       />
                       <div className={`absolute inset-0 bg-black transition-opacity duration-700 ${
-                        isCenter ? 'opacity-0' : 'opacity-60'
+                        isCenter ? 'opacity-0' : 'opacity-70'
                       }`}></div>
                       {isCenter && (
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end">
@@ -1173,30 +1176,24 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Work Process Section - Interactive Timeline */}
-      <section className="py-20 px-4 metal-texture relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 border-2 border-primary rounded-full"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 border-2 border-primary rounded-full"></div>
-        </div>
-        
-        <div className="container mx-auto max-w-7xl relative z-10">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-6xl font-bold mb-4">
+      {/* Work Process Section - Compact Timeline */}
+      <section className="py-16 px-4 metal-texture relative overflow-hidden">
+        <div className="container mx-auto max-w-6xl relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-3">
               Этапы <span className="text-primary">работы</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              От первого звонка до сдачи объекта — каждый шаг продуман до мелочей
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              От первого звонка до сдачи объекта
             </p>
           </div>
           
           {/* Vertical Timeline for Desktop */}
           <div className="hidden lg:block relative">
             {/* Central vertical line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary/20 via-primary to-primary/20 -translate-x-1/2"></div>
+            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/20 via-primary to-primary/20 -translate-x-1/2"></div>
             
-            <div className="space-y-24">
+            <div className="space-y-16">
               {works.map((work, index) => {
                 const isEven = index % 2 === 0;
                 const icons: ('Phone' | 'FileText' | 'Factory' | 'Truck' | 'CheckCircle2' | 'Star')[] = ['Phone', 'FileText', 'Factory', 'Truck', 'CheckCircle2', 'Star'];
@@ -1206,41 +1203,35 @@ const Index = () => {
                     {/* Central Circle */}
                     <div className="absolute left-1/2 top-0 -translate-x-1/2 z-20">
                       <div className="relative">
-                        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-2xl">
-                          <Icon name={icons[index]} size={32} className="text-white" />
+                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg">
+                          <Icon name={icons[index]} size={24} className="text-white" />
                         </div>
-                        <div className="absolute -inset-3 rounded-full bg-primary/30 blur-xl"></div>
+                        <div className="absolute -inset-2 rounded-full bg-primary/20 blur-lg"></div>
                         {/* Step number badge */}
-                        <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-background border-2 border-primary flex items-center justify-center text-sm font-bold">
+                        <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-background border-2 border-primary flex items-center justify-center text-xs font-bold">
                           {index + 1}
                         </div>
                       </div>
                     </div>
                     
                     {/* Content Card */}
-                    <div className={`flex items-start ${isEven ? 'justify-end pr-[55%]' : 'justify-start pl-[55%]'}`}>
-                      <div className="group relative max-w-md">
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
-                        <Card className="relative border-border/50 hover:border-primary/50 transition-all duration-300 overflow-hidden">
-                          <CardContent className="p-8">
-                            <div className={`flex items-start gap-4 ${isEven ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}>
-                              <div className="flex-1">
-                                <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
-                                  {work.title}
-                                </h3>
-                                <p className="text-muted-foreground leading-relaxed mb-4">
-                                  {work.description}
-                                </p>
-                                <div className={`flex gap-2 ${isEven ? 'justify-end' : 'justify-start'}`}>
-                                  <div className="h-1 w-12 bg-gradient-to-r from-primary to-primary/50 rounded-full"></div>
-                                </div>
-                              </div>
+                    <div className={`flex items-start ${isEven ? 'justify-end pr-[52%]' : 'justify-start pl-[52%]'}`}>
+                      <div className="group relative max-w-sm">
+                        <Card className="relative border-border/50 hover:border-primary/50 transition-all duration-300">
+                          <CardContent className="p-6">
+                            <div className={`${isEven ? 'text-right' : 'text-left'}`}>
+                              <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">
+                                {work.title}
+                              </h3>
+                              <p className="text-sm text-muted-foreground leading-relaxed">
+                                {work.description}
+                              </p>
                             </div>
                           </CardContent>
                         </Card>
                         
                         {/* Connecting line to central circle */}
-                        <div className={`absolute top-10 ${isEven ? '-right-16' : '-left-16'} w-16 h-0.5 bg-gradient-to-${isEven ? 'l' : 'r'} from-primary/50 to-transparent`}></div>
+                        <div className={`absolute top-6 ${isEven ? '-right-12' : '-left-12'} w-12 h-0.5 bg-gradient-to-${isEven ? 'l' : 'r'} from-primary/50 to-transparent`}></div>
                       </div>
                     </div>
                   </div>
@@ -1328,13 +1319,13 @@ const Index = () => {
                 <CardContent className="p-0">
                   <div className="relative h-64 overflow-hidden">
                     <img 
-                      src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=400&fit=crop"
                       alt="Менеджер"
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                     <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <p className="text-white font-bold text-xl mb-1">Владислав</p>
+                      <p className="text-white font-bold text-xl mb-1">Вероника</p>
                       <p className="text-gray-300 text-sm">Менеджер по работе с клиентами</p>
                     </div>
                   </div>
