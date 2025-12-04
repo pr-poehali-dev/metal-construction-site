@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -22,6 +22,9 @@ const Index = () => {
     email: '',
     files: [] as string[]
   });
+  
+  const [currentGalleryIndex, setCurrentGalleryIndex] = useState(2);
+  const galleryRef = useRef<HTMLDivElement>(null);
 
   const isWeldingFlow = quizData.type === 'выездная';
   const totalSteps = isWeldingFlow ? 5 : 6;
@@ -182,7 +185,25 @@ const Index = () => {
                 </Button>
                 <Button size="lg" variant="outline" className="text-lg px-8 border-primary text-primary hover:bg-primary hover:text-white">
                   <Icon name="Phone" size={20} className="mr-2" />
-                  Заказать звонок
+                  +7(499)840-33-12
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="text-lg px-6 border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white"
+                  onClick={() => window.open('https://wa.me/79773804500', '_blank')}
+                >
+                  <Icon name="MessageCircle" size={20} className="mr-2" />
+                  WhatsApp
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="text-lg px-6 border-[#0088cc] text-[#0088cc] hover:bg-[#0088cc] hover:text-white"
+                  onClick={() => window.open('https://t.me/Ivan_517', '_blank')}
+                >
+                  <Icon name="Send" size={20} className="mr-2" />
+                  Telegram
                 </Button>
               </div>
             </div>
@@ -922,73 +943,347 @@ const Index = () => {
       {/* Services Section - kept here for navigation anchor */}
       <section id="quiz"></section>
 
-      {/* Gallery Section */}
-      <section id="gallery" className="py-20 px-4 metal-texture">
+      {/* Gallery Section - Carousel */}
+      <section id="gallery" className="py-20 px-4">
         <div className="container mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
             Наши работы
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {gallery.map((item, index) => (
-              <Card key={index} className="overflow-hidden border-border/50 hover:border-primary/50 transition-all group">
-                <div className="h-64 relative overflow-hidden">
-                  <img 
-                    src={item.image} 
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                    <p className="p-4 text-white font-medium">{item.title}</p>
-                  </div>
-                </div>
-              </Card>
-            ))}
+          <p className="text-center text-muted-foreground text-lg mb-12">
+            Проекты, которыми мы гордимся
+          </p>
+          
+          <div className="relative">
+            {/* Carousel Container */}
+            <div className="overflow-hidden" ref={galleryRef}>
+              <div 
+                className="flex items-center justify-start gap-8 transition-transform duration-700 ease-out py-8 px-[50%]"
+                style={{
+                  transform: `translateX(-${currentGalleryIndex * (600 + 32)}px)`
+                }}
+              >
+                {gallery.map((item, index) => {
+                  const offset = index - currentGalleryIndex;
+                  const isCenter = offset === 0;
+                  const isNear = Math.abs(offset) === 1;
+                  
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => setCurrentGalleryIndex(index)}
+                      className={`relative flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ${
+                        isCenter 
+                          ? 'w-[600px] h-[400px] scale-100 z-30 shadow-2xl' 
+                          : isNear 
+                          ? 'w-[450px] h-[320px] scale-95 z-20 opacity-50' 
+                          : 'w-[350px] h-[260px] scale-90 z-10 opacity-25'
+                      }`}
+                    >
+                      <img 
+                        src={item.image} 
+                        alt={item.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className={`absolute inset-0 bg-black transition-opacity duration-700 ${
+                        isCenter ? 'opacity-0' : 'opacity-60'
+                      }`}></div>
+                      {isCenter && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end">
+                          <div className="p-8 w-full">
+                            <h3 className="text-2xl font-bold text-white mb-2">{item.title}</h3>
+                            <div className="h-1 w-20 bg-primary rounded-full"></div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            
+            {/* Navigation Buttons */}
+            <Button
+              variant="outline"
+              size="icon"
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-40 w-12 h-12 rounded-full bg-background/80 backdrop-blur border-primary/50 hover:bg-primary hover:border-primary"
+              onClick={() => setCurrentGalleryIndex(Math.max(0, currentGalleryIndex - 1))}
+              disabled={currentGalleryIndex === 0}
+            >
+              <Icon name="ChevronLeft" size={24} />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-40 w-12 h-12 rounded-full bg-background/80 backdrop-blur border-primary/50 hover:bg-primary hover:border-primary"
+              onClick={() => setCurrentGalleryIndex(Math.min(gallery.length - 1, currentGalleryIndex + 1))}
+              disabled={currentGalleryIndex === gallery.length - 1}
+            >
+              <Icon name="ChevronRight" size={24} />
+            </Button>
+            
+            {/* Dots Indicator */}
+            <div className="flex justify-center gap-2 mt-8">
+              {gallery.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentGalleryIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all ${
+                    index === currentGalleryIndex 
+                      ? 'bg-primary w-8' 
+                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Work Process Section */}
-      <section className="py-20 px-4 metal-texture">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
-            Этапы работы
-          </h2>
-          <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
-            Прозрачный процесс от заявки до завершения проекта
-          </p>
+      {/* Why Choose Us - Creative Block */}
+      <section className="py-20 px-4 overflow-hidden">
+        <div className="container mx-auto max-w-7xl">
           <div className="relative">
-            {/* Timeline line */}
-            <div className="hidden lg:block absolute top-12 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/20 via-primary to-primary/20"></div>
+            {/* Background decorative elements */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-              {works.map((work, index) => (
-                <div key={index} className="relative group">
-                  <Card className="h-full border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-xl bg-card/50 backdrop-blur">
-                    <CardContent className="pt-6">
-                      <div className="flex flex-col items-center text-center">
-                        <div className="relative mb-6">
-                          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            {index + 1}
-                          </div>
-                          <div className="absolute -inset-2 rounded-full bg-primary/20 blur-md group-hover:bg-primary/30 transition-colors"></div>
+            <div className="relative z-10">
+              <div className="text-center mb-16">
+                <h2 className="text-5xl md:text-6xl font-bold mb-4">
+                  Почему <span className="text-primary">Основа</span>?
+                </h2>
+                <p className="text-xl text-muted-foreground">
+                  Мы не просто выполняем заказы — мы создаём надёжность
+                </p>
+              </div>
+              
+              <div className="grid md:grid-cols-3 gap-8">
+                {/* Feature 1 */}
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+                  <Card className="relative border-border/50 hover:border-primary/50 transition-all duration-300 overflow-hidden h-full">
+                    <CardContent className="p-8">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <Icon name="Award" size={32} className="text-white" />
+                      </div>
+                      <h3 className="text-2xl font-bold mb-4">15+ лет опыта</h3>
+                      <p className="text-muted-foreground leading-relaxed mb-6">
+                        Сотни успешно реализованных проектов любой сложности
+                      </p>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Промышленные объекты</span>
                         </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Коммерческая недвижимость</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Частное строительство</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+                
+                {/* Feature 2 */}
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+                  <Card className="relative border-border/50 hover:border-primary/50 transition-all duration-300 overflow-hidden h-full">
+                    <CardContent className="p-8">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <Icon name="Shield" size={32} className="text-white" />
+                      </div>
+                      <h3 className="text-2xl font-bold mb-4">Гарантия качества</h3>
+                      <p className="text-muted-foreground leading-relaxed mb-6">
+                        Строгий контроль на каждом этапе производства
+                      </p>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Сертифицированные материалы</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Аттестованные сварщики</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Гарантия до 5 лет</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+                
+                {/* Feature 3 */}
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+                  <Card className="relative border-border/50 hover:border-primary/50 transition-all duration-300 overflow-hidden h-full">
+                    <CardContent className="p-8">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <Icon name="Zap" size={32} className="text-white" />
+                      </div>
+                      <h3 className="text-2xl font-bold mb-4">Скорость + точность</h3>
+                      <p className="text-muted-foreground leading-relaxed mb-6">
+                        Современное оборудование и отлаженные процессы
+                      </p>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Станки с ЧПУ</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Срочное производство</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Соблюдение сроков 99%</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+              
+              {/* Stats Section */}
+              <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div className="text-center">
+                  <div className="text-5xl font-bold text-primary mb-2">500+</div>
+                  <div className="text-muted-foreground">Завершённых проектов</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-5xl font-bold text-primary mb-2">15</div>
+                  <div className="text-muted-foreground">Лет на рынке</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-5xl font-bold text-primary mb-2">98%</div>
+                  <div className="text-muted-foreground">Довольных клиентов</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-5xl font-bold text-primary mb-2">24/7</div>
+                  <div className="text-muted-foreground">Техподдержка</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Work Process Section - Interactive Timeline */}
+      <section className="py-20 px-4 metal-texture relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 border-2 border-primary rounded-full"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 border-2 border-primary rounded-full"></div>
+        </div>
+        
+        <div className="container mx-auto max-w-7xl relative z-10">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4">
+              Этапы <span className="text-primary">работы</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              От первого звонка до сдачи объекта — каждый шаг продуман до мелочей
+            </p>
+          </div>
+          
+          {/* Vertical Timeline for Desktop */}
+          <div className="hidden lg:block relative">
+            {/* Central vertical line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary/20 via-primary to-primary/20 -translate-x-1/2"></div>
+            
+            <div className="space-y-24">
+              {works.map((work, index) => {
+                const isEven = index % 2 === 0;
+                const icons: ('Phone' | 'FileText' | 'Factory' | 'Truck' | 'CheckCircle2' | 'Star')[] = ['Phone', 'FileText', 'Factory', 'Truck', 'CheckCircle2', 'Star'];
+                
+                return (
+                  <div key={index} className="relative">
+                    {/* Central Circle */}
+                    <div className="absolute left-1/2 top-0 -translate-x-1/2 z-20">
+                      <div className="relative">
+                        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-2xl">
+                          <Icon name={icons[index]} size={32} className="text-white" />
+                        </div>
+                        <div className="absolute -inset-3 rounded-full bg-primary/30 blur-xl"></div>
+                        {/* Step number badge */}
+                        <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-background border-2 border-primary flex items-center justify-center text-sm font-bold">
+                          {index + 1}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Content Card */}
+                    <div className={`flex items-start ${isEven ? 'justify-end pr-[55%]' : 'justify-start pl-[55%]'}`}>
+                      <div className="group relative max-w-md">
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+                        <Card className="relative border-border/50 hover:border-primary/50 transition-all duration-300 overflow-hidden">
+                          <CardContent className="p-8">
+                            <div className={`flex items-start gap-4 ${isEven ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}>
+                              <div className="flex-1">
+                                <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
+                                  {work.title}
+                                </h3>
+                                <p className="text-muted-foreground leading-relaxed mb-4">
+                                  {work.description}
+                                </p>
+                                <div className={`flex gap-2 ${isEven ? 'justify-end' : 'justify-start'}`}>
+                                  <div className="h-1 w-12 bg-gradient-to-r from-primary to-primary/50 rounded-full"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                        
+                        {/* Connecting line to central circle */}
+                        <div className={`absolute top-10 ${isEven ? '-right-16' : '-left-16'} w-16 h-0.5 bg-gradient-to-${isEven ? 'l' : 'r'} from-primary/50 to-transparent`}></div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          
+          {/* Mobile/Tablet View */}
+          <div className="lg:hidden space-y-8">
+            {works.map((work, index) => {
+              const icons: ('Phone' | 'FileText' | 'Factory' | 'Truck' | 'CheckCircle2' | 'Star')[] = ['Phone', 'FileText', 'Factory', 'Truck', 'CheckCircle2', 'Star'];
+              
+              return (
+                <div key={index} className="relative group">
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary/20 via-primary/50 to-primary/20"></div>
+                  
+                  <div className="ml-12 relative">
+                    <div className="absolute -left-14 top-0">
+                      <div className="relative">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg">
+                          <Icon name={icons[index]} size={20} className="text-white" />
+                        </div>
+                        <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-background border-2 border-primary flex items-center justify-center text-xs font-bold">
+                          {index + 1}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <Card className="border-border/50 hover:border-primary/50 transition-all duration-300">
+                      <CardContent className="p-6">
                         <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
                           {work.title}
                         </h3>
                         <p className="text-muted-foreground leading-relaxed">
                           {work.description}
                         </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  {index < works.length - 1 && (
-                    <div className="hidden lg:block absolute top-10 left-[calc(100%+1.5rem)] w-12">
-                      <Icon name="ArrowRight" size={24} className="text-primary/50" />
-                    </div>
-                  )}
+                      </CardContent>
+                    </Card>
+                  </div>
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -1034,8 +1329,50 @@ const Index = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lg">+7 (999) 123-45-67</p>
+                  <a href="tel:+74998403312" className="text-lg hover:text-primary transition-colors block mb-1">+7(499)840-33-12</a>
                   <p className="text-sm text-muted-foreground">Работаем 24/7</p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border/50">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Icon name="MessageCircle" size={24} className="text-[#25D366]" />
+                    WhatsApp
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <a 
+                    href="https://wa.me/79773804500" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-lg hover:text-[#25D366] transition-colors flex items-center gap-2"
+                  >
+                    <span>+7 (977) 380-45-00</span>
+                    <Icon name="ExternalLink" size={16} />
+                  </a>
+                  <p className="text-sm text-muted-foreground">Быстрый ответ</p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border/50">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Icon name="Send" size={24} className="text-[#0088cc]" />
+                    Telegram
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <a 
+                    href="https://t.me/Ivan_517" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-lg hover:text-[#0088cc] transition-colors flex items-center gap-2"
+                  >
+                    <span>@Ivan_517</span>
+                    <Icon name="ExternalLink" size={16} />
+                  </a>
+                  <p className="text-sm text-muted-foreground">Онлайн консультация</p>
                 </CardContent>
               </Card>
 
@@ -1069,15 +1406,68 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-4 border-t border-border/50 metal-texture">
-        <div className="container mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Icon name="Hammer" size={24} className="text-primary" />
-            <span className="text-xl font-bold">Основа</span>
+      <footer className="py-12 px-4 border-t border-border/50 metal-texture">
+        <div className="container mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
+            {/* Company Info */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Icon name="Hammer" size={24} className="text-primary" />
+                <span className="text-xl font-bold">Основа</span>
+              </div>
+              <p className="text-muted-foreground mb-4">
+                Производство металлоконструкций и выездная сварка. Более 15 лет на рынке.
+              </p>
+            </div>
+            
+            {/* Contacts */}
+            <div>
+              <h3 className="font-bold mb-4">Контакты</h3>
+              <div className="space-y-3">
+                <a href="tel:+74998403312" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                  <Icon name="Phone" size={18} />
+                  <span>+7(499)840-33-12</span>
+                </a>
+                <a href="mailto:info@metallprom.ru" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                  <Icon name="Mail" size={18} />
+                  <span>info@metallprom.ru</span>
+                </a>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Icon name="MapPin" size={18} />
+                  <span>г. Москва, ул. Промышленная, 15</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Messengers */}
+            <div>
+              <h3 className="font-bold mb-4">Мессенджеры</h3>
+              <div className="space-y-3">
+                <a 
+                  href="https://wa.me/79773804500" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-muted-foreground hover:text-[#25D366] transition-colors"
+                >
+                  <Icon name="MessageCircle" size={18} />
+                  <span>WhatsApp: +7 (977) 380-45-00</span>
+                </a>
+                <a 
+                  href="https://t.me/Ivan_517" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-muted-foreground hover:text-[#0088cc] transition-colors"
+                >
+                  <Icon name="Send" size={18} />
+                  <span>Telegram: @Ivan_517</span>
+                </a>
+              </div>
+            </div>
           </div>
-          <p className="text-muted-foreground">
-            © 2024 Основа. Производство металлоконструкций и выездная сварка.
-          </p>
+          
+          <div className="border-t border-border/50 pt-6 text-center text-muted-foreground">
+            <p>© 2024 Основа. Все права защищены.</p>
+          </div>
         </div>
       </footer>
     </div>
