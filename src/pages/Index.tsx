@@ -26,6 +26,7 @@ const Index = () => {
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState(2);
   const [parallaxOffset, setParallaxOffset] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isQuizTransitioning, setIsQuizTransitioning] = useState(false);
   const galleryRef = useRef<HTMLDivElement>(null);
   const quizRef = useRef<HTMLDivElement>(null);
 
@@ -78,11 +79,13 @@ const Index = () => {
     const currentScrollPos = quizRef.current?.offsetTop;
     
     setQuizData({...quizData, [field]: value});
+    setIsQuizTransitioning(true);
     
     // Автоматический переход к следующему шагу
     setTimeout(() => {
       if (quizStep < totalSteps - 1) {
         setQuizStep(quizStep + 1);
+        setIsQuizTransitioning(false);
         
         // Сохраняем позицию прокрутки
         setTimeout(() => {
@@ -90,8 +93,10 @@ const Index = () => {
             window.scrollTo({ top: currentScrollPos - 100, behavior: 'smooth' });
           }
         }, 50);
+      } else {
+        setIsQuizTransitioning(false);
       }
-    }, 300);
+    }, 400);
   };
 
   const handleServiceToggle = (service: string) => {
@@ -412,7 +417,7 @@ const Index = () => {
           </div>
 
           {/* Quiz Section - moved here after Director Comment */}
-          <div className="mt-12 sm:mt-16">
+          <div className="mt-12 sm:mt-16 max-w-4xl mx-auto">
             <div className="mb-8 sm:mb-12 metal-texture border border-border/50 rounded-lg p-4 sm:p-6 md:p-8">
               <div className="grid md:grid-cols-[1fr_auto] gap-6 sm:gap-8 items-center">
                 <div>
@@ -463,7 +468,15 @@ const Index = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+              <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6 relative">
+                {isQuizTransitioning && (
+                  <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50 rounded-lg">
+                    <div className="flex flex-col items-center gap-3">
+                      <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                      <p className="text-sm text-muted-foreground">Загрузка...</p>
+                    </div>
+                  </div>
+                )}
                 {quizStep === 0 && (
                   <div className="space-y-3 sm:space-y-4">
                     <Label className="text-base sm:text-lg font-semibold">Какой тип конструкции вам нужен?</Label>
@@ -1047,6 +1060,96 @@ const Index = () => {
 
       {/* Services Section - kept here for navigation anchor */}
       <section id="quiz"></section>
+
+      {/* Mobile Welding Services Section */}
+      <section className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-br from-background via-primary/5 to-background overflow-hidden">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Image Side */}
+            <div className="relative group order-2 lg:order-1">
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-3xl blur-2xl group-hover:blur-3xl transition-all"></div>
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                <img 
+                  src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/8ffb09ce-dc74-4edf-9227-4dc0c10d3fcb.jpg"
+                  alt="Выездные сварочные работы"
+                  className="w-full h-[400px] sm:h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                  <div className="flex items-center gap-3 text-white">
+                    <div className="w-12 h-12 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center">
+                      <Icon name="Zap" size={24} className="text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-300">Выезд в день обращения</p>
+                      <p className="font-bold text-lg">24/7 доступность</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Content Side */}
+            <div className="order-1 lg:order-2">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+                <Icon name="Sparkles" size={16} className="text-primary" />
+                <span className="text-sm font-semibold text-primary">Мобильная сварка</span>
+              </div>
+              
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                Выездные <span className="text-primary">сварочные</span> работы
+              </h2>
+              
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                Профессиональная аргонодуговая сварка с выездом на ваш объект. Работаем со всеми типами металлов: от нержавейки до алюминия.
+              </p>
+
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border/50 hover:border-primary/50 transition-all group">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                    <Icon name="Clock" size={24} className="text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg mb-1">Быстрый выезд</h3>
+                    <p className="text-sm text-muted-foreground">Приезжаем в течение 2-4 часов после звонка. Работаем круглосуточно.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border/50 hover:border-primary/50 transition-all group">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                    <Icon name="ShieldCheck" size={24} className="text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg mb-1">Профессиональное оборудование</h3>
+                    <p className="text-sm text-muted-foreground">Современные аппараты для TIG, MIG/MAG и ручной дуговой сварки.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border/50 hover:border-primary/50 transition-all group">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                    <Icon name="ThumbsUp" size={24} className="text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg mb-1">Легко работать</h3>
+                    <p className="text-sm text-muted-foreground">Никаких скрытых платежей. Прозрачные цены и понятная коммуникация.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-4">
+                <Button size="lg" className="metal-shine text-base sm:text-lg px-6 sm:px-8" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+                  <Icon name="Phone" size={20} className="mr-2" />
+                  Вызвать сварщика
+                </Button>
+                <Button size="lg" variant="outline" className="text-base sm:text-lg px-6 sm:px-8">
+                  <Icon name="FileText" size={20} className="mr-2" />
+                  Узнать цены
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Gallery Section - Carousel */}
       <section id="gallery" className="py-12 sm:py-16 md:py-20 px-4">
