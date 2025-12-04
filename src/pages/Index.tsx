@@ -32,12 +32,12 @@ const Index = () => {
   };
 
   const services = [
-    { icon: 'Building2', title: 'Металлокаркасы зданий', description: 'Прочные конструкции для промышленных и коммерческих объектов' },
-    { icon: 'Container', title: 'Ангары и навесы', description: 'Быстровозводимые конструкции любой сложности' },
-    { icon: 'Grid3x3', title: 'Лестницы и перила', description: 'Надежные металлические лестничные конструкции' },
-    { icon: 'Fence', title: 'Ограждения и заборы', description: 'Долговечные металлические ограждения' },
-    { icon: 'Truck', title: 'Выездная сварка', description: 'Оперативный ремонт и монтаж на вашем объекте' },
-    { icon: 'Wrench', title: 'Нестандартные изделия', description: 'Индивидуальные решения по вашим чертежам' }
+    { title: 'Металлоконструкции', description: 'Металлоконструкции', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/491e11c5-2b4e-49a1-8541-44600cef5812.jpg' },
+    { title: 'Ограждения', description: 'Заборы, перила, барьеры', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/f3cf71ee-dcce-4504-b474-a49ebbf19770.jpg' },
+    { title: 'Антресольные этажи', description: 'Изготовление под ключ', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/f90cb058-f64b-4847-963d-61b80ab0b3ef.jpg' },
+    { title: 'Конструкции для дачи', description: 'Беседки, навесы, козырьки', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/615adba9-d99b-48eb-8826-bee065ce039b.jpg' },
+    { title: 'Выездные сварочные работы', description: 'Профессиональная аргонодуговая сварка', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/8ffb09ce-dc74-4edf-9227-4dc0c10d3fcb.jpg' },
+    { title: 'Порошковая покраска', description: 'Прочное и долговечное покрытие', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/0fc0183d-d180-4cb6-ac18-804254b3eea1.jpg' }
   ];
 
   const works = [
@@ -65,7 +65,7 @@ const Index = () => {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Icon name="Hammer" size={32} className="text-primary" />
-            <span className="text-2xl font-bold">МеталлПром</span>
+            <span className="text-2xl font-bold">Основа</span>
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <a href="#about" className="hover:text-primary transition-colors">О компании</a>
@@ -255,14 +255,19 @@ const Index = () => {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => (
-              <Card key={index} className="border-border/50 hover:border-primary/50 transition-all metal-shine group">
-                <CardHeader>
-                  <Icon name={service.icon as any} size={48} className="text-primary mb-4 group-hover:scale-110 transition-transform" />
-                  <CardTitle className="text-xl">{service.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{service.description}</p>
-                </CardContent>
+              <Card key={index} className="overflow-hidden border-border/50 hover:border-primary/50 transition-all group animate-scale-in" style={{ animationDelay: `${index * 0.1}s`, opacity: 0, animationFillMode: 'forwards' }}>
+                <div className="relative h-56 overflow-hidden">
+                  <img 
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="text-xl font-bold text-white mb-1">{service.title}</h3>
+                    <p className="text-sm text-gray-300">{service.description}</p>
+                  </div>
+                </div>
               </Card>
             ))}
           </div>
@@ -271,13 +276,42 @@ const Index = () => {
 
       {/* Quiz Section */}
       <section id="quiz" className="py-20 px-4">
-        <div className="container mx-auto max-w-2xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
-            Калькулятор стоимости
-          </h2>
-          <p className="text-center text-muted-foreground mb-12">
-            Ответьте на несколько вопросов для предварительного расчета
-          </p>
+        <div className="container mx-auto max-w-4xl">
+          <div className="mb-12 metal-texture border border-border/50 rounded-lg p-8">
+            <div className="grid md:grid-cols-[1fr_auto] gap-8 items-center">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  Расчет стоимости металлоконструкций
+                </h2>
+                <p className="text-lg text-muted-foreground mb-6">
+                  Ответьте на несколько вопросов и получите точный расчет стоимости вашего проекта с учетом всех особенностей и требований
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0" />
+                    <span className="text-foreground">Пройдите короткий опрос</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0" />
+                    <span className="text-foreground">Заполните основные параметры</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0" />
+                    <span className="text-foreground">Укажите ключевые данные</span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex-shrink-0">
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-primary shadow-lg">
+                  <img 
+                    src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                    alt="Менеджер"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
           
           <Card className="metal-texture border-border/50">
             <CardHeader>
@@ -522,10 +556,10 @@ const Index = () => {
         <div className="container mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Icon name="Hammer" size={24} className="text-primary" />
-            <span className="text-xl font-bold">МеталлПром</span>
+            <span className="text-xl font-bold">Основа</span>
           </div>
           <p className="text-muted-foreground">
-            © 2024 МеталлПром. Производство металлоконструкций и выездная сварка.
+            © 2024 Основа. Производство металлоконструкций и выездная сварка.
           </p>
         </div>
       </footer>
