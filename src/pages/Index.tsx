@@ -1043,72 +1043,71 @@ const Index = () => {
       <section id="quiz"></section>
 
       {/* Welding Services Section */}
-      <section className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-br from-background via-primary/5 to-background overflow-hidden">
+      <section className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-br from-background via-primary/5 to-background overflow-hidden relative">
+        {/* Креативный элемент - декоративные искры */}
+        <div className="absolute top-20 right-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-40 left-20 w-24 h-24 bg-primary/10 rounded-full blur-2xl animate-pulse delay-700"></div>
+        
         <div className="container mx-auto max-w-7xl">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
             {/* Left: Сварка металлоконструкций */}
             <div className="relative group flex">
               <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-3xl blur-2xl group-hover:blur-3xl transition-all"></div>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl flex flex-col w-full">
-                <div className="relative h-[400px] sm:h-[450px]">
+                <div className="relative h-[550px] sm:h-[600px]">
                   <img 
                     src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/8ffb09ce-dc74-4edf-9227-4dc0c10d3fcb.jpg"
                     alt="Сварка металлоконструкций"
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div>
-                  <div className="absolute top-6 left-6">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30">
-                      <Icon name="Flame" size={16} className="text-primary" />
-                      <span className="text-sm font-semibold text-white">Производство</span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/20"></div>
+                  
+                  {/* Креативный элемент - диагональная полоса */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/30 to-transparent transform rotate-45 translate-x-16 -translate-y-16"></div>
+                  
+                  <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 pt-10">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/30 backdrop-blur-md border border-primary/40 self-start">
+                      <Icon name="Flame" size={16} className="text-white" />
                     </div>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
-                      Сварка металлоконструкций
-                    </h3>
-                    <p className="text-base text-gray-300 leading-relaxed mb-6">
-                      Полный цикл изготовления металлоконструкций на производстве. От простых изделий до сложных промышленных конструкций.
-                    </p>
                     
-                    <div className="space-y-3 mb-6">
-                      <div className="flex items-start gap-3 text-white">
-                        <div className="w-10 h-10 rounded-lg bg-primary/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-                          <Icon name="Building2" size={20} className="text-primary" />
+                    <div>
+                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
+                        Сварка металлоконструкций
+                      </h3>
+                      <p className="text-base text-gray-200 font-medium leading-relaxed mb-5">
+                        Полный цикл изготовления металлоконструкций на производстве. От простых изделий до сложных промышленных конструкций.
+                      </p>
+                      
+                      <div className="grid grid-cols-2 gap-3 mb-6">
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="Building2" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">Каркасы зданий</p>
                         </div>
-                        <div>
-                          <p className="font-semibold text-sm">Каркасы зданий</p>
-                          <p className="text-xs text-gray-400">Промышленные и коммерческие объекты</p>
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="Layers" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">Антресольные этажи</p>
+                        </div>
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="Home" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">Навесы и козырьки</p>
+                        </div>
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="Fence" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">Заборы и ограждения</p>
                         </div>
                       </div>
-                      <div className="flex items-start gap-3 text-white">
-                        <div className="w-10 h-10 rounded-lg bg-primary/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-                          <Icon name="Layers" size={20} className="text-primary" />
-                        </div>
-                        <div>
-                          <p className="font-semibold text-sm">Антресольные этажи</p>
-                          <p className="text-xs text-gray-400">Межэтажные перекрытия и площадки</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3 text-white">
-                        <div className="w-10 h-10 rounded-lg bg-primary/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-                          <Icon name="Wrench" size={20} className="text-primary" />
-                        </div>
-                        <div>
-                          <p className="font-semibold text-sm">Нестандартные изделия</p>
-                          <p className="text-xs text-gray-400">Индивидуальные решения под проект</p>
-                        </div>
-                      </div>
-                    </div>
 
-                    <div className="flex flex-wrap gap-3">
-                      <Button size="lg" className="metal-shine text-base px-6" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+                      <Button size="lg" className="w-full metal-shine text-base px-6" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
                         <Icon name="MessageSquare" size={18} className="mr-2" />
                         Получить расчёт
-                      </Button>
-                      <Button size="lg" variant="outline" className="text-base px-6 bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20">
-                        <Icon name="FileText" size={18} className="mr-2" />
-                        Портфолио
                       </Button>
                     </div>
                   </div>
@@ -1120,65 +1119,61 @@ const Index = () => {
             <div className="relative group flex">
               <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-3xl blur-2xl group-hover:blur-3xl transition-all"></div>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl flex flex-col w-full">
-                <div className="relative h-[400px] sm:h-[450px]">
+                <div className="relative h-[550px] sm:h-[600px]">
                   <img 
                     src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/8ffb09ce-dc74-4edf-9227-4dc0c10d3fcb.jpg"
                     alt="Выездные сварочные работы"
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div>
-                  <div className="absolute top-6 left-6">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30">
-                      <Icon name="Sparkles" size={16} className="text-primary" />
-                      <span className="text-sm font-semibold text-white">Мобильная сварка</span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/20"></div>
+                  
+                  {/* Креативный элемент - искра сварки */}
+                  <div className="absolute top-10 right-10 w-3 h-3 bg-primary rounded-full animate-ping"></div>
+                  <div className="absolute top-10 right-10 w-3 h-3 bg-primary rounded-full"></div>
+                  
+                  <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 pt-10">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/30 backdrop-blur-md border border-primary/40 self-start">
+                      <Icon name="Sparkles" size={16} className="text-white" />
                     </div>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
-                      Выездные сварочные работы
-                    </h3>
-                    <p className="text-base text-gray-300 leading-relaxed mb-6">
-                      Профессиональная аргонодуговая сварка с выездом на ваш объект. Работаем со всеми типами металлов круглосуточно.
-                    </p>
                     
-                    <div className="space-y-3 mb-6">
-                      <div className="flex items-start gap-3 text-white">
-                        <div className="w-10 h-10 rounded-lg bg-primary/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-                          <Icon name="Clock" size={20} className="text-primary" />
+                    <div>
+                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
+                        Выездные сварочные работы
+                      </h3>
+                      <p className="text-base text-gray-200 font-medium leading-relaxed mb-5">
+                        Профессиональная аргонодуговая сварка с выездом на ваш объект. Работаем со всеми типами металлов круглосуточно.
+                      </p>
+                      
+                      <div className="grid grid-cols-2 gap-3 mb-6">
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="Clock" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">Быстрый выезд</p>
                         </div>
-                        <div>
-                          <p className="font-semibold text-sm">Быстрый выезд</p>
-                          <p className="text-xs text-gray-400">Приезжаем в течение 2-4 часов</p>
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="Zap" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">24/7 доступность</p>
+                        </div>
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="ShieldCheck" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">Все типы сварки</p>
+                        </div>
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="MapPin" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">Москва и МО</p>
                         </div>
                       </div>
-                      <div className="flex items-start gap-3 text-white">
-                        <div className="w-10 h-10 rounded-lg bg-primary/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-                          <Icon name="Zap" size={20} className="text-primary" />
-                        </div>
-                        <div>
-                          <p className="font-semibold text-sm">24/7 доступность</p>
-                          <p className="text-xs text-gray-400">Работаем круглосуточно без выходных</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3 text-white">
-                        <div className="w-10 h-10 rounded-lg bg-primary/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-                          <Icon name="ShieldCheck" size={20} className="text-primary" />
-                        </div>
-                        <div>
-                          <p className="font-semibold text-sm">Все типы сварки</p>
-                          <p className="text-xs text-gray-400">TIG, MIG/MAG, ручная дуговая</p>
-                        </div>
-                      </div>
-                    </div>
 
-                    <div className="flex flex-wrap gap-3">
-                      <Button size="lg" className="metal-shine text-base px-6" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+                      <Button size="lg" className="w-full metal-shine text-base px-6" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
                         <Icon name="Phone" size={18} className="mr-2" />
                         Вызвать сварщика
-                      </Button>
-                      <Button size="lg" variant="outline" className="text-base px-6 bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20">
-                        <Icon name="MapPin" size={18} className="mr-2" />
-                        Зона выезда
                       </Button>
                     </div>
                   </div>
