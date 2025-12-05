@@ -480,7 +480,7 @@ const Index = () => {
                 {quizStep === 0 && (
                   <div className="space-y-3 sm:space-y-4">
                     <Label className="text-base sm:text-lg font-semibold">Какой тип конструкции вам нужен?</Label>
-                    <RadioGroup value={quizData.type}>
+                    <RadioGroup value={quizData.type} className="grid md:grid-cols-2 gap-3 sm:gap-4">
                       <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('type', 'каркас')}>
                         <RadioGroupItem value="каркас" id="каркас" className="mt-1 flex-shrink-0" />
                         <Label htmlFor="каркас" className="cursor-pointer flex-1">
@@ -820,47 +820,52 @@ const Index = () => {
                 )}
 
                 {((quizStep === 5 && !isWeldingFlow) || (quizStep === 4 && isWeldingFlow)) && (
-                  <div className="space-y-6">
-                    <h3 className="text-2xl font-bold">Оставьте контакты для связи</h3>
-                    <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="name" className="text-base mb-2 block">Ваше имя</Label>
-                        <Input 
-                          id="name"
-                          placeholder="Иван"
-                          value={quizData.name}
-                          onChange={(e) => setQuizData({...quizData, name: e.target.value})}
-                          className="text-lg p-6"
-                        />
+                  <div className="space-y-4">
+                    <h3 className="text-xl sm:text-2xl font-bold">Оставьте контакты для связи</h3>
+                    <div className="space-y-3">
+                      <div className="grid md:grid-cols-2 gap-3">
+                        <div>
+                          <Label htmlFor="name" className="text-sm mb-1.5 block">Ваше имя</Label>
+                          <Input 
+                            id="name"
+                            placeholder="Иван"
+                            value={quizData.name}
+                            onChange={(e) => setQuizData({...quizData, name: e.target.value})}
+                            className="h-11"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="phone" className="text-sm mb-1.5 block">Ваш телефон</Label>
+                          <Input 
+                            id="phone"
+                            type="tel"
+                            placeholder="+7 (999) 123-45-67"
+                            value={quizData.phone}
+                            onChange={(e) => setQuizData({...quizData, phone: e.target.value})}
+                            className="h-11"
+                          />
+                        </div>
                       </div>
                       <div>
-                        <Label htmlFor="phone" className="text-base mb-2 block">Ваш телефон</Label>
-                        <Input 
-                          id="phone"
-                          type="tel"
-                          placeholder="+7 (999) 123-45-67"
-                          value={quizData.phone}
-                          onChange={(e) => setQuizData({...quizData, phone: e.target.value})}
-                          className="text-lg p-6"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="email" className="text-base mb-2 block">Ваш email</Label>
+                        <Label htmlFor="email" className="text-sm mb-1.5 block">Комментарий</Label>
                         <Input 
                           id="email"
-                          type="email"
-                          placeholder="example@mail.ru"
+                          placeholder="Дополнительная информация о проекте"
                           value={quizData.email}
                           onChange={(e) => setQuizData({...quizData, email: e.target.value})}
-                          className="text-lg p-6"
+                          className="h-11"
                         />
                       </div>
                       <div>
-                        <Label htmlFor="files" className="text-base mb-2 block">Прикрепить ТЗ или чертеж</Label>
-                        <p className="text-sm text-muted-foreground mb-2">Любой формат (не более 10)</p>
-                        <div className="border-2 border-dashed border-border rounded-lg p-4 text-center hover:border-primary transition-colors cursor-pointer">
-                          <Icon name="Upload" size={24} className="mx-auto mb-1 text-muted-foreground" />
-                          <p className="text-xs text-muted-foreground">Нажмите для загрузки файлов</p>
+                        <div className="flex items-center justify-between gap-4">
+                          <div className="flex-1">
+                            <Label htmlFor="files" className="text-sm block mb-1">Прикрепить ТЗ или чертеж</Label>
+                            <p className="text-xs text-muted-foreground">Любой формат (не более 10)</p>
+                          </div>
+                          <Button variant="outline" size="sm" className="flex-shrink-0">
+                            <Icon name="Upload" size={16} className="mr-2" />
+                            Выбрать файлы
+                          </Button>
                         </div>
                       </div>
                     </div>
