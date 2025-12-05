@@ -1042,90 +1042,107 @@ const Index = () => {
       {/* Services Section - kept here for navigation anchor */}
       <section id="quiz"></section>
 
-      {/* Mobile Welding Services Section */}
-      <section className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-br from-background via-primary/5 to-background overflow-hidden">
+      {/* Welding Services Section */}
+      <section className="py-12 sm:py-16 md:py-20 px-4 bg-gradient-to-br from-background via-primary/5 to-background">
         <div className="container mx-auto max-w-7xl">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Image Side */}
-            <div className="relative group order-2 lg:order-1">
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-3xl blur-2xl group-hover:blur-3xl transition-all"></div>
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
+            {/* Left: Сварка металлоконструкций */}
+            <div className="relative group">
+              <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+              <div className="relative rounded-xl overflow-hidden shadow-xl bg-card border border-border/50">
                 <img 
                   src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/8ffb09ce-dc74-4edf-9227-4dc0c10d3fcb.jpg"
-                  alt="Выездные сварочные работы"
-                  className="w-full h-[400px] sm:h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-700"
+                  alt="Сварка металлоконструкций"
+                  className="w-full h-[280px] sm:h-[320px] object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                  <div className="flex items-center gap-3 text-white">
-                    <div className="w-12 h-12 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center">
-                      <Icon name="Zap" size={24} className="text-primary" />
+                <div className="p-5 sm:p-6">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-4">
+                    <Icon name="Flame" size={14} className="text-primary" />
+                    <span className="text-xs font-semibold text-primary">Производство</span>
+                  </div>
+                  
+                  <h3 className="text-xl sm:text-2xl font-bold mb-3 leading-tight">
+                    Сварка <span className="text-primary">металлоконструкций</span>
+                  </h3>
+                  
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    Полный цикл изготовления металлоконструкций на производстве. От простых изделий до сложных промышленных конструкций.
+                  </p>
+
+                  <div className="space-y-2.5 mb-5">
+                    <div className="flex items-start gap-3">
+                      <Icon name="CheckCircle2" size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-muted-foreground">Каркасы зданий и ангаров</p>
                     </div>
-                    <div>
-                      <p className="text-sm text-gray-300">Выезд в день обращения</p>
-                      <p className="font-bold text-lg">24/7 доступность</p>
+                    <div className="flex items-start gap-3">
+                      <Icon name="CheckCircle2" size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-muted-foreground">Антресольные этажи и площадки</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="CheckCircle2" size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-muted-foreground">Лестницы и ограждения</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="CheckCircle2" size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-muted-foreground">Нестандартные изделия</p>
                     </div>
                   </div>
+
+                  <Button size="lg" className="w-full metal-shine" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+                    <Icon name="Wrench" size={18} className="mr-2" />
+                    Заказать изготовление
+                  </Button>
                 </div>
               </div>
             </div>
 
-            {/* Content Side */}
-            <div className="order-1 lg:order-2">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-                <Icon name="Sparkles" size={16} className="text-primary" />
-                <span className="text-sm font-semibold text-primary">Мобильная сварка</span>
-              </div>
-              
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                Выездные <span className="text-primary">сварочные</span> работы
-              </h2>
-              
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                Профессиональная аргонодуговая сварка с выездом на ваш объект. Работаем со всеми типами металлов: от нержавейки до алюминия.
-              </p>
+            {/* Right: Выездные сварочные работы */}
+            <div className="relative group">
+              <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+              <div className="relative rounded-xl overflow-hidden shadow-xl bg-card border border-border/50">
+                <img 
+                  src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/8ffb09ce-dc74-4edf-9227-4dc0c10d3fcb.jpg"
+                  alt="Выездные сварочные работы"
+                  className="w-full h-[280px] sm:h-[320px] object-cover"
+                />
+                <div className="p-5 sm:p-6">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-4">
+                    <Icon name="Sparkles" size={14} className="text-primary" />
+                    <span className="text-xs font-semibold text-primary">Мобильная сварка</span>
+                  </div>
+                  
+                  <h3 className="text-xl sm:text-2xl font-bold mb-3 leading-tight">
+                    Выездные <span className="text-primary">сварочные</span> работы
+                  </h3>
+                  
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    Профессиональная сварка с выездом на ваш объект. Работаем со всеми типами металлов круглосуточно.
+                  </p>
 
-              <div className="space-y-4 mb-8">
-                <div className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border/50 hover:border-primary/50 transition-all group">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <Icon name="Clock" size={24} className="text-primary" />
+                  <div className="space-y-2.5 mb-5">
+                    <div className="flex items-start gap-3">
+                      <Icon name="Clock" size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-muted-foreground">Выезд в течение 2-4 часов</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="ShieldCheck" size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-muted-foreground">Профессиональное оборудование</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="Zap" size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-muted-foreground">Работаем 24/7 без выходных</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="ThumbsUp" size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-muted-foreground">Прозрачные цены</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">Быстрый выезд</h3>
-                    <p className="text-sm text-muted-foreground">Приезжаем в течение 2-4 часов после звонка. Работаем круглосуточно.</p>
-                  </div>
+
+                  <Button size="lg" className="w-full metal-shine" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+                    <Icon name="Phone" size={18} className="mr-2" />
+                    Вызвать сварщика
+                  </Button>
                 </div>
-
-                <div className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border/50 hover:border-primary/50 transition-all group">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <Icon name="ShieldCheck" size={24} className="text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">Профессиональное оборудование</h3>
-                    <p className="text-sm text-muted-foreground">Современные аппараты для TIG, MIG/MAG и ручной дуговой сварки.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border/50 hover:border-primary/50 transition-all group">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <Icon name="ThumbsUp" size={24} className="text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">Легко работать</h3>
-                    <p className="text-sm text-muted-foreground">Никаких скрытых платежей. Прозрачные цены и понятная коммуникация.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-4">
-                <Button size="lg" className="metal-shine text-base sm:text-lg px-6 sm:px-8" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
-                  <Icon name="Phone" size={20} className="mr-2" />
-                  Вызвать сварщика
-                </Button>
-                <Button size="lg" variant="outline" className="text-base sm:text-lg px-6 sm:px-8">
-                  <Icon name="FileText" size={20} className="mr-2" />
-                  Узнать цены
-                </Button>
               </div>
             </div>
           </div>
@@ -1231,88 +1248,80 @@ const Index = () => {
       {/* Testimonials Section */}
       <section className="py-12 sm:py-16 md:py-20 px-4 bg-gradient-to-b from-background to-primary/5">
         <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-8 sm:mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-              <Icon name="MessageSquare" size={16} className="text-primary" />
-              <span className="text-sm font-semibold text-primary">Отзывы</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3">
               Что говорят наши <span className="text-primary">клиенты</span>
             </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
               Более 500 успешных проектов и довольных заказчиков
             </p>
-            <Button size="lg" variant="outline" className="metal-shine">
-              <Icon name="PenSquare" size={20} className="mr-2" />
-              Оставить отзыв
-            </Button>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {/* Testimonial 1 */}
-            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300 group">
-              <CardContent className="p-4 sm:p-6">
-                <div className="flex items-center gap-1 mb-3">
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-0.5 mb-2">
                   {[...Array(5)].map((_, i) => (
-                    <Icon key={i} name="Star" className="w-4 h-4 fill-primary text-primary" />
+                    <Icon key={i} name="Star" className="w-3.5 h-3.5 fill-primary text-primary" />
                   ))}
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  Заказывали металлокаркас для склада. Работу выполнили качественно и в срок. Особенно порадовала оперативность менеджеров — всегда на связи, решают вопросы быстро.
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3">
+                  Заказывали металлокаркас для склада. Работу выполнили качественно и в срок. Особенно порадовала оперативность менеджеров.
                 </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
                     АС
                   </div>
                   <div>
-                    <p className="font-bold text-sm text-foreground">Алексей Смирнов</p>
-                    <p className="text-xs text-muted-foreground">ООО "СтройТехМонтаж"</p>
+                    <p className="font-bold text-xs text-foreground">Алексей Смирнов</p>
+                    <p className="text-[10px] text-muted-foreground">ООО "СтройТехМонтаж"</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Testimonial 2 */}
-            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300 group">
-              <CardContent className="p-4 sm:p-6">
-                <div className="flex items-center gap-1 mb-3">
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-0.5 mb-2">
                   {[...Array(5)].map((_, i) => (
-                    <Icon key={i} name="Star" className="w-4 h-4 fill-primary text-primary" />
+                    <Icon key={i} name="Star" className="w-3.5 h-3.5 fill-primary text-primary" />
                   ))}
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  Выездная сварка — настоящее спасение! Нужно было срочно отремонтировать конструкцию, приехали в течение 3 часов. Работают аккуратно, профессионально. Рекомендую!
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3">
+                  Выездная сварка — настоящее спасение! Приехали в течение 3 часов. Работают аккуратно, профессионально. Рекомендую!
                 </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
                     МК
                   </div>
                   <div>
-                    <p className="font-bold text-sm text-foreground">Марина Королёва</p>
-                    <p className="text-xs text-muted-foreground">ИП Королёва М.В.</p>
+                    <p className="font-bold text-xs text-foreground">Марина Королёва</p>
+                    <p className="text-[10px] text-muted-foreground">ИП Королёва М.В.</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Testimonial 3 */}
-            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300 group">
-              <CardContent className="p-4 sm:p-6">
-                <div className="flex items-center gap-1 mb-3">
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-0.5 mb-2">
                   {[...Array(5)].map((_, i) => (
-                    <Icon key={i} name="Star" className="w-4 h-4 fill-primary text-primary" />
+                    <Icon key={i} name="Star" className="w-3.5 h-3.5 fill-primary text-primary" />
                   ))}
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  Делали антресольный этаж на производстве. Проект сложный, но ребята справились на отлично. Все по чертежам, качество на высоте. Цена адекватная.
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3">
+                  Делали антресольный этаж на производстве. Проект сложный, но ребята справились на отлично. Качество на высоте.
                 </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
                     ДП
                   </div>
                   <div>
-                    <p className="font-bold text-sm text-foreground">Дмитрий Петров</p>
-                    <p className="text-xs text-muted-foreground">Завод "Технопром"</p>
+                    <p className="font-bold text-xs text-foreground">Дмитрий Петров</p>
+                    <p className="text-[10px] text-muted-foreground">Завод "Технопром"</p>
                   </div>
                 </div>
               </CardContent>
