@@ -1247,6 +1247,184 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-background to-primary/5">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+              <Icon name="MessageSquare" size={16} className="text-primary" />
+              <span className="text-sm font-semibold text-primary">Отзывы</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+              Что говорят наши <span className="text-primary">клиенты</span>
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              Более 500 успешных проектов и довольных заказчиков
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {/* Testimonial 1 */}
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300 group">
+              <CardContent className="p-6 sm:p-8">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Icon key={i} name="Star" className="w-5 h-5 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Заказывали металлокаркас для склада. Работу выполнили качественно и в срок. Особенно порадовала оперативность менеджеров — всегда на связи, решают вопросы быстро.
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
+                    АС
+                  </div>
+                  <div>
+                    <p className="font-bold text-foreground">Алексей Смирнов</p>
+                    <p className="text-sm text-muted-foreground">ООО "СтройТехМонтаж"</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 2 */}
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300 group">
+              <CardContent className="p-6 sm:p-8">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Icon key={i} name="Star" className="w-5 h-5 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Выездная сварка — настоящее спасение! Нужно было срочно отремонтировать конструкцию, приехали в течение 3 часов. Работают аккуратно, профессионально. Рекомендую!
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
+                    МК
+                  </div>
+                  <div>
+                    <p className="font-bold text-foreground">Марина Королёва</p>
+                    <p className="text-sm text-muted-foreground">ИП Королёва М.В.</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 3 */}
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300 group">
+              <CardContent className="p-6 sm:p-8">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Icon key={i} name="Star" className="w-5 h-5 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Делали антресольный этаж на производстве. Проект сложный, но ребята справились на отлично. Все по чертежам, качество на высоте. Цена адекватная.
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
+                    ДП
+                  </div>
+                  <div>
+                    <p className="font-bold text-foreground">Дмитрий Петров</p>
+                    <p className="text-sm text-muted-foreground">Завод "Технопром"</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 4 */}
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300 group">
+              <CardContent className="p-6 sm:p-8">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Icon key={i} name="Star" className="w-5 h-5 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Заказывали навес для парковки. От замера до монтажа всё прошло гладко. Понравилось, что менеджер всегда держал в курсе, не надо было выпытывать информацию.
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
+                    ЕН
+                  </div>
+                  <div>
+                    <p className="font-bold text-foreground">Елена Новикова</p>
+                    <p className="text-sm text-muted-foreground">Частный заказчик</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 5 */}
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300 group">
+              <CardContent className="p-6 sm:p-8">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Icon key={i} name="Star" className="w-5 h-5 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Сотрудничаем уже второй год. Изготавливают металлоконструкции для наших объектов. Всегда точно в срок, качество стабильное. Надёжные партнёры.
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
+                    ИГ
+                  </div>
+                  <div>
+                    <p className="font-bold text-foreground">Игорь Григорьев</p>
+                    <p className="text-sm text-muted-foreground">ГК "СтройРесурс"</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 6 */}
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300 group">
+              <CardContent className="p-6 sm:p-8">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Icon key={i} name="Star" className="w-5 h-5 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Нужна была аргонная сварка нержавейки. Сделали аккуратно, швы ровные. Мастер работал профессионально, объяснял каждый этап. Очень доволен результатом!
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
+                    СВ
+                  </div>
+                  <div>
+                    <p className="font-bold text-foreground">Сергей Волков</p>
+                    <p className="text-sm text-muted-foreground">Кафе "Гурман"</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+            <div className="text-center p-6 rounded-xl bg-card border border-border/50">
+              <div className="text-4xl font-bold text-primary mb-2">98%</div>
+              <p className="text-sm text-muted-foreground">Повторных обращений</p>
+            </div>
+            <div className="text-center p-6 rounded-xl bg-card border border-border/50">
+              <div className="text-4xl font-bold text-primary mb-2">4.9</div>
+              <p className="text-sm text-muted-foreground">Средняя оценка</p>
+            </div>
+            <div className="text-center p-6 rounded-xl bg-card border border-border/50">
+              <div className="text-4xl font-bold text-primary mb-2">500+</div>
+              <p className="text-sm text-muted-foreground">Довольных клиентов</p>
+            </div>
+            <div className="text-center p-6 rounded-xl bg-card border border-border/50">
+              <div className="text-4xl font-bold text-primary mb-2">15</div>
+              <p className="text-sm text-muted-foreground">Лет на рынке</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Us - Creative Block */}
       <section className="py-12 sm:py-16 md:py-20 px-4 overflow-hidden">
         <div className="container mx-auto max-w-7xl">
