@@ -1737,9 +1737,10 @@ const Index = () => {
               <CardContent className="p-0 flex flex-col h-full">
                 <div className="relative h-56 sm:h-72 overflow-hidden flex-shrink-0">
                   <img 
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=400&fit=crop"
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=600&fit=crop&crop=faces"
                     alt="Менеджер"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center"
+                    style={{ objectPosition: 'center 20%' }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                   <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">

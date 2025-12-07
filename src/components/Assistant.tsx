@@ -37,6 +37,13 @@ const Assistant = () => {
       setMessage('');
       
       setTimeout(() => {
+        // Play notification sound
+        const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYHGmi77eWeTRAMUKXh8LdjHAU7k9r0yXkpBSl+zPLaizsIHWm98OScTQ4PWKzn77FgGAc0jdf0xnkpBSl/zPDaizwJHmq+8OSbTRAOWK3o8LJeGgc0jdf0xXkqBCh/zPDaizwKH2q+8OObTBEPWKzn77FgGAc0jdf0xnkpBSl+zPDaizwJHmq+8OSbTBAOWK3o8LJeGgc0jdf0xXkqBCh/zPDaizwKH2q+8OObTBEPWKzn77FgGAc0jdf0xnkpBSl+zPDaizwJHmq+8OSbTBAOWK3o8LJeGgc0jdf0xXkqBCh/zPDaizwKH2q+8OObTBEPWKzn77FgGAc0jdf0xnkpBSl+zPDaizwJHmq+8OSbTBAOWK3o8LJeGAc0jdf0xXkqBCh/zPDaizwKH2q+8OObTBEPWKzn77FgGAc0jdf0xnkpBSl+zPDaizwJHmq+8OSbTBAOWK3o8LJeGAc0jdf0xXkqBCh/zPDaizwKH2q+8OObTBEPWKzn77FgGAc0jdf0xnkpBSl+zPDaizwJHmq+8OSbTBAOWK3o8LJeGAc0jdf0');
+        audio.volume = 0.3;
+        audio.play().catch(() => {
+          // Ignore autoplay restrictions
+        });
+        
         setMessages(prev => [...prev, {
           text: 'Спасибо за ваш вопрос! Наш менеджер ответит вам в ближайшее время. Или вы можете позвонить нам прямо сейчас.',
           isUser: false,
@@ -56,9 +63,8 @@ const Assistant = () => {
             className="relative group"
             aria-label="Открыть чат"
           >
-            {/* Pulsing ring - multiple layers for better visibility */}
-            <div className="absolute -inset-2 rounded-full bg-primary/30 animate-ping"></div>
-            <div className="absolute -inset-1 rounded-full bg-primary/20 animate-pulse"></div>
+            {/* Static subtle glow - no animation */}
+            <div className="absolute -inset-2 rounded-full bg-primary/10 blur-md"></div>
             
             {/* Avatar button */}
             <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full overflow-hidden shadow-2xl ring-4 ring-card group-hover:ring-primary transition-all duration-300 group-hover:scale-110 bg-card">
@@ -68,8 +74,8 @@ const Assistant = () => {
                 className="w-full h-full object-cover"
                 loading="eager"
               />
-              {/* Online indicator */}
-              <div className="absolute bottom-0.5 right-0.5 w-4 h-4 bg-green-500 rounded-full ring-2 ring-card animate-pulse"></div>
+              {/* Online indicator - static, no pulse */}
+              <div className="absolute bottom-0.5 right-0.5 w-4 h-4 bg-green-500 rounded-full ring-2 ring-card"></div>
             </div>
 
             {/* Message icon overlay */}
@@ -236,6 +242,18 @@ const Assistant = () => {
                     </Button>
                   </div>
                 )}
+
+                {/* Call Now Button - Always visible */}
+                <div className="px-4 pb-3">
+                  <Button
+                    size="sm"
+                    className="w-full metal-shine h-11"
+                    onClick={() => window.location.href = 'tel:+79000000000'}
+                  >
+                    <Icon name="Phone" size={16} className="mr-2" />
+                    Позвонить прямо сейчас
+                  </Button>
+                </div>
 
                 {/* Input */}
                 <div className="p-4 border-t border-border/50 bg-card">
