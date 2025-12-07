@@ -37,12 +37,42 @@ const Assistant = () => {
       setMessage('');
       
       setTimeout(() => {
-        // Play notification sound
-        const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYHGmi77eWeTRAMUKXh8LdjHAU7k9r0yXkpBSl+zPLaizsIHWm98OScTQ4PWKzn77FgGAc0jdf0xnkpBSl/zPDaizwJHmq+8OSbTRAOWK3o8LJeGgc0jdf0xXkqBCh/zPDaizwKH2q+8OObTBEPWKzn77FgGAc0jdf0xnkpBSl+zPDaizwJHmq+8OSbTBAOWK3o8LJeGgc0jdf0xXkqBCh/zPDaizwKH2q+8OObTBEPWKzn77FgGAc0jdf0xnkpBSl+zPDaizwJHmq+8OSbTBAOWK3o8LJeGgc0jdf0xXkqBCh/zPDaizwKH2q+8OObTBEPWKzn77FgGAc0jdf0xnkpBSl+zPDaizwJHmq+8OSbTBAOWK3o8LJeGAc0jdf0xXkqBCh/zPDaizwKH2q+8OObTBEPWKzn77FgGAc0jdf0xnkpBSl+zPDaizwJHmq+8OSbTBAOWK3o8LJeGAc0jdf0xXkqBCh/zPDaizwKH2q+8OObTBEPWKzn77FgGAc0jdf0xnkpBSl+zPDaizwJHmq+8OSbTBAOWK3o8LJeGAc0jdf0');
-        audio.volume = 0.3;
-        audio.play().catch(() => {
-          // Ignore autoplay restrictions
-        });
+        // Play pleasant notification sound (soft bell)
+        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.value = 800;
+        oscillator.type = 'sine';
+        
+        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+        gainNode.gain.linearRampToValueAtTime(0.15, audioContext.currentTime + 0.01);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.4);
+        
+        // Second tone for pleasant bell effect
+        setTimeout(() => {
+          const osc2 = audioContext.createOscillator();
+          const gain2 = audioContext.createGain();
+          
+          osc2.connect(gain2);
+          gain2.connect(audioContext.destination);
+          
+          osc2.frequency.value = 1000;
+          osc2.type = 'sine';
+          
+          gain2.gain.setValueAtTime(0, audioContext.currentTime);
+          gain2.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.01);
+          gain2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.35);
+          
+          osc2.start(audioContext.currentTime);
+          osc2.stop(audioContext.currentTime + 0.35);
+        }, 50);
         
         setMessages(prev => [...prev, {
           text: 'Спасибо за ваш вопрос! Наш менеджер ответит вам в ближайшее время. Или вы можете позвонить нам прямо сейчас.',
