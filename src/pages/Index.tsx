@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import Icon from '@/components/ui/icon';
 import { toast } from 'sonner';
+import Assistant from '@/components/Assistant';
 
 const Index = () => {
   const [quizStep, setQuizStep] = useState(0);
@@ -1198,7 +1199,7 @@ const Index = () => {
             {/* Carousel Container */}
             <div className="overflow-hidden" ref={galleryRef}>
               <div 
-                className="flex items-center gap-4 sm:gap-8 transition-transform duration-700 ease-in-out py-6 sm:py-8"
+                className="flex items-center gap-3 sm:gap-8 transition-transform duration-700 ease-in-out py-6 sm:py-8"
                 style={{
                   transform: `translateX(calc(50% - ${currentGalleryIndex * 632}px - 300px))`
                 }}
@@ -1212,12 +1213,12 @@ const Index = () => {
                     <div
                       key={index}
                       onClick={() => setCurrentGalleryIndex(index)}
-                      className={`relative flex-shrink-0 rounded-xl sm:rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${
+                      className={`relative flex-shrink-0 rounded-lg sm:rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${
                         isCenter 
-                          ? 'w-[280px] h-[200px] sm:w-[600px] sm:h-[400px] scale-105 z-30 shadow-2xl' 
+                          ? 'w-[300px] h-[240px] sm:w-[600px] sm:h-[400px] scale-105 z-30 shadow-2xl' 
                           : isNear 
-                          ? 'w-[280px] h-[200px] sm:w-[600px] sm:h-[400px] scale-90 z-20 opacity-40' 
-                          : 'w-[280px] h-[200px] sm:w-[600px] sm:h-[400px] scale-75 z-10 opacity-20'
+                          ? 'w-[300px] h-[240px] sm:w-[600px] sm:h-[400px] scale-90 z-20 opacity-40' 
+                          : 'w-[300px] h-[240px] sm:w-[600px] sm:h-[400px] scale-75 z-10 opacity-20'
                       }`}
                     >
                       <img 
@@ -1842,6 +1843,9 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Assistant Widget */}
+      <Assistant />
     </div>
   );
 };
