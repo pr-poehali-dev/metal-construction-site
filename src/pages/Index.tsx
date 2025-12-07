@@ -28,10 +28,21 @@ const Index = () => {
   const [parallaxOffset, setParallaxOffset] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isQuizTransitioning, setIsQuizTransitioning] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const galleryRef = useRef<HTMLDivElement>(null);
   const quizRef = useRef<HTMLDivElement>(null);
 
   const isWeldingFlow = quizData.type === 'выездная';
+
+  // Detect mobile for gallery positioning
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   const totalSteps = isWeldingFlow ? 5 : 6;
 
   // Parallax effect
@@ -1197,11 +1208,13 @@ const Index = () => {
           
           <div className="relative max-w-[1400px] mx-auto">
             {/* Carousel Container */}
-            <div className="overflow-hidden px-2 sm:px-0" ref={galleryRef}>
+            <div className="overflow-hidden" ref={galleryRef}>
               <div 
-                className="flex items-center gap-3 sm:gap-8 transition-transform duration-700 ease-in-out py-6 sm:py-8"
+                className="flex items-center gap-4 sm:gap-8 transition-transform duration-700 ease-in-out py-6 sm:py-8"
                 style={{
-                  transform: `translateX(calc(50% - ${currentGalleryIndex * 632}px - 300px))`
+                  transform: isMobile
+                    ? `translateX(calc(50vw - ${currentGalleryIndex * (85 + 1.5)}vw - 42.5vw))` 
+                    : `translateX(calc(50% - ${currentGalleryIndex * 632}px - 300px))`
                 }}
               >
                 {gallery.map((item, index) => {
@@ -1213,12 +1226,12 @@ const Index = () => {
                     <div
                       key={index}
                       onClick={() => setCurrentGalleryIndex(index)}
-                      className={`relative flex-shrink-0 rounded-xl sm:rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${
+                      className={`relative flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${
                         isCenter 
-                          ? 'w-[85vw] h-[320px] sm:w-[600px] sm:h-[400px] scale-100 sm:scale-105 z-30 shadow-2xl' 
+                          ? 'w-[85vw] max-w-[400px] h-[350px] sm:w-[600px] sm:h-[400px] scale-100 sm:scale-105 z-30 shadow-2xl' 
                           : isNear 
-                          ? 'w-[85vw] h-[320px] sm:w-[600px] sm:h-[400px] scale-90 z-20 opacity-40' 
-                          : 'w-[85vw] h-[320px] sm:w-[600px] sm:h-[400px] scale-75 z-10 opacity-20'
+                          ? 'w-[85vw] max-w-[400px] h-[350px] sm:w-[600px] sm:h-[400px] scale-90 sm:scale-90 z-20 opacity-40' 
+                          : 'w-[85vw] max-w-[400px] h-[350px] sm:w-[600px] sm:h-[400px] scale-75 z-10 opacity-20'
                       }`}
                     >
                       <img 

@@ -50,38 +50,40 @@ const Assistant = () => {
     <>
       {/* Floating Button with Avatar */}
       {!isOpen && (
-        <button
-          onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 z-50 group"
-          aria-label="Открыть чат"
-        >
-          <div className="relative">
-            {/* Pulsing ring */}
-            <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping"></div>
+        <div className="fixed bottom-6 right-6 z-[100]">
+          <button
+            onClick={() => setIsOpen(true)}
+            className="relative group"
+            aria-label="Открыть чат"
+          >
+            {/* Pulsing ring - multiple layers for better visibility */}
+            <div className="absolute -inset-2 rounded-full bg-primary/30 animate-ping"></div>
+            <div className="absolute -inset-1 rounded-full bg-primary/20 animate-pulse"></div>
             
             {/* Avatar button */}
-            <div className="relative w-16 h-16 rounded-full overflow-hidden shadow-2xl ring-4 ring-background group-hover:ring-primary/50 transition-all duration-300 group-hover:scale-110">
+            <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full overflow-hidden shadow-2xl ring-4 ring-card group-hover:ring-primary transition-all duration-300 group-hover:scale-110 bg-card">
               <img 
                 src="https://cdn.poehali.dev/files/2025-12-08_00-26-02.png" 
-                alt="Виктория"
+                alt="Виктория - Онлайн консультант"
                 className="w-full h-full object-cover"
+                loading="eager"
               />
               {/* Online indicator */}
-              <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full ring-2 ring-background"></div>
+              <div className="absolute bottom-0.5 right-0.5 w-4 h-4 bg-green-500 rounded-full ring-2 ring-card animate-pulse"></div>
             </div>
 
             {/* Message icon overlay */}
-            <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-primary rounded-full flex items-center justify-center shadow-lg">
-              <Icon name="MessageCircle" size={16} className="text-white" />
+            <div className="absolute -bottom-1 -right-1 w-9 h-9 bg-primary rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+              <Icon name="MessageCircle" size={18} className="text-white" />
             </div>
-          </div>
-        </button>
+          </button>
+        </div>
       )}
 
       {/* Assistant Widget */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-[90vw] max-w-[380px]">
-          <div className="bg-card border border-border/50 rounded-2xl shadow-2xl overflow-hidden">
+        <div className="fixed bottom-6 right-6 z-[100] w-[90vw] max-w-[400px]">
+          <div className="bg-card border border-border/50 rounded-2xl shadow-2xl overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-border/50 bg-gradient-to-r from-primary/10 to-primary/5">
               <div className="flex items-center gap-3">
