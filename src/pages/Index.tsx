@@ -1197,7 +1197,7 @@ const Index = () => {
           
           <div className="relative max-w-[1400px] mx-auto">
             {/* Carousel Container */}
-            <div className="overflow-hidden" ref={galleryRef}>
+            <div className="overflow-hidden px-2 sm:px-0" ref={galleryRef}>
               <div 
                 className="flex items-center gap-3 sm:gap-8 transition-transform duration-700 ease-in-out py-6 sm:py-8"
                 style={{
@@ -1213,12 +1213,12 @@ const Index = () => {
                     <div
                       key={index}
                       onClick={() => setCurrentGalleryIndex(index)}
-                      className={`relative flex-shrink-0 rounded-lg sm:rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${
+                      className={`relative flex-shrink-0 rounded-xl sm:rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${
                         isCenter 
-                          ? 'w-[300px] h-[240px] sm:w-[600px] sm:h-[400px] scale-105 z-30 shadow-2xl' 
+                          ? 'w-[85vw] h-[320px] sm:w-[600px] sm:h-[400px] scale-100 sm:scale-105 z-30 shadow-2xl' 
                           : isNear 
-                          ? 'w-[300px] h-[240px] sm:w-[600px] sm:h-[400px] scale-90 z-20 opacity-40' 
-                          : 'w-[300px] h-[240px] sm:w-[600px] sm:h-[400px] scale-75 z-10 opacity-20'
+                          ? 'w-[85vw] h-[320px] sm:w-[600px] sm:h-[400px] scale-90 z-20 opacity-40' 
+                          : 'w-[85vw] h-[320px] sm:w-[600px] sm:h-[400px] scale-75 z-10 opacity-20'
                       }`}
                     >
                       <img 
@@ -1231,9 +1231,9 @@ const Index = () => {
                       }`}></div>
                       {isCenter && (
                         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex items-end">
-                          <div className="p-4 sm:p-6 md:p-8 w-full">
-                            <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white mb-2 leading-tight">{item.title}</h3>
-                            <div className="h-1 w-16 sm:w-20 bg-primary rounded-full"></div>
+                          <div className="p-5 sm:p-6 md:p-8 w-full">
+                            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 leading-tight">{item.title}</h3>
+                            <div className="h-1 w-20 bg-primary rounded-full"></div>
                           </div>
                         </div>
                       )}
@@ -1243,36 +1243,36 @@ const Index = () => {
               </div>
             </div>
             
-            {/* Navigation Buttons */}
+            {/* Navigation Buttons - Always visible on all screens */}
             <Button
               variant="outline"
               size="icon"
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-40 w-12 h-12 rounded-full bg-background/80 backdrop-blur border-primary/50 hover:bg-primary hover:border-primary"
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-background/90 backdrop-blur border-primary/50 hover:bg-primary hover:border-primary shadow-xl disabled:opacity-30 disabled:cursor-not-allowed"
               onClick={() => setCurrentGalleryIndex(Math.max(0, currentGalleryIndex - 1))}
               disabled={currentGalleryIndex === 0}
             >
-              <Icon name="ChevronLeft" size={24} />
+              <Icon name="ChevronLeft" size={22} />
             </Button>
             <Button
               variant="outline"
               size="icon"
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-40 w-12 h-12 rounded-full bg-background/80 backdrop-blur border-primary/50 hover:bg-primary hover:border-primary"
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-background/90 backdrop-blur border-primary/50 hover:bg-primary hover:border-primary shadow-xl disabled:opacity-30 disabled:cursor-not-allowed"
               onClick={() => setCurrentGalleryIndex(Math.min(gallery.length - 1, currentGalleryIndex + 1))}
               disabled={currentGalleryIndex === gallery.length - 1}
             >
-              <Icon name="ChevronRight" size={24} />
+              <Icon name="ChevronRight" size={22} />
             </Button>
             
             {/* Dots Indicator */}
-            <div className="flex justify-center gap-2 mt-8">
+            <div className="flex justify-center gap-2 mt-6 sm:mt-8">
               {gallery.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentGalleryIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${
+                  className={`h-2.5 rounded-full transition-all ${
                     index === currentGalleryIndex 
                       ? 'bg-primary w-8' 
-                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/50 w-2.5'
                   }`}
                 />
               ))}

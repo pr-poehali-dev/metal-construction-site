@@ -1,165 +1,261 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 const Assistant = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(true);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean; time: string }>>([]);
+
+  const handleAuth = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (name && phone) {
+      setIsAuthorized(true);
+      setMessages([
+        {
+          text: `Здравствуйте, ${name}! Я готова ответить на ваши вопросы. Чем могу помочь?`,
+          isUser: false,
+          time: 'Только что'
+        }
+      ]);
+    }
+  };
+
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (message.trim()) {
+      setMessages([...messages, {
+        text: message,
+        isUser: true,
+        time: 'Только что'
+      }]);
+      setMessage('');
+      
+      setTimeout(() => {
+        setMessages(prev => [...prev, {
+          text: 'Спасибо за ваш вопрос! Наш менеджер ответит вам в ближайшее время. Или вы можете позвонить нам прямо сейчас.',
+          isUser: false,
+          time: 'Только что'
+        }]);
+      }, 1000);
+    }
+  };
 
   return (
     <>
-      {/* Floating Button */}
-      {isMinimized && (
-        <Button
-          onClick={() => {
-            setIsMinimized(false);
-            setIsOpen(true);
-          }}
-          className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full shadow-2xl metal-shine p-0 hover:scale-110 transition-transform duration-300"
+      {/* Floating Button with Avatar */}
+      {!isOpen && (
+        <button
+          onClick={() => setIsOpen(true)}
+          className="fixed bottom-6 right-6 z-50 group"
+          aria-label="Открыть чат"
         >
-          <Icon name="MessageCircle" size={28} />
-        </Button>
+          <div className="relative">
+            {/* Pulsing ring */}
+            <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping"></div>
+            
+            {/* Avatar button */}
+            <div className="relative w-16 h-16 rounded-full overflow-hidden shadow-2xl ring-4 ring-background group-hover:ring-primary/50 transition-all duration-300 group-hover:scale-110">
+              <img 
+                src="https://cdn.poehali.dev/files/2025-12-08_00-26-02.png" 
+                alt="Виктория"
+                className="w-full h-full object-cover"
+              />
+              {/* Online indicator */}
+              <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full ring-2 ring-background"></div>
+            </div>
+
+            {/* Message icon overlay */}
+            <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-primary rounded-full flex items-center justify-center shadow-lg">
+              <Icon name="MessageCircle" size={16} className="text-white" />
+            </div>
+          </div>
+        </button>
       )}
 
       {/* Assistant Widget */}
-      {!isMinimized && (
-        <div className="fixed bottom-6 right-6 z-50 w-[340px] sm:w-[380px]">
-          {/* Main Card */}
+      {isOpen && (
+        <div className="fixed bottom-6 right-6 z-50 w-[90vw] max-w-[380px]">
           <div className="bg-card border border-border/50 rounded-2xl shadow-2xl overflow-hidden">
-            {isOpen ? (
-              <>
-                {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b border-border/50 bg-gradient-to-r from-primary/5 to-primary/10">
-                  <div className="flex items-center gap-3">
-                    <div className="relative">
-                      <img 
-                        src="https://cdn.poehali.dev/files/2025-12-08_00-26-02.png" 
-                        alt="Виктория"
-                        className="w-12 h-12 rounded-full object-cover ring-2 ring-primary/30"
-                      />
-                      <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full ring-2 ring-card"></div>
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-sm">Виктория</h3>
-                      <p className="text-xs text-muted-foreground">Онлайн</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <Icon name="Minus" size={16} />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8"
-                      onClick={() => setIsMinimized(true)}
-                    >
-                      <Icon name="X" size={16} />
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Chat Body */}
-                <div className="p-4 h-[300px] overflow-y-auto bg-gradient-to-b from-background to-primary/5">
-                  {/* Welcome Message */}
-                  <div className="flex gap-3 mb-4">
-                    <img 
-                      src="https://cdn.poehali.dev/files/2025-12-08_00-26-02.png" 
-                      alt="Виктория"
-                      className="w-9 h-9 rounded-full object-cover flex-shrink-0"
-                    />
-                    <div className="bg-card border border-border/50 rounded-2xl rounded-tl-none p-3 max-w-[240px] shadow-sm">
-                      <p className="text-sm leading-relaxed">
-                        Здравствуйте! Готова помочь вам. Напишите мне, если у вас появятся вопросы.
-                      </p>
-                      <span className="text-xs text-muted-foreground mt-1 block">Только что</span>
-                    </div>
-                  </div>
-
-                  {/* Quick Actions */}
-                  <div className="space-y-2">
-                    <p className="text-xs text-muted-foreground px-1">Быстрые действия:</p>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full justify-start text-left h-auto py-3 px-4"
-                      onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      <Icon name="Phone" size={16} className="mr-2 flex-shrink-0" />
-                      <span className="text-sm">Заказать консультацию</span>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full justify-start text-left h-auto py-3 px-4"
-                      onClick={() => document.getElementById('quiz')?.scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      <Icon name="FileText" size={16} className="mr-2 flex-shrink-0" />
-                      <span className="text-sm">Рассчитать стоимость</span>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full justify-start text-left h-auto py-3 px-4"
-                      onClick={() => window.open('https://wa.me/79000000000', '_blank')}
-                    >
-                      <Icon name="MessageSquare" size={16} className="mr-2 flex-shrink-0" />
-                      <span className="text-sm">Написать в WhatsApp</span>
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Input Footer */}
-                <div className="p-4 border-t border-border/50 bg-card">
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      placeholder="Напишите сообщение..."
-                      className="flex-1 px-4 py-2 rounded-full bg-background border border-border/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    />
-                    <Button size="icon" className="rounded-full metal-shine flex-shrink-0">
-                      <Icon name="Send" size={18} />
-                    </Button>
-                  </div>
-                </div>
-              </>
-            ) : (
-              /* Minimized Preview */
-              <div 
-                className="flex items-start gap-3 p-4 cursor-pointer hover:bg-primary/5 transition-colors"
-                onClick={() => setIsOpen(true)}
-              >
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b border-border/50 bg-gradient-to-r from-primary/10 to-primary/5">
+              <div className="flex items-center gap-3">
                 <div className="relative">
                   <img 
                     src="https://cdn.poehali.dev/files/2025-12-08_00-26-02.png" 
                     alt="Виктория"
-                    className="w-12 h-12 rounded-full object-cover ring-2 ring-primary/30"
+                    className="w-11 h-11 rounded-full object-cover ring-2 ring-primary/30"
                   />
                   <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full ring-2 ring-card"></div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-sm mb-1">Виктория</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Здравствуйте! Готова помочь вам. Напишите мне, если у вас появятся вопросы.
+                <div>
+                  <h3 className="font-bold text-sm">Виктория</h3>
+                  <p className="text-xs text-muted-foreground">Онлайн • Ответит в течение минуты</p>
+                </div>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 hover:bg-primary/10"
+                onClick={() => setIsOpen(false)}
+              >
+                <Icon name="X" size={18} />
+              </Button>
+            </div>
+
+            {!isAuthorized ? (
+              /* Authorization Form */
+              <div className="p-6">
+                <div className="text-center mb-6">
+                  <h3 className="text-lg font-bold mb-2">Добро пожаловать!</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Представьтесь, чтобы мы могли начать диалог
                   </p>
                 </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 flex-shrink-0"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setIsMinimized(true);
-                  }}
-                >
-                  <Icon name="X" size={16} />
-                </Button>
+                
+                <form onSubmit={handleAuth} className="space-y-4">
+                  <div>
+                    <Label htmlFor="chat-name" className="text-sm">Ваше имя</Label>
+                    <Input
+                      id="chat-name"
+                      placeholder="Иван"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                      className="mt-1.5 h-11"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="chat-phone" className="text-sm">Телефон</Label>
+                    <Input
+                      id="chat-phone"
+                      type="tel"
+                      placeholder="+7 (999) 123-45-67"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                      className="mt-1.5 h-11"
+                    />
+                  </div>
+                  
+                  <Button type="submit" className="w-full metal-shine h-11">
+                    <Icon name="MessageSquare" size={18} className="mr-2" />
+                    Начать диалог
+                  </Button>
+                </form>
+
+                {/* Quick Actions */}
+                <div className="mt-6 pt-6 border-t border-border/50">
+                  <p className="text-xs text-muted-foreground mb-3 text-center">Или свяжитесь другим способом:</p>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-1 text-xs"
+                      onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
+                      <Icon name="Phone" size={14} className="mr-1.5" />
+                      Позвонить
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-1 text-xs"
+                      onClick={() => window.open('https://wa.me/79000000000', '_blank')}
+                    >
+                      <Icon name="MessageCircle" size={14} className="mr-1.5" />
+                      WhatsApp
+                    </Button>
+                  </div>
+                </div>
               </div>
+            ) : (
+              /* Chat Interface */
+              <>
+                {/* Messages */}
+                <div className="p-4 h-[350px] overflow-y-auto bg-gradient-to-b from-background to-primary/5">
+                  {messages.map((msg, index) => (
+                    <div key={index} className={`flex gap-2.5 mb-4 ${msg.isUser ? 'flex-row-reverse' : ''}`}>
+                      {!msg.isUser && (
+                        <img 
+                          src="https://cdn.poehali.dev/files/2025-12-08_00-26-02.png" 
+                          alt="Виктория"
+                          className="w-8 h-8 rounded-full object-cover flex-shrink-0"
+                        />
+                      )}
+                      <div className={`rounded-2xl p-3 max-w-[75%] shadow-sm ${
+                        msg.isUser 
+                          ? 'bg-primary text-primary-foreground rounded-tr-none' 
+                          : 'bg-card border border-border/50 rounded-tl-none'
+                      }`}>
+                        <p className="text-sm leading-relaxed">{msg.text}</p>
+                        <span className={`text-xs mt-1.5 block ${
+                          msg.isUser ? 'text-primary-foreground/70' : 'text-muted-foreground'
+                        }`}>
+                          {msg.time}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Quick Actions in Chat */}
+                {messages.length === 1 && (
+                  <div className="px-4 pb-4 space-y-2">
+                    <p className="text-xs text-muted-foreground mb-2">Популярные вопросы:</p>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full justify-start text-left h-auto py-2.5 px-3 text-xs"
+                      onClick={() => setMessage('Хочу узнать стоимость сварочных работ')}
+                    >
+                      💰 Узнать стоимость работ
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full justify-start text-left h-auto py-2.5 px-3 text-xs"
+                      onClick={() => setMessage('Как быстро можете выехать на объект?')}
+                    >
+                      ⚡ Как быстро можете выехать?
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full justify-start text-left h-auto py-2.5 px-3 text-xs"
+                      onClick={() => setMessage('Какие гарантии вы даёте?')}
+                    >
+                      🛡️ Какие гарантии на работы?
+                    </Button>
+                  </div>
+                )}
+
+                {/* Input */}
+                <div className="p-4 border-t border-border/50 bg-card">
+                  <form onSubmit={handleSendMessage} className="flex gap-2">
+                    <Input
+                      type="text"
+                      placeholder="Напишите сообщение..."
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      className="flex-1 h-10 rounded-full"
+                    />
+                    <Button 
+                      type="submit" 
+                      size="icon" 
+                      className="rounded-full metal-shine flex-shrink-0 h-10 w-10"
+                      disabled={!message.trim()}
+                    >
+                      <Icon name="Send" size={16} />
+                    </Button>
+                  </form>
+                </div>
+              </>
             )}
           </div>
         </div>
