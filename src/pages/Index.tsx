@@ -911,7 +911,7 @@ const Index = () => {
                         />
                       </div>
                       <div>
-                        <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center justify-between gap-4 mb-3">
                           <div className="flex-1">
                             <Label htmlFor="files" className="text-sm block mb-1">Прикрепить ТЗ или чертеж</Label>
                             <p className="text-xs text-muted-foreground">Любой формат (не более 10)</p>
@@ -937,6 +937,30 @@ const Index = () => {
                             }}
                           />
                         </div>
+                        {quizData.files.length > 0 && (
+                          <div className="space-y-2">
+                            {quizData.files.map((fileName, index) => (
+                              <div key={index} className="flex items-center justify-between gap-2 p-2 bg-muted/50 rounded-lg border border-border/50">
+                                <div className="flex items-center gap-2 flex-1 min-w-0">
+                                  <Icon name="File" size={16} className="text-primary flex-shrink-0" />
+                                  <span className="text-sm text-foreground truncate">{fileName}</span>
+                                </div>
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="h-7 w-7 p-0 flex-shrink-0"
+                                  onClick={() => {
+                                    const newFiles = quizData.files.filter((_, i) => i !== index);
+                                    setQuizData({...quizData, files: newFiles});
+                                    toast.success('Файл удалён');
+                                  }}
+                                >
+                                  <Icon name="X" size={14} />
+                                </Button>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="p-4 bg-primary/10 border border-primary/20 rounded-lg">
@@ -1643,7 +1667,7 @@ const Index = () => {
                   <div className="text-sm sm:text-base text-muted-foreground">Завершённых проектов</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl sm:text-5xl font-bold text-primary mb-2">15</div>
+                  <div className="text-3xl sm:text-5xl font-bold text-primary mb-2">10</div>
                   <div className="text-sm sm:text-base text-muted-foreground">Лет на рынке</div>
                 </div>
                 <div className="text-center">
