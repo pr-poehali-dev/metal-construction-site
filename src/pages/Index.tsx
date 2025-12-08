@@ -382,7 +382,7 @@ const Index = () => {
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
             <div className="animate-slide-up">
               <p className="text-base sm:text-lg mb-4 text-muted-foreground leading-relaxed">
-                <span className="text-primary font-bold">Основа</span> — это команда профессионалов с более чем 15-летним опытом в производстве металлоконструкций и выездной сварке.
+                <span className="text-primary font-bold">Основа</span> — это команда профессионалов с более чем 10-летним опытом в производстве металлоконструкций и выездной сварке.
               </p>
               <p className="text-base sm:text-lg mb-4 text-muted-foreground leading-relaxed">
                 Мы специализируемся на изготовлении металлокаркасов зданий, ангаров, навесов, лестниц, ограждений и нестандартных металлических изделий любой сложности.
@@ -394,7 +394,7 @@ const Index = () => {
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <Card className="metal-texture border-border/50">
                 <CardContent className="py-5 sm:pt-6 text-center flex flex-col items-center justify-center h-full">
-                  <div className="text-3xl sm:text-4xl font-bold text-primary mb-1.5 sm:mb-2">15+</div>
+                  <div className="text-3xl sm:text-4xl font-bold text-primary mb-1.5 sm:mb-2">10+</div>
                   <p className="text-xs sm:text-sm text-muted-foreground">лет опыта</p>
                 </CardContent>
               </Card>
@@ -452,7 +452,7 @@ const Index = () => {
                       </li>
                       <li className="flex items-start gap-2">
                         <Icon name="CheckCircle" size={20} className="text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-muted-foreground"><span className="text-foreground font-medium">Поддержка:</span> Проектирование (КМ/КМД), доставка и антикоррозийная обработка.</span>
+                        <span className="text-muted-foreground"><span className="text-foreground font-medium">Поддержка:</span> Проектирование (КМ/КМД), доставка и гарантия.</span>
                       </li>
                     </ul>
                     <p className="text-base text-muted-foreground leading-relaxed mb-6">
@@ -914,10 +914,26 @@ const Index = () => {
                             <Label htmlFor="files" className="text-sm block mb-1">Прикрепить ТЗ или чертеж</Label>
                             <p className="text-xs text-muted-foreground">Любой формат (не более 10)</p>
                           </div>
-                          <Button variant="outline" size="sm" className="flex-shrink-0">
+                          <Button variant="outline" size="sm" className="flex-shrink-0" onClick={() => document.getElementById('file-upload')?.click()}>
                             <Icon name="Upload" size={16} className="mr-2" />
                             Выбрать файлы
                           </Button>
+                          <input 
+                            id="file-upload"
+                            type="file" 
+                            multiple 
+                            accept="*/*"
+                            className="hidden"
+                            onChange={(e) => {
+                              const files = Array.from(e.target.files || []);
+                              if (files.length > 10) {
+                                toast.error('Максимум 10 файлов');
+                                return;
+                              }
+                              setQuizData({...quizData, files: files.map(f => f.name)});
+                              toast.success(`Прикреплено файлов: ${files.length}`);
+                            }}
+                          />
                         </div>
                       </div>
                     </div>
