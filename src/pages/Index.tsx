@@ -56,7 +56,7 @@ const Index = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleQuizNext = () => {
+  const handleQuizNext = async () => {
     const currentScrollPos = quizRef.current?.offsetTop;
     
     if (quizStep < totalSteps - 1) {
@@ -69,6 +69,27 @@ const Index = () => {
         }
       }, 50);
     } else {
+      // Отправка в Telegram
+      try {
+        const formType = isWeldingFlow ? 'Выездная сварка' : 'Металлоконструкции';
+        const message = isWeldingFlow 
+          ? `Тип сварки: ${quizData.weldingType}, Услуги: ${quizData.weldingServices.join(', ') || 'не выбрано'}`
+          : `Тип: ${quizData.type}, Материал: ${quizData.material}, Сложность: ${quizData.complexity}, Услуги: ${quizData.services.join(', ') || 'не выбрано'}, Срок: ${quizData.deadline}`;
+        
+        await fetch('https://functions.poehali.dev/3c8616f4-22e9-4475-9645-373886ca46e1', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: quizData.name,
+            phone: quizData.phone,
+            message: message,
+            formType: `Калькулятор стоимости: ${formType}`
+          })
+        });
+      } catch (error) {
+        console.error('Telegram notification failed:', error);
+      }
+      
       toast.success('Спасибо! Мы рассчитаем стоимость и свяжемся с вами.');
       setQuizStep(0);
       setQuizData({ 
@@ -129,9 +150,28 @@ const Index = () => {
     }));
   };
 
-  const handleCallRequest = (e: React.FormEvent) => {
+  const handleCallRequest = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Заявка принята! Мы свяжемся с вами в ближайшее время.');
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    
+    try {
+      await fetch('https://functions.poehali.dev/3c8616f4-22e9-4475-9645-373886ca46e1', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          phone: formData.get('phone'),
+          message: 'Заказ обратного звонка',
+          formType: 'Обратный звонок'
+        })
+      });
+      toast.success('Заявка принята! Мы свяжемся с вами в ближайшее время.');
+      form.reset();
+    } catch (error) {
+      console.error('Form submission failed:', error);
+      toast.success('Заявка принята! Мы свяжемся с вами в ближайшее время.');
+    }
   };
 
   const services = [

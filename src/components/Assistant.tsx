@@ -12,9 +12,24 @@ const Assistant = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean; time: string }>>([]);
 
-  const handleAuth = (e: React.FormEvent) => {
+  const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     if (name && phone) {
+      try {
+        await fetch('https://functions.poehali.dev/3c8616f4-22e9-4475-9645-373886ca46e1', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name,
+            phone: phone,
+            message: 'Начал диалог с ассистентом',
+            formType: 'Чат с консультантом'
+          })
+        });
+      } catch (error) {
+        console.error('Chat auth notification failed:', error);
+      }
+      
       setIsAuthorized(true);
       setMessages([
         {
@@ -26,15 +41,31 @@ const Assistant = () => {
     }
   };
 
-  const handleSendMessage = (e: React.FormEvent) => {
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (message.trim()) {
+      const userMessage = message;
       setMessages([...messages, {
         text: message,
         isUser: true,
         time: 'Только что'
       }]);
       setMessage('');
+      
+      try {
+        await fetch('https://functions.poehali.dev/3c8616f4-22e9-4475-9645-373886ca46e1', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name,
+            phone: phone,
+            message: userMessage,
+            formType: 'Сообщение в чате'
+          })
+        });
+      } catch (error) {
+        console.error('Chat message notification failed:', error);
+      }
       
       setTimeout(() => {
         // Play pleasant notification sound (soft bell)
