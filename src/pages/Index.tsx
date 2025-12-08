@@ -76,13 +76,15 @@ const Index = () => {
           ? `Тип сварки: ${quizData.weldingType}, Услуги: ${quizData.weldingServices.join(', ') || 'не выбрано'}`
           : `Тип: ${quizData.type}, Материал: ${quizData.material}, Сложность: ${quizData.complexity}, Услуги: ${quizData.services.join(', ') || 'не выбрано'}, Срок: ${quizData.deadline}`;
         
+        const filesInfo = quizData.files.length > 0 ? `\n\nПрикрепленные файлы (${quizData.files.length}): ${quizData.files.join(', ')}` : '';
+        
         await fetch('https://functions.poehali.dev/3c8616f4-22e9-4475-9645-373886ca46e1', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             name: quizData.name,
             phone: quizData.phone,
-            message: message,
+            message: message + (quizData.email ? `\n\nКомментарий: ${quizData.email}` : '') + filesInfo,
             formType: `Калькулятор стоимости: ${formType}`
           })
         });
@@ -1517,7 +1519,7 @@ const Index = () => {
               <p className="text-xs text-muted-foreground">Довольных клиентов</p>
             </div>
             <div className="text-center p-4 rounded-xl bg-card border border-border/50">
-              <div className="text-3xl font-bold text-primary mb-1">15</div>
+              <div className="text-3xl font-bold text-primary mb-1">10</div>
               <p className="text-xs text-muted-foreground">Лет на рынке</p>
             </div>
           </div>
@@ -1551,7 +1553,7 @@ const Index = () => {
                       <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                         <Icon name="Award" size={32} className="text-white" />
                       </div>
-                      <h3 className="text-2xl font-bold mb-4">15+ лет опыта</h3>
+                      <h3 className="text-2xl font-bold mb-4">10+ лет опыта</h3>
                       <p className="text-muted-foreground leading-relaxed mb-6">
                         Сотни успешно реализованных проектов любой сложности
                       </p>
