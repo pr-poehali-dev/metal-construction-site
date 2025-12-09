@@ -21,7 +21,8 @@ const Index = () => {
     name: '',
     phone: '',
     email: '',
-    files: [] as string[]
+    files: [] as File[],
+    fileUrls: [] as string[]
   });
   
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState(2);
@@ -62,21 +63,54 @@ const Index = () => {
     if (quizStep < totalSteps - 1) {
       setQuizStep(quizStep + 1);
       
-      // Сохраняем позицию прокрутки
       setTimeout(() => {
         if (currentScrollPos && window.scrollY !== currentScrollPos - 100) {
           window.scrollTo({ top: currentScrollPos - 100, behavior: 'smooth' });
         }
       }, 50);
     } else {
-      // Отправка в Telegram
       try {
+        let fileUrls: string[] = [];
+        
+        if (quizData.files.length > 0) {
+          toast.loading('Загружаем файлы...');
+          
+          const uploadPromises = quizData.files.map(async (file) => {
+            return new Promise<string>((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = async () => {
+                try {
+                  const base64 = (reader.result as string).split(',')[1];
+                  const response = await fetch('https://functions.poehali.dev/bab5b9b0-7b4a-4610-9bb2-eb97014079bf', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      fileContent: base64,
+                      fileName: file.name,
+                      contentType: file.type
+                    })
+                  });
+                  const data = await response.json();
+                  resolve(`${file.name}: ${data.url}`);
+                } catch (error) {
+                  reject(error);
+                }
+              };
+              reader.onerror = reject;
+              reader.readAsDataURL(file);
+            });
+          });
+          
+          fileUrls = await Promise.all(uploadPromises);
+          toast.dismiss();
+        }
+        
         const formType = isWeldingFlow ? 'Выездная сварка' : 'Металлоконструкции';
         const message = isWeldingFlow 
           ? `Тип сварки: ${quizData.weldingType}, Услуги: ${quizData.weldingServices.join(', ') || 'не выбрано'}`
           : `Тип: ${quizData.type}, Материал: ${quizData.material}, Сложность: ${quizData.complexity}, Услуги: ${quizData.services.join(', ') || 'не выбрано'}, Срок: ${quizData.deadline}`;
         
-        const filesInfo = quizData.files.length > 0 ? `\n\nПрикрепленные файлы (${quizData.files.length}): ${quizData.files.join(', ')}` : '';
+        const filesInfo = fileUrls.length > 0 ? `\n\n📎 Файлы (${fileUrls.length}):\n${fileUrls.join('\n')}` : '';
         
         await fetch('https://functions.poehali.dev/3c8616f4-22e9-4475-9645-373886ca46e1', {
           method: 'POST',
@@ -88,25 +122,27 @@ const Index = () => {
             formType: `Калькулятор стоимости: ${formType}`
           })
         });
+        
+        toast.success('Спасибо! Мы рассчитаем стоимость и свяжемся с вами.');
+        setQuizStep(0);
+        setQuizData({ 
+          type: '', 
+          material: '', 
+          complexity: '', 
+          services: [], 
+          deadline: '',
+          weldingType: '',
+          weldingServices: [],
+          name: '',
+          phone: '',
+          email: '',
+          files: [],
+          fileUrls: []
+        });
       } catch (error) {
-        console.error('Telegram notification failed:', error);
+        console.error('Submission failed:', error);
+        toast.error('Произошла ошибка. Попробуйте снова.');
       }
-      
-      toast.success('Спасибо! Мы рассчитаем стоимость и свяжемся с вами.');
-      setQuizStep(0);
-      setQuizData({ 
-        type: '', 
-        material: '', 
-        complexity: '', 
-        services: [], 
-        deadline: '',
-        weldingType: '',
-        weldingServices: [],
-        name: '',
-        phone: '',
-        email: '',
-        files: []
-      });
     }
   };
 
@@ -162,9 +198,9 @@ const Index = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: formData.get('name'),
-          phone: formData.get('phone'),
-          message: 'Заказ обратного звонка',
+          name: formData.get('contact-name'),
+          phone: formData.get('contact-phone'),
+          message: formData.get('contact-message') || 'Заказ обратного звонка',
           formType: 'Обратный звонок'
         })
       });
@@ -209,15 +245,21 @@ const Index = () => {
       <header className="sticky top-0 z-50 metal-texture border-b border-border/50 backdrop-blur-sm">
         <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <Icon name="Hammer" size={24} className="text-primary sm:w-8 sm:h-8" />
-            <span className="text-xl sm:text-2xl font-bold">Основа</span>
+            <img 
+              src="https://cdn.poehali.dev/files/осе.png" 
+              alt="Основа" 
+              className="h-10 sm:h-12 w-auto object-contain"
+            />
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <a href="#about" className="hover:text-primary transition-colors">О компании</a>
             <a href="#services" className="hover:text-primary transition-colors">Услуги</a>
             <a href="#quiz" className="hover:text-primary transition-colors">Расчет</a>
             <a href="#gallery" className="hover:text-primary transition-colors">Галерея</a>
-            <a href="#contact" className="hover:text-primary transition-colors">Контакты</a>
+            <a href="#contact" className="hover:text-primary transition-colors" onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+            }}>Контакты</a>
           </nav>
           <div className="flex items-center gap-1.5 sm:gap-2">
             <Button 
@@ -284,7 +326,13 @@ const Index = () => {
               <a 
                 href="#contact" 
                 className="py-2 hover:text-primary transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsMobileMenuOpen(false);
+                  setTimeout(() => {
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
               >
                 Контакты
               </a>
@@ -356,7 +404,13 @@ const Index = () => {
                 Профессиональная сварка и монтаж любой сложности
               </p>
               <div className="flex gap-2 sm:gap-4 flex-wrap animate-scale-in" style={{ animationDelay: '0.4s', opacity: 0, animationFillMode: 'forwards' }}>
-                <Button size="lg" className="metal-shine text-sm sm:text-lg px-4 sm:px-8 h-11 sm:h-12">
+                <Button 
+                  size="lg" 
+                  className="metal-shine text-sm sm:text-lg px-4 sm:px-8 h-11 sm:h-12"
+                  onClick={() => {
+                    document.getElementById('quiz')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
                   <Icon name="Calculator" className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" />
                   Рассчитать стоимость
                 </Button>
@@ -928,22 +982,30 @@ const Index = () => {
                             className="hidden"
                             onChange={(e) => {
                               const files = Array.from(e.target.files || []);
-                              if (files.length > 10) {
+                              const currentFilesCount = quizData.files.length;
+                              
+                              if (currentFilesCount + files.length > 10) {
                                 toast.error('Максимум 10 файлов');
                                 return;
                               }
-                              setQuizData({...quizData, files: files.map(f => f.name)});
+                              
+                              setQuizData({...quizData, files: [...quizData.files, ...files]});
                               toast.success(`Прикреплено файлов: ${files.length}`);
+                              
+                              if (e.target) {
+                                e.target.value = '';
+                              }
                             }}
                           />
                         </div>
                         {quizData.files.length > 0 && (
                           <div className="space-y-2">
-                            {quizData.files.map((fileName, index) => (
+                            {quizData.files.map((file, index) => (
                               <div key={index} className="flex items-center justify-between gap-2 p-2 bg-muted/50 rounded-lg border border-border/50">
                                 <div className="flex items-center gap-2 flex-1 min-w-0">
                                   <Icon name="File" size={16} className="text-primary flex-shrink-0" />
-                                  <span className="text-sm text-foreground truncate">{fileName}</span>
+                                  <span className="text-sm text-foreground truncate">{file.name}</span>
+                                  <span className="text-xs text-muted-foreground flex-shrink-0">({Math.round(file.size / 1024)} КБ)</span>
                                 </div>
                                 <Button 
                                   variant="ghost" 
@@ -1797,15 +1859,15 @@ const Index = () => {
                 <form onSubmit={handleCallRequest} className="space-y-6 flex-1 flex flex-col">
                   <div>
                     <Label htmlFor="contact-name" className="text-base">Ваше имя</Label>
-                    <Input id="contact-name" placeholder="Иван Иванов" required className="h-12 text-base mt-2" />
+                    <Input id="contact-name" name="contact-name" placeholder="Иван Иванов" required className="h-12 text-base mt-2" />
                   </div>
                   <div>
                     <Label htmlFor="contact-phone" className="text-base">Телефон</Label>
-                    <Input id="contact-phone" type="tel" placeholder="+7 (999) 123-45-67" required className="h-12 text-base mt-2" />
+                    <Input id="contact-phone" name="contact-phone" type="tel" placeholder="+7 (999) 123-45-67" required className="h-12 text-base mt-2" />
                   </div>
                   <div className="flex-1">
                     <Label htmlFor="contact-message" className="text-base">Сообщение (необязательно)</Label>
-                    <Input id="contact-message" placeholder="Опишите ваш проект" className="h-12 text-base mt-2" />
+                    <Input id="contact-message" name="contact-message" placeholder="Опишите ваш проект" className="h-12 text-base mt-2" />
                   </div>
                   <Button type="submit" className="w-full metal-shine h-12 text-base mt-auto">
                     Отправить заявку
