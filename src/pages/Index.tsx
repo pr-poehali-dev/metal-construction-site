@@ -248,7 +248,7 @@ const Index = () => {
             <img 
               src="https://cdn.poehali.dev/files/осе.png" 
               alt="Основа" 
-              className="h-12 sm:h-16 w-auto object-contain"
+              className="h-20 sm:h-[27px] w-auto object-contain"
             />
           </div>
           <nav className="hidden md:flex items-center gap-6">
@@ -1968,7 +1968,7 @@ const Index = () => {
                 <img 
                   src="https://cdn.poehali.dev/files/осе.png" 
                   alt="Основа" 
-                  className="h-16 w-auto object-contain"
+                  className="h-[27px] w-auto object-contain"
                 />
               </div>
               <p className="text-muted-foreground mb-4">
