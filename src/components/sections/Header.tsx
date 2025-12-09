@@ -14,7 +14,7 @@ const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
           <img 
             src="https://cdn.poehali.dev/files/осе.png" 
             alt="Основа" 
-            className="h-14 sm:h-20 w-auto object-contain"
+            className="h-28 sm:h-40 w-auto object-contain"
           />
         </div>
         <nav className="hidden md:flex items-center gap-6">

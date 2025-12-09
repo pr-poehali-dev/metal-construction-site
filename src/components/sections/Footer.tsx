@@ -11,7 +11,7 @@ const Footer = () => {
               <img 
                 src="https://cdn.poehali.dev/files/осе.png" 
                 alt="Основа" 
-                className="h-16 w-auto object-contain"
+                className="h-32 w-auto object-contain"
               />
             </div>
             <p className="text-muted-foreground mb-4">
