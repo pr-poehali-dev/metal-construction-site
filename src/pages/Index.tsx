@@ -1,15 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import Icon from '@/components/ui/icon';
 import { toast } from 'sonner';
 import Assistant from '@/components/Assistant';
-import Header from '@/components/sections/Header';
-import HeroSection from '@/components/sections/HeroSection';
-import QuizSection from '@/components/sections/QuizSection';
-import Footer from '@/components/sections/Footer';
 
 const Index = () => {
   const [quizStep, setQuizStep] = useState(0);
@@ -38,6 +35,7 @@ const Index = () => {
 
   const isWeldingFlow = quizData.type === 'выездная';
 
+  // Detect mobile for gallery positioning
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 640);
@@ -46,9 +44,9 @@ const Index = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-  
   const totalSteps = isWeldingFlow ? 5 : 6;
 
+  // Parallax effect
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY;
@@ -154,11 +152,13 @@ const Index = () => {
     setQuizData({...quizData, [field]: value});
     setIsQuizTransitioning(true);
     
+    // Автоматический переход к следующему шагу
     setTimeout(() => {
       if (quizStep < totalSteps - 1) {
         setQuizStep(quizStep + 1);
         setIsQuizTransitioning(false);
         
+        // Сохраняем позицию прокрутки
         setTimeout(() => {
           if (currentScrollPos && window.scrollY !== currentScrollPos - 100) {
             window.scrollTo({ top: currentScrollPos - 100, behavior: 'smooth' });
@@ -241,10 +241,215 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
-      
-      <HeroSection parallaxOffset={parallaxOffset} />
+      {/* Header */}
+      <header className="sticky top-0 z-50 metal-texture border-b border-border/50 backdrop-blur-sm">
+        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <img 
+              src="https://cdn.poehali.dev/files/осе.png" 
+              alt="Основа" 
+              className="h-12 sm:h-16 w-auto object-contain"
+            />
+          </div>
+          <nav className="hidden md:flex items-center gap-6">
+            <a href="#about" className="hover:text-primary transition-colors">О компании</a>
+            <a href="#services" className="hover:text-primary transition-colors">Услуги</a>
+            <a href="#quiz" className="hover:text-primary transition-colors">Расчет</a>
+            <a href="#gallery" className="hover:text-primary transition-colors">Галерея</a>
+            <a 
+              href="#contact" 
+              className="hover:text-primary transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+            >Контакты</a>
+          </nav>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <Button 
+              size="icon"
+              variant="ghost"
+              className="md:hidden w-9 h-9"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <Icon name={isMobileMenuOpen ? "X" : "Menu"} size={24} />
+            </Button>
+            <Button 
+              size="icon" 
+              className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#25D366]/10 hover:bg-[#25D366] hover:text-white border border-[#25D366]/30"
+              onClick={() => window.open('https://wa.me/79773804500', '_blank')}
+            >
+              <Icon name="MessageCircle" className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
+            </Button>
+            <Button 
+              size="icon" 
+              className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#0088cc]/10 hover:bg-[#0088cc] hover:text-white border border-[#0088cc]/30"
+              onClick={() => window.open('https://t.me/Ivan_517', '_blank')}
+            >
+              <Icon name="Send" className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
+            </Button>
+            <Button 
+              size="icon" 
+              className="md:hidden w-9 h-9 rounded-full bg-primary/10 hover:bg-primary hover:text-white border border-primary/30"
+              onClick={() => window.open('tel:+74998403312', '_self')}
+            >
+              <Icon name="Phone" className="w-5 h-5" />
+            </Button>
+            <Button className="metal-shine ml-1 sm:ml-2 hidden sm:flex">
+              <Icon name="Phone" size={18} className="mr-2" />
+              +7(499)840-33-12
+            </Button>
+          </div>
+        </div>
+        
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-sm">
+            <nav className="container mx-auto px-4 py-4 flex flex-col gap-3">
+              <a 
+                href="#about" 
+                className="py-2 hover:text-primary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                О компании
+              </a>
+              <a 
+                href="#services" 
+                className="py-2 hover:text-primary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Услуги
+              </a>
+              <a 
+                href="#quiz" 
+                className="py-2 hover:text-primary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Расчет
+              </a>
+              <a 
+                href="#gallery" 
+                className="py-2 hover:text-primary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Галерея
+              </a>
+              <a 
+                href="#contact" 
+                className="py-2 hover:text-primary transition-colors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsMobileMenuOpen(false);
+                  setTimeout(() => {
+                    const contactSection = document.getElementById('contact');
+                    if (contactSection) {
+                      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }, 100);
+                }}
+              >
+                Контакты
+              </a>
+              <Button className="metal-shine mt-2 w-full" onClick={() => setIsMobileMenuOpen(false)}>
+                <Icon name="Phone" size={18} className="mr-2" />
+                +7(499)840-33-12
+              </Button>
+            </nav>
+          </div>
+        )}
+      </header>
 
+      {/* Hero Section */}
+      <section className="relative h-[500px] sm:h-[600px] overflow-hidden">
+        <div className="absolute inset-0 flex">
+          {/* Left Side - Metal Texture Background */}
+          <div className="flex-1 metal-texture relative">
+            <div 
+              className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-primary/10"
+              style={{ transform: `translateY(${parallaxOffset}px)` }}
+            ></div>
+          </div>
+          
+          {/* Right Side - Image with Parallax */}
+          <div className="flex-1 relative">
+            <img 
+              src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/4ea4c64f-c726-4453-8227-e4d18ec3d3a9.jpg"
+              alt="Металлоконструкции"
+              className="w-full h-full object-cover"
+              style={{ transform: `translateY(${parallaxOffset}px)` }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent to-background/20"></div>
+          </div>
+
+          {/* Curved Divider */}
+          <div className="absolute inset-0 pointer-events-none">
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="hsl(var(--background))" stopOpacity="1" />
+                  <stop offset="100%" stopColor="hsl(var(--background))" stopOpacity="0.9" />
+                </linearGradient>
+              </defs>
+              <path 
+                d="M 50,0 Q 42,50 50,100" 
+                fill="url(#curveGradient)"
+              />
+              <path 
+                d="M 50,0 Q 42,50 50,100" 
+                fill="none" 
+                stroke="hsl(var(--primary))" 
+                strokeWidth="0.3"
+                opacity="0.6"
+                className="drop-shadow-lg"
+              />
+            </svg>
+          </div>
+        </div>
+
+        {/* Content Overlay */}
+        <div className="absolute inset-0 flex items-center justify-start z-10">
+          <div className="container mx-auto px-4">
+            <div className="max-w-xl">
+              <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 text-white animate-slide-right">
+                Производство<br />
+                <span className="bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 text-transparent bg-clip-text drop-shadow-lg">Металлоконструкций</span>
+              </h1>
+              <p className="text-base sm:text-xl md:text-2xl mb-6 sm:mb-8 text-gray-300 animate-slide-right" style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
+                Профессиональная сварка и монтаж любой сложности
+              </p>
+              <div className="flex gap-2 sm:gap-4 flex-wrap animate-scale-in" style={{ animationDelay: '0.4s', opacity: 0, animationFillMode: 'forwards' }}>
+                <Button 
+                  size="lg" 
+                  className="metal-shine text-sm sm:text-lg px-4 sm:px-8 h-11 sm:h-12"
+                  onClick={() => {
+                    const quizSection = document.getElementById('quiz');
+                    if (quizSection) {
+                      quizSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                >
+                  <Icon name="Calculator" className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" />
+                  Рассчитать стоимость
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="text-sm sm:text-lg px-4 sm:px-8 h-11 sm:h-12 border-white text-white hover:bg-white hover:text-background"
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  <Icon name="Phone" className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" />
+                  Заказать звонок
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
       <section id="about" className="py-12 sm:py-16 md:py-20 px-4">
         <div className="container mx-auto">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 animate-fade-in">
@@ -290,6 +495,7 @@ const Index = () => {
             </div>
           </div>
 
+          {/* Director Comment */}
           <div className="mt-12 sm:mt-16 max-w-4xl mx-auto">
             <Card className="metal-texture border-primary/30 shadow-lg">
               <CardContent className="p-6 sm:p-8">
@@ -338,153 +544,1303 @@ const Index = () => {
             </Card>
           </div>
 
-          <QuizSection
-            quizStep={quizStep}
-            quizData={quizData}
-            setQuizData={setQuizData}
-            totalSteps={totalSteps}
-            isWeldingFlow={isWeldingFlow}
-            isQuizTransitioning={isQuizTransitioning}
-            quizRef={quizRef}
-            handleRadioSelect={handleRadioSelect}
-            handleServiceToggle={handleServiceToggle}
-            handleWeldingServiceToggle={handleWeldingServiceToggle}
-            handleQuizNext={handleQuizNext}
-            setQuizStep={setQuizStep}
-          />
-        </div>
-      </section>
-
-      <section className="py-12 sm:py-16 md:py-20 px-4 bg-muted/30">
-        <div className="container mx-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">
-            Почему Основа?
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
-            <Card className="metal-texture border-border/50 hover:border-primary/50 transition-all duration-300">
-              <CardContent className="p-6 sm:p-8">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <Icon name="Award" size={24} className="text-primary" />
+          {/* Quiz Section - moved here after Director Comment */}
+          <div id="quiz" className="mt-12 sm:mt-16 max-w-4xl mx-auto">
+            <div className="mb-8 sm:mb-12 metal-texture border border-border/50 rounded-lg p-4 sm:p-6 md:p-8">
+              <div className="grid md:grid-cols-[1fr_auto] gap-6 sm:gap-8 items-center">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
+                    Расчет стоимости металлоконструкций
+                  </h2>
+                  <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-4 sm:mb-6">
+                    Ответьте на несколько вопросов и получите точный расчет стоимости вашего проекта
+                  </p>
+                  <div className="space-y-2 sm:space-y-3 hidden sm:block">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Icon name="CheckCircle2" className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+                      <span className="text-sm sm:text-base text-foreground">Пройдите короткий опрос</span>
+                    </div>
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Icon name="CheckCircle2" className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+                      <span className="text-sm sm:text-base text-foreground">Заполните основные параметры</span>
+                    </div>
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Icon name="CheckCircle2" className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+                      <span className="text-sm sm:text-base text-foreground">Укажите ключевые данные</span>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-3">Опыт и надежность</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Более 10 лет успешной работы на рынке металлоконструкций. 500+ реализованных проектов различной сложности.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="metal-texture border-border/50 hover:border-primary/50 transition-all duration-300">
-              <CardContent className="p-6 sm:p-8">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <Icon name="Shield" size={24} className="text-primary" />
+                <div className="flex-shrink-0 text-center">
+                  <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-primary shadow-lg mx-auto mb-2 sm:mb-3">
+                    <img 
+                      src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                      alt="Владислав"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <p className="text-sm sm:text-base text-foreground font-semibold">Владислав</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">менеджер по продажам</p>
                 </div>
-                <h3 className="text-xl font-bold mb-3">Гарантия качества</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Строгий контроль на каждом этапе производства. Гарантийное обслуживание и техническая поддержка.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="metal-texture border-border/50 hover:border-primary/50 transition-all duration-300">
-              <CardContent className="p-6 sm:p-8">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <Icon name="Zap" size={24} className="text-primary" />
+              </div>
+            </div>
+            
+            <Card className="metal-texture border-border/50" ref={quizRef}>
+              <CardHeader className="p-4 sm:p-6">
+                <CardTitle className="text-lg sm:text-xl md:text-2xl">Шаг {quizStep + 1} из {totalSteps}</CardTitle>
+                <div className="mt-4">
+                  <div className="w-full bg-muted rounded-full h-2">
+                    <div 
+                      className="bg-primary h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${((quizStep + 1) / totalSteps) * 100}%` }}
+                    ></div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-3">Современное оборудование</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Высокоточное оборудование для резки, сварки и обработки металла. Производство полного цикла.
-                </p>
-              </CardContent>
-            </Card>
+              </CardHeader>
+              <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6 relative">
+                {isQuizTransitioning && (
+                  <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50 rounded-lg">
+                    <div className="flex flex-col items-center gap-3">
+                      <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                      <p className="text-sm text-muted-foreground">Загрузка...</p>
+                    </div>
+                  </div>
+                )}
+                {quizStep === 0 && (
+                  <div className="space-y-3 sm:space-y-4">
+                    <Label className="text-base sm:text-lg font-semibold">Какой тип конструкции вам нужен?</Label>
+                    <RadioGroup value={quizData.type} className="grid md:grid-cols-2 gap-3 sm:gap-4">
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('type', 'каркас')}>
+                        <RadioGroupItem value="каркас" id="каркас" className="mt-1 flex-shrink-0" />
+                        <Label htmlFor="каркас" className="cursor-pointer flex-1">
+                          <div className="text-sm sm:text-base font-semibold mb-1">Каркас здания</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground leading-snug">промышленные цеха, склады, торговые центры, ангары</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('type', 'антресоль')}>
+                        <RadioGroupItem value="антресоль" id="антресоль" className="mt-1 flex-shrink-0" />
+                        <Label htmlFor="антресоль" className="cursor-pointer flex-1">
+                          <div className="text-sm sm:text-base font-semibold mb-1">Антресольные этажи</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground leading-snug">межэтажные перекрытия, технологические площадки, балконы</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('type', 'лестницы')}>
+                        <RadioGroupItem value="лестницы" id="лестницы" className="mt-1 flex-shrink-0" />
+                        <Label htmlFor="лестницы" className="cursor-pointer flex-1">
+                          <div className="text-sm sm:text-base font-semibold mb-1">Лестницы и ограждения</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground leading-snug">внутренние и наружные лестницы, перила, поручни</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('type', 'мелкие')}>
+                        <RadioGroupItem value="мелкие" id="мелкие" className="mt-1 flex-shrink-0" />
+                        <Label htmlFor="мелкие" className="cursor-pointer flex-1">
+                          <div className="text-sm sm:text-base font-semibold mb-1">Мелкие конструкции</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground leading-snug">козырьки, навесы, стеллажи, индивидуальные изделия</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('type', 'другое')}>
+                        <RadioGroupItem value="другое" id="другое" className="mt-1 flex-shrink-0" />
+                        <Label htmlFor="другое" className="cursor-pointer flex-1">
+                          <div className="text-sm sm:text-base font-semibold mb-1">Другое</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground leading-snug">специальные конструкции, нестандартные решения</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-3 sm:p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('type', 'выездная')}>
+                        <RadioGroupItem value="выездная" id="выездная" className="mt-1 flex-shrink-0" />
+                        <Label htmlFor="выездная" className="cursor-pointer flex-1">
+                          <div className="text-sm sm:text-base font-semibold mb-1">Выездные сварочные работы</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground leading-snug">сварка на объекте, ремонт, монтаж конструкций</div>
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                    <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
+                          <img 
+                            src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                            alt="Владислав"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                          <span className="text-foreground font-medium">Не переживайте за точность формулировок!</span> Главное — чтобы я понял суть. Все технические нюансы и детали мы обязательно уточним и обсудим.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
-            <Card className="metal-texture border-border/50 hover:border-primary/50 transition-all duration-300">
-              <CardContent className="p-6 sm:p-8">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <Icon name="Clock" size={24} className="text-primary" />
-                </div>
-                <h3 className="text-xl font-bold mb-3">Соблюдение сроков</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Четкое планирование и организация работ. Выполняем проекты в установленные сроки без задержек.
-                </p>
-              </CardContent>
-            </Card>
+                {quizStep === 1 && !isWeldingFlow && (
+                  <div className="space-y-4">
+                    <Label className="text-lg">Какой тип металла требуется?</Label>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('material', 'конструкционная')}>
+                        <img src="https://cdn.poehali.dev/files/dbf0f0d2-320e-41f7-8fc4-1303ab8384c4.png" alt="Конструкционная сталь" className="w-full h-32 object-cover rounded mb-3" />
+                        <div className="font-semibold mb-2">Конструкционная (черная) сталь</div>
+                        {quizData.material === 'конструкционная' && <Icon name="CheckCircle" size={20} className="text-primary" />}
+                      </div>
+                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('material', 'нержавеющая')}>
+                        <img src="https://cdn.poehali.dev/files/dbf0f0d2-320e-41f7-8fc4-1303ab8384c4.png" alt="Нержавеющая сталь" className="w-full h-32 object-cover rounded mb-3" />
+                        <div className="font-semibold mb-2">Нержавеющая сталь</div>
+                        {quizData.material === 'нержавеющая' && <Icon name="CheckCircle" size={20} className="text-primary" />}
+                      </div>
+                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('material', 'цветные')}>
+                        <img src="https://cdn.poehali.dev/files/dbf0f0d2-320e-41f7-8fc4-1303ab8384c4.png" alt="Цветные металлы" className="w-full h-32 object-cover rounded mb-3 mx-auto" />
+                        <div className="font-semibold mb-2">Цветные металлы</div>
+                        {quizData.material === 'цветные' && <Icon name="CheckCircle" size={20} className="text-primary" />}
+                      </div>
+                    </div>
+                  </div>
+                )}
 
-            <Card className="metal-texture border-border/50 hover:border-primary/50 transition-all duration-300">
-              <CardContent className="p-6 sm:p-8">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <Icon name="Users" size={24} className="text-primary" />
-                </div>
-                <h3 className="text-xl font-bold mb-3">Профессиональная команда</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Квалифицированные сварщики и инженеры с многолетним опытом. Регулярное повышение квалификации.
-                </p>
-              </CardContent>
-            </Card>
+                {quizStep === 1 && isWeldingFlow && (
+                  <div className="space-y-4">
+                    <Label className="text-lg">Какой тип сварки вам нужен?</Label>
+                    <RadioGroup value={quizData.weldingType}>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('weldingType', 'ручная')}>
+                        <RadioGroupItem value="ручная" id="ручная" className="mt-1" />
+                        <Label htmlFor="ручная" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Ручная дуговая сварка (MMA)</div>
+                          <div className="text-sm text-muted-foreground">универсальный метод для большинства задач</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('weldingType', 'полуавтомат')}>
+                        <RadioGroupItem value="полуавтомат" id="полуавтомат" className="mt-1" />
+                        <Label htmlFor="полуавтомат" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Полуавтоматическая (MIG/MAG)</div>
+                          <div className="text-sm text-muted-foreground">быстрая сварка тонких металлов</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('weldingType', 'аргон')}>
+                        <RadioGroupItem value="аргон" id="аргон" className="mt-1" />
+                        <Label htmlFor="аргон" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Аргонодуговая (TIG)</div>
+                          <div className="text-sm text-muted-foreground">высокоточная сварка нержавейки и алюминия</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-start space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('weldingType', 'незнаю')}>
+                        <RadioGroupItem value="незнаю" id="незнаю" className="mt-1" />
+                        <Label htmlFor="незнаю" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Не знаю, нужна консультация</div>
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                )}
 
-            <Card className="metal-texture border-border/50 hover:border-primary/50 transition-all duration-300">
-              <CardContent className="p-6 sm:p-8">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <Icon name="TrendingDown" size={24} className="text-primary" />
+                {quizStep === 2 && !isWeldingFlow && (
+                  <div className="space-y-4">
+                    <Label className="text-lg">Какой уровень сложности проекта?</Label>
+                    <RadioGroup value={quizData.complexity}>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('complexity', 'простой')}>
+                        <RadioGroupItem value="простой" id="простой" />
+                        <Label htmlFor="простой" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Простой (типовые решения, стандартные чертежи)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('complexity', 'средний')}>
+                        <RadioGroupItem value="средний" id="средний" />
+                        <Label htmlFor="средний" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Средний (адаптация типовых решений, индивидуальные размеры)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('complexity', 'сложный')}>
+                        <RadioGroupItem value="сложный" id="сложный" />
+                        <Label htmlFor="сложный" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Сложный (индивидуальное проектирование, сложные расчеты)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('complexity', 'экспертный')}>
+                        <RadioGroupItem value="экспертный" id="экспертный" />
+                        <Label htmlFor="экспертный" className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Экспертный (уникальные конструкции, инженерный анализ)</div>
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                    <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
+                          <img 
+                            src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                            alt="Владислав"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-foreground font-semibold mb-1">Владислав</p>
+                          <p className="text-xs text-muted-foreground mb-2">Менеджер</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            <span className="text-foreground font-medium">Оценим сложность вашего проекта и сразу подготовим персональное решение!</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {quizStep === 2 && isWeldingFlow && (
+                  <div className="space-y-4">
+                    <Label className="text-lg">Какие дополнительные услуги требуются?</Label>
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleWeldingServiceToggle('резка')}>
+                        <input type="checkbox" checked={quizData.weldingServices.includes('резка')} readOnly className="w-5 h-5" />
+                        <Label className="cursor-pointer flex-1">
+                          <div className="font-semibold">Резка металла</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleWeldingServiceToggle('подготовка')}>
+                        <input type="checkbox" checked={quizData.weldingServices.includes('подготовка')} readOnly className="w-5 h-5" />
+                        <Label className="cursor-pointer flex-1">
+                          <div className="font-semibold">Подготовка поверхностей</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleWeldingServiceToggle('монтаж')}>
+                        <input type="checkbox" checked={quizData.weldingServices.includes('монтаж')} readOnly className="w-5 h-5" />
+                        <Label className="cursor-pointer flex-1">
+                          <div className="font-semibold">Монтаж конструкций</div>
+                        </Label>
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground">*Отметьте один или несколько вариантов</p>
+                  </div>
+                )}
+
+                {quizStep === 3 && !isWeldingFlow && (
+                  <div className="space-y-4">
+                    <Label className="text-lg">Какие дополнительные услуги требуются?</Label>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleServiceToggle('проектирование')}>
+                        <input type="checkbox" checked={quizData.services.includes('проектирование')} readOnly className="w-5 h-5" />
+                        <Label className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Проектирование</div>
+                          <div className="text-xs text-muted-foreground">(разработка КМ и КМД чертежей)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleServiceToggle('доставка')}>
+                        <input type="checkbox" checked={quizData.services.includes('доставка')} readOnly className="w-5 h-5" />
+                        <Label className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Доставка</div>
+                          <div className="text-xs text-muted-foreground">(транспортировка до Вашего объекта)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleServiceToggle('монтаж')}>
+                        <input type="checkbox" checked={quizData.services.includes('монтаж')} readOnly className="w-5 h-5" />
+                        <Label className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Монтаж</div>
+                          <div className="text-xs text-muted-foreground">(профессиональная сборка на месте)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleServiceToggle('полный')}>
+                        <input type="checkbox" checked={quizData.services.includes('полный')} readOnly className="w-5 h-5" />
+                        <Label className="cursor-pointer flex-1">
+                          <div className="font-semibold mb-1">Полный цикл</div>
+                          <div className="text-xs text-muted-foreground">(проектирование, изготовление, доставка и монтаж)</div>
+                        </Label>
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground">*Отметьте один или несколько вариантов</p>
+                    <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
+                          <img 
+                            src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                            alt="Владислав"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-foreground font-semibold mb-1">Владислав</p>
+                          <p className="text-xs text-muted-foreground mb-2">Менеджер</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            <span className="text-foreground font-medium">Чтобы мы могли сформировать для вас комплексное предложение, отметьте, какие этапы работ взять на себя нам.</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {quizStep === 3 && isWeldingFlow && (
+                  <div className="space-y-4">
+                    <Label className="text-lg">Укажите ориентировочные сроки</Label>
+                    <RadioGroup value={quizData.deadline}>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('deadline', 'срочно')}>
+                        <RadioGroupItem value="срочно" id="срочно" />
+                        <Label htmlFor="срочно" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Срочно (24-48 часов)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('deadline', 'гибкие')}>
+                        <RadioGroupItem value="гибкие" id="гибкие" />
+                        <Label htmlFor="гибкие" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Гибкие сроки</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('deadline', 'стандарт')}>
+                        <RadioGroupItem value="стандарт" id="стандарт" />
+                        <Label htmlFor="стандарт" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Стандартные (3-7 дней)</div>
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                    <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
+                          <img 
+                            src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                            alt="Владислав"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-foreground font-semibold mb-1">Владислав</p>
+                          <p className="text-xs text-muted-foreground mb-2">Менеджер</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            <span className="text-foreground font-medium">Понимаю, что сроки — это важно!</span> Укажите ваш ориентир, и я сразу уточню дату исполнения заказа под ваш график.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {quizStep === 4 && !isWeldingFlow && (
+                  <div className="space-y-4">
+                    <Label className="text-lg">Укажите ориентировочные сроки</Label>
+                    <RadioGroup value={quizData.deadline}>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('deadline', 'срочно')}>
+                        <RadioGroupItem value="срочно" id="срочно-prod" />
+                        <Label htmlFor="срочно-prod" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Срочно (24-48 часов)</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('deadline', 'гибкие')}>
+                        <RadioGroupItem value="гибкие" id="гибкие-prod" />
+                        <Label htmlFor="гибкие-prod" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Гибкие сроки</div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('deadline', 'стандарт')}>
+                        <RadioGroupItem value="стандарт" id="стандарт-prod" />
+                        <Label htmlFor="стандарт-prod" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Стандартные (3-7 дней)</div>
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                    <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
+                          <img 
+                            src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                            alt="Владислав"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-foreground font-semibold mb-1">Владислав</p>
+                          <p className="text-xs text-muted-foreground mb-2">Менеджер</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            <span className="text-foreground font-medium">Понимаю, что сроки — это важно!</span> Укажите ваш ориентир, и я сразу уточню дату исполнения заказа под ваш график.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {((quizStep === 5 && !isWeldingFlow) || (quizStep === 4 && isWeldingFlow)) && (
+                  <div className="space-y-4">
+                    <h3 className="text-xl sm:text-2xl font-bold">Оставьте контакты для связи</h3>
+                    <div className="space-y-3">
+                      <div className="grid md:grid-cols-2 gap-3">
+                        <div>
+                          <Label htmlFor="name" className="text-sm mb-1.5 block">Ваше имя</Label>
+                          <Input 
+                            id="name"
+                            placeholder="Иван"
+                            value={quizData.name}
+                            onChange={(e) => setQuizData({...quizData, name: e.target.value})}
+                            className="h-11"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="phone" className="text-sm mb-1.5 block">Ваш телефон</Label>
+                          <Input 
+                            id="phone"
+                            type="tel"
+                            placeholder="+7 (999) 123-45-67"
+                            value={quizData.phone}
+                            onChange={(e) => setQuizData({...quizData, phone: e.target.value})}
+                            className="h-11"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <Label htmlFor="email" className="text-sm mb-1.5 block">Комментарий</Label>
+                        <Input 
+                          id="email"
+                          placeholder="Дополнительная информация о проекте"
+                          value={quizData.email}
+                          onChange={(e) => setQuizData({...quizData, email: e.target.value})}
+                          className="h-11"
+                        />
+                      </div>
+                      <div>
+                        <div className="flex items-center justify-between gap-4 mb-3">
+                          <div className="flex-1">
+                            <Label htmlFor="files" className="text-sm block mb-1">Прикрепить ТЗ или чертеж</Label>
+                            <p className="text-xs text-muted-foreground">Любой формат (не более 10)</p>
+                          </div>
+                          <Button variant="outline" size="sm" className="flex-shrink-0" onClick={() => document.getElementById('file-upload')?.click()}>
+                            <Icon name="Upload" size={16} className="mr-2" />
+                            Выбрать файлы
+                          </Button>
+                          <input 
+                            id="file-upload"
+                            type="file" 
+                            multiple 
+                            accept="*/*"
+                            className="hidden"
+                            onChange={(e) => {
+                              const files = Array.from(e.target.files || []);
+                              const currentFilesCount = quizData.files.length;
+                              
+                              if (currentFilesCount + files.length > 10) {
+                                toast.error('Максимум 10 файлов');
+                                return;
+                              }
+                              
+                              setQuizData({...quizData, files: [...quizData.files, ...files]});
+                              toast.success(`Прикреплено файлов: ${files.length}`);
+                              
+                              if (e.target) {
+                                e.target.value = '';
+                              }
+                            }}
+                          />
+                        </div>
+                        {quizData.files.length > 0 && (
+                          <div className="space-y-2">
+                            {quizData.files.map((file, index) => (
+                              <div key={index} className="flex items-center justify-between gap-2 p-2 bg-muted/50 rounded-lg border border-border/50">
+                                <div className="flex items-center gap-2 flex-1 min-w-0">
+                                  <Icon name="File" size={16} className="text-primary flex-shrink-0" />
+                                  <span className="text-sm text-foreground truncate">{file.name}</span>
+                                  <span className="text-xs text-muted-foreground flex-shrink-0">({Math.round(file.size / 1024)} КБ)</span>
+                                </div>
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="h-7 w-7 p-0 flex-shrink-0"
+                                  onClick={() => {
+                                    const newFiles = quizData.files.filter((_, i) => i !== index);
+                                    setQuizData({...quizData, files: newFiles});
+                                    toast.success('Файл удалён');
+                                  }}
+                                >
+                                  <Icon name="X" size={14} />
+                                </Button>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
+                          <img 
+                            src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                            alt="Владислав"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-foreground font-semibold mb-1">Владислав</p>
+                          <p className="text-xs text-muted-foreground mb-2">Менеджер</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            <span className="text-foreground font-medium">Файлы можно не прикреплять</span> — мы сможем все уточнить в ходе беседы. Однако, если у вас есть эскизы, ТЗ или чертежи — их наличие <span className="text-foreground font-medium">существенно ускорит</span> процесс обработки заявки.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex gap-4">
+                  {quizStep > 0 && (
+                    <Button 
+                      variant="outline" 
+                      onClick={() => setQuizStep(quizStep - 1)}
+                      className="flex-1"
+                    >
+                      Назад
+                    </Button>
+                  )}
+                  <Button 
+                    onClick={handleQuizNext}
+                    disabled={
+                      (quizStep === 0 && !quizData.type) ||
+                      (quizStep === 1 && !isWeldingFlow && !quizData.material) ||
+                      (quizStep === 1 && isWeldingFlow && !quizData.weldingType) ||
+                      (quizStep === 2 && !isWeldingFlow && !quizData.complexity) ||
+                      (quizStep === 3 && !isWeldingFlow && quizData.services.length === 0) ||
+                      (quizStep === 4 && !isWeldingFlow && !quizData.deadline) ||
+                      (quizStep === 3 && isWeldingFlow && !quizData.deadline) ||
+                      (quizStep === 5 && !isWeldingFlow && (!quizData.name || !quizData.phone)) ||
+                      (quizStep === 4 && isWeldingFlow && (!quizData.name || !quizData.phone))
+                    }
+                    className="flex-1 metal-shine"
+                  >
+                    {quizStep === totalSteps - 1 ? 'Отправить' : 'Далее'}
+                  </Button>
                 </div>
-                <h3 className="text-xl font-bold mb-3">Оптимальные цены</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Собственное производство без посредников. Гибкая ценовая политика и индивидуальный подход.
-                </p>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      <section id="services" className="py-12 sm:py-16 md:py-20 px-4">
+      {/* Advantages Section */}
+      <section className="py-12 sm:py-16 md:py-20 px-4">
+        <div className="container mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">
+            Наши преимущества
+          </h2>
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            {/* Card 1 - Top Left (2 cols wide) */}
+            <div className="sm:col-span-2 group relative overflow-hidden rounded-2xl h-64 sm:h-80 animate-scale-in">
+              <img 
+                src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/4e7663e3-7955-426e-af78-f7af02052a0a.jpg"
+                alt="Надежный партнер"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
+                <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 sm:mb-3 leading-tight">
+                  Вы получаете надежного партнера
+                </h3>
+                <p className="text-gray-200 text-xs sm:text-sm md:text-base lg:text-lg leading-tight sm:leading-normal">
+                  Опытные инженеры и сварщики гарантируют качество
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2 - Top Right (1 col) */}
+            <div className="group relative overflow-hidden rounded-2xl h-64 sm:h-80 bg-[#527a94] animate-scale-in" style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
+              <div className="absolute inset-0 p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col justify-center">
+                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white mb-1.5 sm:mb-2 md:mb-3 leading-tight">
+                  Вы экономите время и ресурсы
+                </h3>
+                <p className="text-xs sm:text-sm md:text-base text-gray-100 leading-tight sm:leading-normal">
+                  Мы берем на себя все задачи "под ключ"
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3 - Top Far Right (1 col) */}
+            <div className="group relative overflow-hidden rounded-2xl h-64 sm:h-80 bg-[#446580] animate-scale-in" style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
+              <div className="absolute inset-0 p-3 sm:p-4 md:p-6 lg:p-8 flex flex-col justify-center">
+                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white mb-1.5 sm:mb-2 md:mb-3 leading-tight">
+                  Вы застрахованы от ошибок
+                </h3>
+                <p className="text-xs sm:text-sm md:text-base text-gray-100 leading-tight sm:leading-normal">
+                  Наш многолетний опыт — Ваша уверенность
+                </p>
+              </div>
+            </div>
+
+            {/* Card 4 - Bottom Left (1 col) */}
+            <div className="group relative overflow-hidden rounded-2xl h-64 sm:h-80 animate-scale-in" style={{ animationDelay: '0.3s', opacity: 0, animationFillMode: 'forwards' }}>
+              <img 
+                src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/f2e393da-c868-40e8-91d5-db3c39afe690.jpg"
+                alt="Выгода"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
+                <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 sm:mb-3 leading-tight">
+                  Вы получаете выгоду
+                </h3>
+                <p className="text-gray-200 text-xs sm:text-sm md:text-base lg:text-lg leading-tight sm:leading-normal">
+                  Оптимальные решения и конкурентные цены
+                </p>
+              </div>
+            </div>
+
+            {/* Card 5 - Bottom Right (3 cols wide) */}
+            <div className="sm:col-span-2 md:col-span-3 group relative overflow-hidden rounded-2xl h-64 sm:h-80 animate-scale-in" style={{ animationDelay: '0.4s', opacity: 0, animationFillMode: 'forwards' }}>
+              <img 
+                src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/e4bdbcad-4666-434e-8bdd-e0c70943b60e.jpg"
+                alt="Современное производство"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
+                <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 sm:mb-3 leading-tight">
+                  Собственное современное производство
+                </h3>
+                <p className="text-gray-200 text-xs sm:text-sm md:text-base lg:text-lg leading-tight sm:leading-normal">
+                  Полный контроль над сроками и качеством
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="py-12 sm:py-16 md:py-20 px-4 metal-texture">
         <div className="container mx-auto">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">
             Наши услуги
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {services.map((service, index) => (
-              <Card key={index} className="group overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-xl">
-                <div className="relative h-48 sm:h-56 overflow-hidden">
+              <Card key={index} className="overflow-hidden border-border/50 hover:border-primary/50 transition-all group animate-scale-in" style={{ animationDelay: `${index * 0.1}s`, opacity: 0, animationFillMode: 'forwards' }}>
+                <div className="relative h-52 sm:h-56 overflow-hidden">
                   <img 
-                    src={service.image} 
+                    src={service.image}
                     alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-lg sm:text-xl font-bold text-white mb-1">{service.title}</h3>
-                    <p className="text-xs sm:text-sm text-gray-300">{service.description}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6">
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1 leading-tight">{service.title}</h3>
+                    <p className="text-xs sm:text-sm text-gray-300 leading-tight">{service.description}</p>
                   </div>
                 </div>
-                <CardContent className="p-4 sm:p-6">
-                  <Button className="w-full metal-shine">
-                    Подробнее
-                    <Icon name="ArrowRight" size={18} className="ml-2" />
-                  </Button>
-                </CardContent>
               </Card>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="works" className="py-12 sm:py-16 md:py-20 px-4">
+      {/* Services Section - kept here for navigation anchor */}
+      <section id="quiz"></section>
+
+      {/* Welding Services Section */}
+      <section className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-br from-background via-primary/5 to-background overflow-hidden relative">
+        {/* Креативный элемент - декоративные искры */}
+        <div className="absolute top-20 right-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-40 left-20 w-24 h-24 bg-primary/10 rounded-full blur-2xl animate-pulse delay-700"></div>
+        
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+            {/* Left: Сварка металлоконструкций */}
+            <div className="relative group flex">
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-3xl blur-2xl group-hover:blur-3xl transition-all"></div>
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl flex flex-col w-full">
+                <div className="relative h-[550px] sm:h-[600px]">
+                  <img 
+                    src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/8ffb09ce-dc74-4edf-9227-4dc0c10d3fcb.jpg"
+                    alt="Сварка металлоконструкций"
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/20"></div>
+                  
+                  {/* Креативный элемент - диагональная полоса */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/30 to-transparent transform rotate-45 translate-x-16 -translate-y-16"></div>
+                  
+                  <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 pt-10">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/30 backdrop-blur-md border border-primary/40 self-start">
+                      <Icon name="Flame" size={16} className="text-white" />
+                    </div>
+                    
+                    <div>
+                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
+                        Сварка металлоконструкций
+                      </h3>
+                      <p className="text-base text-gray-200 font-medium leading-relaxed mb-5">
+                        Полный цикл изготовления металлоконструкций на производстве. От простых изделий до сложных промышленных конструкций.
+                      </p>
+                      
+                      <div className="grid grid-cols-2 gap-3 mb-6">
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="Building2" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">Каркасы зданий</p>
+                        </div>
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="Layers" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">Антресольные этажи</p>
+                        </div>
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="Home" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">Навесы и козырьки</p>
+                        </div>
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="Fence" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">Заборы и ограждения</p>
+                        </div>
+                      </div>
+
+                      <Button size="lg" className="w-full metal-shine text-base px-6" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+                        <Icon name="MessageSquare" size={18} className="mr-2" />
+                        Получить расчёт
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Выездные сварочные работы */}
+            <div className="relative group flex">
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-3xl blur-2xl group-hover:blur-3xl transition-all"></div>
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl flex flex-col w-full">
+                <div className="relative h-[550px] sm:h-[600px]">
+                  <img 
+                    src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/8ffb09ce-dc74-4edf-9227-4dc0c10d3fcb.jpg"
+                    alt="Выездные сварочные работы"
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/20"></div>
+                  
+                  {/* Креативный элемент - искра сварки */}
+                  <div className="absolute top-10 right-10 w-3 h-3 bg-primary rounded-full animate-ping"></div>
+                  <div className="absolute top-10 right-10 w-3 h-3 bg-primary rounded-full"></div>
+                  
+                  <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 pt-10">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/30 backdrop-blur-md border border-primary/40 self-start">
+                      <Icon name="Sparkles" size={16} className="text-white" />
+                    </div>
+                    
+                    <div>
+                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
+                        Выездные сварочные работы
+                      </h3>
+                      <p className="text-base text-gray-200 font-medium leading-relaxed mb-5">
+                        Профессиональная аргонодуговая сварка с выездом на ваш объект. Работаем со всеми типами металлов круглосуточно.
+                      </p>
+                      
+                      <div className="grid grid-cols-2 gap-3 mb-6">
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="Clock" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">Быстрый выезд</p>
+                        </div>
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="Zap" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">24/7 доступность</p>
+                        </div>
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="ShieldCheck" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">Все типы сварки</p>
+                        </div>
+                        <div className="flex items-start gap-2 text-white">
+                          <div className="w-9 h-9 rounded-lg bg-primary/30 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <Icon name="MapPin" size={18} className="text-white" />
+                          </div>
+                          <p className="font-bold text-sm leading-tight mt-1">Москва и МО</p>
+                        </div>
+                      </div>
+
+                      <Button size="lg" className="w-full metal-shine text-base px-6" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+                        <Icon name="Phone" size={18} className="mr-2" />
+                        Вызвать сварщика
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Section - Carousel */}
+      <section id="gallery" className="py-12 sm:py-16 md:py-20 px-4">
         <div className="container mx-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">
-            Как мы работаем
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 sm:mb-4">
+            Наши работы
           </h2>
-          <div className="max-w-5xl mx-auto">
+          <p className="text-center text-muted-foreground text-base sm:text-lg mb-8 sm:mb-12">
+            Проекты, которыми мы гордимся
+          </p>
+          
+          <div className="relative max-w-[1400px] mx-auto">
+            {/* Carousel Container */}
+            <div className="overflow-hidden" ref={galleryRef}>
+              <div 
+                className="flex items-center gap-4 sm:gap-8 transition-transform duration-700 ease-in-out py-6 sm:py-8"
+                style={{
+                  transform: isMobile
+                    ? `translateX(calc(50vw - ${currentGalleryIndex * (85 + 1.5)}vw - 42.5vw))` 
+                    : `translateX(calc(50% - ${currentGalleryIndex * 632}px - 300px))`
+                }}
+              >
+                {gallery.map((item, index) => {
+                  const offset = index - currentGalleryIndex;
+                  const isCenter = offset === 0;
+                  const isNear = Math.abs(offset) === 1;
+                  
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => setCurrentGalleryIndex(index)}
+                      className={`relative flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${
+                        isCenter 
+                          ? 'w-[85vw] max-w-[400px] h-[350px] sm:w-[600px] sm:h-[400px] sm:max-w-[600px] scale-100 sm:scale-105 z-30 shadow-2xl' 
+                          : isNear 
+                          ? 'w-[85vw] max-w-[400px] h-[350px] sm:w-[600px] sm:h-[400px] sm:max-w-[600px] scale-90 z-20 opacity-40' 
+                          : 'w-[85vw] max-w-[400px] h-[350px] sm:w-[600px] sm:h-[400px] sm:max-w-[600px] scale-75 z-10 opacity-20'
+                      }`}
+                    >
+                      <img 
+                        src={item.image} 
+                        alt={item.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className={`absolute inset-0 bg-black transition-opacity duration-700 ${
+                        isCenter ? 'opacity-0' : 'opacity-70'
+                      }`}></div>
+                      {isCenter && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex items-end">
+                          <div className="p-5 sm:p-6 md:p-8 w-full">
+                            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 leading-tight">{item.title}</h3>
+                            <div className="h-1 w-20 bg-primary rounded-full"></div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            
+            {/* Navigation Buttons - Always visible on all screens */}
+            <Button
+              variant="outline"
+              size="icon"
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-background/90 backdrop-blur border-primary/50 hover:bg-primary hover:border-primary shadow-xl disabled:opacity-30 disabled:cursor-not-allowed"
+              onClick={() => setCurrentGalleryIndex(Math.max(0, currentGalleryIndex - 1))}
+              disabled={currentGalleryIndex === 0}
+            >
+              <Icon name="ChevronLeft" size={22} />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-background/90 backdrop-blur border-primary/50 hover:bg-primary hover:border-primary shadow-xl disabled:opacity-30 disabled:cursor-not-allowed"
+              onClick={() => setCurrentGalleryIndex(Math.min(gallery.length - 1, currentGalleryIndex + 1))}
+              disabled={currentGalleryIndex === gallery.length - 1}
+            >
+              <Icon name="ChevronRight" size={22} />
+            </Button>
+            
+            {/* Dots Indicator */}
+            <div className="flex justify-center gap-2 mt-6 sm:mt-8">
+              {gallery.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentGalleryIndex(index)}
+                  className={`h-2.5 rounded-full transition-all ${
+                    index === currentGalleryIndex 
+                      ? 'bg-primary w-8' 
+                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/50 w-2.5'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-12 sm:py-16 md:py-20 px-4 bg-gradient-to-b from-background to-primary/5">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3">
+              Что говорят наши <span className="text-primary">клиенты</span>
+            </h2>
+            <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
+              Более 500 успешных проектов и довольных заказчиков
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            {/* Testimonial 1 */}
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-0.5 mb-2">
+                  {[...Array(5)].map((_, i) => (
+                    <Icon key={i} name="Star" className="w-3.5 h-3.5 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3">
+                  Заказывали металлокаркас для склада. Работу выполнили качественно и в срок. Особенно порадовала оперативность менеджеров.
+                </p>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
+                    АС
+                  </div>
+                  <div>
+                    <p className="font-bold text-xs text-foreground">Алексей Смирнов</p>
+                    <p className="text-[10px] text-muted-foreground">ООО "СтройТехМонтаж"</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 2 */}
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-0.5 mb-2">
+                  {[...Array(5)].map((_, i) => (
+                    <Icon key={i} name="Star" className="w-3.5 h-3.5 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3">
+                  Выездная сварка — настоящее спасение! Приехали в течение 3 часов. Работают аккуратно, профессионально. Рекомендую!
+                </p>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
+                    МК
+                  </div>
+                  <div>
+                    <p className="font-bold text-xs text-foreground">Марина Королёва</p>
+                    <p className="text-[10px] text-muted-foreground">ИП Королёва М.В.</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 3 */}
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-0.5 mb-2">
+                  {[...Array(5)].map((_, i) => (
+                    <Icon key={i} name="Star" className="w-3.5 h-3.5 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3">
+                  Делали антресольный этаж на производстве. Проект сложный, но ребята справились на отлично. Качество на высоте.
+                </p>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
+                    ДП
+                  </div>
+                  <div>
+                    <p className="font-bold text-xs text-foreground">Дмитрий Петров</p>
+                    <p className="text-[10px] text-muted-foreground">Завод "Технопром"</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 4 */}
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300 group">
+              <CardContent className="p-4 sm:p-6">
+                <div className="flex items-center gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Icon key={i} name="Star" className="w-4 h-4 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  Заказывали навес для парковки. От замера до монтажа всё прошло гладко. Понравилось, что менеджер всегда держал в курсе, не надо было выпытывать информацию.
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                    ЕН
+                  </div>
+                  <div>
+                    <p className="font-bold text-sm text-foreground">Елена Новикова</p>
+                    <p className="text-xs text-muted-foreground">Частный заказчик</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 5 */}
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300 group">
+              <CardContent className="p-4 sm:p-6">
+                <div className="flex items-center gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Icon key={i} name="Star" className="w-4 h-4 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  Сотрудничаем уже второй год. Изготавливают металлоконструкции для наших объектов. Всегда точно в срок, качество стабильное. Надёжные партнёры.
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                    ИГ
+                  </div>
+                  <div>
+                    <p className="font-bold text-sm text-foreground">Игорь Григорьев</p>
+                    <p className="text-xs text-muted-foreground">ГК "СтройРесурс"</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 6 */}
+            <Card className="border-border/50 hover:border-primary/50 transition-all duration-300 group">
+              <CardContent className="p-4 sm:p-6">
+                <div className="flex items-center gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Icon key={i} name="Star" className="w-4 h-4 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  Нужна была аргонная сварка нержавейки. Сделали аккуратно, швы ровные. Мастер работал профессионально, объяснял каждый этап. Очень доволен результатом!
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                    СВ
+                  </div>
+                  <div>
+                    <p className="font-bold text-sm text-foreground">Сергей Волков</p>
+                    <p className="text-xs text-muted-foreground">Кафе "Гурман"</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="mt-8 sm:mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            <div className="text-center p-4 rounded-xl bg-card border border-border/50">
+              <div className="text-3xl font-bold text-primary mb-1">98%</div>
+              <p className="text-xs text-muted-foreground">Повторных обращений</p>
+            </div>
+            <div className="text-center p-4 rounded-xl bg-card border border-border/50">
+              <div className="text-3xl font-bold text-primary mb-1">4.9</div>
+              <p className="text-xs text-muted-foreground">Средняя оценка</p>
+            </div>
+            <div className="text-center p-4 rounded-xl bg-card border border-border/50">
+              <div className="text-3xl font-bold text-primary mb-1">500+</div>
+              <p className="text-xs text-muted-foreground">Довольных клиентов</p>
+            </div>
+            <div className="text-center p-4 rounded-xl bg-card border border-border/50">
+              <div className="text-3xl font-bold text-primary mb-1">10</div>
+              <p className="text-xs text-muted-foreground">Лет на рынке</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us - Creative Block */}
+      <section className="py-12 sm:py-16 md:py-20 px-4 overflow-hidden">
+        <div className="container mx-auto max-w-7xl">
+          <div className="relative">
+            {/* Background decorative elements */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
+            
+            <div className="relative z-10">
+              <div className="text-center mb-12 sm:mb-16">
+                <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-3 sm:mb-4">
+                  Почему <span className="text-primary">Основа</span>?
+                </h2>
+                <p className="text-base sm:text-xl text-muted-foreground">
+                  Мы не просто выполняем заказы — мы создаём надёжность
+                </p>
+              </div>
+              
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+                {/* Feature 1 */}
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+                  <Card className="relative border-border/50 hover:border-primary/50 transition-all duration-300 overflow-hidden h-full">
+                    <CardContent className="p-8">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <Icon name="Award" size={32} className="text-white" />
+                      </div>
+                      <h3 className="text-2xl font-bold mb-4">10+ лет опыта</h3>
+                      <p className="text-muted-foreground leading-relaxed mb-6">
+                        Сотни успешно реализованных проектов любой сложности
+                      </p>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Промышленные объекты</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Коммерческая недвижимость</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Частное строительство</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+                
+                {/* Feature 2 */}
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+                  <Card className="relative border-border/50 hover:border-primary/50 transition-all duration-300 overflow-hidden h-full">
+                    <CardContent className="p-8">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <Icon name="Shield" size={32} className="text-white" />
+                      </div>
+                      <h3 className="text-2xl font-bold mb-4">Гарантия качества</h3>
+                      <p className="text-muted-foreground leading-relaxed mb-6">
+                        Строгий контроль на каждом этапе производства
+                      </p>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Сертифицированные материалы</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Аттестованные сварщики</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Гарантия до 5 лет</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+                
+                {/* Feature 3 */}
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+                  <Card className="relative border-border/50 hover:border-primary/50 transition-all duration-300 overflow-hidden h-full">
+                    <CardContent className="p-8">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <Icon name="Zap" size={32} className="text-white" />
+                      </div>
+                      <h3 className="text-2xl font-bold mb-4">Скорость + точность</h3>
+                      <p className="text-muted-foreground leading-relaxed mb-6">
+                        Современное оборудование и отлаженные процессы
+                      </p>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Станки с ЧПУ</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Срочное производство</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="text-sm">Соблюдение сроков 99%</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+              
+              {/* Stats Section */}
+              <div className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+                <div className="text-center">
+                  <div className="text-3xl sm:text-5xl font-bold text-primary mb-2">500+</div>
+                  <div className="text-sm sm:text-base text-muted-foreground">Завершённых проектов</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl sm:text-5xl font-bold text-primary mb-2">10</div>
+                  <div className="text-sm sm:text-base text-muted-foreground">Лет на рынке</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl sm:text-5xl font-bold text-primary mb-2">98%</div>
+                  <div className="text-sm sm:text-base text-muted-foreground">Довольных клиентов</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl sm:text-5xl font-bold text-primary mb-2">24/7</div>
+                  <div className="text-sm sm:text-base text-muted-foreground">Техподдержка</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Work Process Section - Horizontal Timeline */}
+      <section className="py-12 sm:py-16 px-4 metal-texture relative overflow-hidden">
+        <div className="container mx-auto max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-3">
+              Этапы <span className="text-primary">работы</span>
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              От первого звонка до сдачи объекта
+            </p>
+          </div>
+          
+          {/* Horizontal Timeline for Desktop */}
+          <div className="hidden lg:block relative">
+            {/* Horizontal line */}
+            <div className="absolute top-16 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/20 via-primary to-primary/20"></div>
+            
+            <div className="grid grid-cols-6 gap-4">
+              {works.map((work, index) => {
+                const icons: ('Phone' | 'FileText' | 'Factory' | 'Truck' | 'CheckCircle2' | 'Star')[] = ['Phone', 'FileText', 'Factory', 'Truck', 'CheckCircle2', 'Star'];
+                
+                return (
+                  <div key={index} className="relative group">
+                    {/* Icon Circle */}
+                    <div className="flex justify-center mb-4">
+                      <div className="relative">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                          <Icon name={icons[index]} size={24} className="text-white" />
+                        </div>
+                        <div className="absolute -inset-2 rounded-full bg-primary/20 blur-lg group-hover:bg-primary/30 transition-colors"></div>
+                        {/* Step number badge */}
+                        <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-background border-2 border-primary flex items-center justify-center text-xs font-bold">
+                          {index + 1}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="text-center">
+                      <h3 className="text-sm font-bold mb-2 group-hover:text-primary transition-colors leading-tight">
+                        {work.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        {work.description}
+                      </p>
+                    </div>
+                    
+                    {/* Connecting line */}
+                    {index < works.length - 1 && (
+                      <div className="absolute top-8 left-[calc(50%+2rem)] w-[calc(100%-2rem)] h-0.5 bg-transparent"></div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          
+          {/* Mobile/Tablet View */}
+          <div className="lg:hidden space-y-8">
             {works.map((work, index) => {
-              const icons = ['MessageSquare', 'Calculator', 'Factory', 'Truck', 'Wrench', 'Shield'];
+              const icons: ('Phone' | 'FileText' | 'Factory' | 'Truck' | 'CheckCircle2' | 'Star')[] = ['Phone', 'FileText', 'Factory', 'Truck', 'CheckCircle2', 'Star'];
+              
               return (
-                <div key={index} className="relative">
-                  {index !== works.length - 1 && (
-                    <div className="absolute left-6 top-16 w-0.5 h-full bg-primary/20 hidden md:block"></div>
-                  )}
-                  <div className="flex gap-4 sm:gap-6 mb-6 sm:mb-8">
-                    <div className="flex-shrink-0">
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center border-2 border-primary relative z-10">
-                        <Icon name={icons[index]} size={24} className="text-primary" />
+                <div key={index} className="relative group">
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary/20 via-primary/50 to-primary/20"></div>
+                  
+                  <div className="ml-12 relative">
+                    <div className="absolute -left-14 top-0">
+                      <div className="relative">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg">
+                          <Icon name={icons[index]} size={20} className="text-white" />
+                        </div>
+                        <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-background border-2 border-primary flex items-center justify-center text-xs font-bold">
+                          {index + 1}
+                        </div>
                       </div>
                     </div>
                     
@@ -506,40 +1862,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="gallery" className="py-12 sm:py-16 md:py-20 px-4 bg-muted/30">
-        <div className="container mx-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">
-            Наши работы
-          </h2>
-          
-          <div className="max-w-6xl mx-auto">
-            <div className="relative" ref={galleryRef}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                {gallery.map((item, index) => (
-                  <Card 
-                    key={index}
-                    className="group overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-300 cursor-pointer"
-                    onClick={() => setCurrentGalleryIndex(index)}
-                  >
-                    <div className="relative h-56 sm:h-64 overflow-hidden">
-                      <img 
-                        src={item.image} 
-                        alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                        <p className="text-white font-semibold text-sm sm:text-base">{item.title}</p>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      {/* Contact Form Section */}
       <section id="contact" className="py-12 sm:py-16 md:py-20 px-4">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 sm:mb-4">
@@ -550,6 +1873,7 @@ const Index = () => {
           </p>
           
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-start">
+            {/* Form */}
             <Card className="border-border/50 shadow-xl h-full">
               <CardContent className="p-6 sm:p-8 flex flex-col h-full">
                 <form onSubmit={handleCallRequest} className="space-y-6 flex-1 flex flex-col">
@@ -572,6 +1896,7 @@ const Index = () => {
               </CardContent>
             </Card>
 
+            {/* Manager Card */}
             <Card className="border-border/50 overflow-hidden h-full">
               <CardContent className="p-0 flex flex-col h-full">
                 <div className="relative h-56 sm:h-72 overflow-hidden flex-shrink-0">
@@ -609,6 +1934,7 @@ const Index = () => {
                     </div>
                   </div>
                   
+                  {/* Compact Messenger Buttons */}
                   <div className="flex gap-3 justify-center mt-4 pt-4 border-t border-border/50">
                     <Button 
                       size="icon"
@@ -632,8 +1958,74 @@ const Index = () => {
         </div>
       </section>
 
-      <Footer />
+      {/* Footer */}
+      <footer className="py-8 sm:py-12 px-4 border-t border-border/50 metal-texture">
+        <div className="container mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
+            {/* Company Info */}
+            <div>
+              <div className="mb-4">
+                <img 
+                  src="https://cdn.poehali.dev/files/осе.png" 
+                  alt="Основа" 
+                  className="h-16 w-auto object-contain"
+                />
+              </div>
+              <p className="text-muted-foreground mb-4">
+                Производство металлоконструкций и выездная сварка. Более 10 лет на рынке.
+              </p>
+            </div>
+            
+            {/* Contacts */}
+            <div>
+              <h3 className="font-bold mb-4">Контакты</h3>
+              <div className="space-y-3">
+                <a href="tel:+74998403312" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                  <Icon name="Phone" size={18} />
+                  <span>+7(499)840-33-12</span>
+                </a>
+                <a href="mailto:info@metallprom.ru" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                  <Icon name="Mail" size={18} />
+                  <span>info@metallprom.ru</span>
+                </a>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Icon name="MapPin" size={18} />
+                  <span>г. Москва, ул. Промышленная, 15</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Messengers - Compact Icons */}
+            <div>
+              <h3 className="font-bold mb-4">Мессенджеры</h3>
+              <div className="flex gap-3">
+                <Button 
+                  size="icon"
+                  variant="outline"
+                  className="w-12 h-12 rounded-full border-[#25D366] hover:bg-[#25D366] hover:text-white"
+                  onClick={() => window.open('https://wa.me/79773804500', '_blank')}
+                >
+                  <Icon name="MessageCircle" size={20} />
+                </Button>
+                <Button 
+                  size="icon"
+                  variant="outline"
+                  className="w-12 h-12 rounded-full border-[#0088cc] hover:bg-[#0088cc] hover:text-white"
+                  onClick={() => window.open('https://t.me/Ivan_517', '_blank')}
+                >
+                  <Icon name="Send" size={20} />
+                </Button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-border/50 pt-6 text-center text-muted-foreground">
+            <p>© 2024 Основа. Все права защищены.</p>
+          </div>
+        </div>
+      </footer>
 
+      {/* Assistant Widget */}
       <Assistant />
     </div>
   );
