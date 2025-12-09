@@ -355,7 +355,88 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="services" className="py-12 sm:py-16 md:py-20 px-4 bg-muted/30">
+      <section className="py-12 sm:py-16 md:py-20 px-4 bg-muted/30">
+        <div className="container mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">
+            Почему Основа?
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+            <Card className="metal-texture border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardContent className="p-6 sm:p-8">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Icon name="Award" size={24} className="text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">Опыт и надежность</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Более 10 лет успешной работы на рынке металлоконструкций. 500+ реализованных проектов различной сложности.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="metal-texture border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardContent className="p-6 sm:p-8">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Icon name="Shield" size={24} className="text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">Гарантия качества</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Строгий контроль на каждом этапе производства. Гарантийное обслуживание и техническая поддержка.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="metal-texture border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardContent className="p-6 sm:p-8">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Icon name="Zap" size={24} className="text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">Современное оборудование</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Высокоточное оборудование для резки, сварки и обработки металла. Производство полного цикла.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="metal-texture border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardContent className="p-6 sm:p-8">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Icon name="Clock" size={24} className="text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">Соблюдение сроков</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Четкое планирование и организация работ. Выполняем проекты в установленные сроки без задержек.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="metal-texture border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardContent className="p-6 sm:p-8">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Icon name="Users" size={24} className="text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">Профессиональная команда</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Квалифицированные сварщики и инженеры с многолетним опытом. Регулярное повышение квалификации.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="metal-texture border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardContent className="p-6 sm:p-8">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Icon name="TrendingDown" size={24} className="text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">Оптимальные цены</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Собственное производство без посредников. Гибкая ценовая политика и индивидуальный подход.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" className="py-12 sm:py-16 md:py-20 px-4">
         <div className="container mx-auto">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">
             Наши услуги
