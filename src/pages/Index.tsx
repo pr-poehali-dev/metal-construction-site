@@ -248,7 +248,7 @@ const Index = () => {
             <img 
               src="https://cdn.poehali.dev/files/осе.png" 
               alt="Основа" 
-              className="h-10 sm:h-12 w-auto object-contain"
+              className="h-12 sm:h-16 w-auto object-contain"
             />
           </div>
           <nav className="hidden md:flex items-center gap-6">
@@ -256,10 +256,17 @@ const Index = () => {
             <a href="#services" className="hover:text-primary transition-colors">Услуги</a>
             <a href="#quiz" className="hover:text-primary transition-colors">Расчет</a>
             <a href="#gallery" className="hover:text-primary transition-colors">Галерея</a>
-            <a href="#contact" className="hover:text-primary transition-colors" onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-            }}>Контакты</a>
+            <a 
+              href="#contact" 
+              className="hover:text-primary transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+            >Контакты</a>
           </nav>
           <div className="flex items-center gap-1.5 sm:gap-2">
             <Button 
@@ -283,6 +290,13 @@ const Index = () => {
               onClick={() => window.open('https://t.me/Ivan_517', '_blank')}
             >
               <Icon name="Send" className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
+            </Button>
+            <Button 
+              size="icon" 
+              className="md:hidden w-9 h-9 rounded-full bg-primary/10 hover:bg-primary hover:text-white border border-primary/30"
+              onClick={() => window.open('tel:+74998403312', '_self')}
+            >
+              <Icon name="Phone" className="w-5 h-5" />
             </Button>
             <Button className="metal-shine ml-1 sm:ml-2 hidden sm:flex">
               <Icon name="Phone" size={18} className="mr-2" />
@@ -330,7 +344,10 @@ const Index = () => {
                   e.preventDefault();
                   setIsMobileMenuOpen(false);
                   setTimeout(() => {
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    const contactSection = document.getElementById('contact');
+                    if (contactSection) {
+                      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                   }, 100);
                 }}
               >
@@ -408,7 +425,10 @@ const Index = () => {
                   size="lg" 
                   className="metal-shine text-sm sm:text-lg px-4 sm:px-8 h-11 sm:h-12"
                   onClick={() => {
-                    document.getElementById('quiz')?.scrollIntoView({ behavior: 'smooth' });
+                    const quizSection = document.getElementById('quiz');
+                    if (quizSection) {
+                      quizSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                   }}
                 >
                   <Icon name="Calculator" className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" />
@@ -525,7 +545,7 @@ const Index = () => {
           </div>
 
           {/* Quiz Section - moved here after Director Comment */}
-          <div className="mt-12 sm:mt-16 max-w-4xl mx-auto">
+          <div id="quiz" className="mt-12 sm:mt-16 max-w-4xl mx-auto">
             <div className="mb-8 sm:mb-12 metal-texture border border-border/50 rounded-lg p-4 sm:p-6 md:p-8">
               <div className="grid md:grid-cols-[1fr_auto] gap-6 sm:gap-8 items-center">
                 <div>
@@ -1944,12 +1964,15 @@ const Index = () => {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             {/* Company Info */}
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Icon name="Hammer" size={24} className="text-primary" />
-                <span className="text-xl font-bold">Основа</span>
+              <div className="mb-4">
+                <img 
+                  src="https://cdn.poehali.dev/files/осе.png" 
+                  alt="Основа" 
+                  className="h-16 w-auto object-contain"
+                />
               </div>
               <p className="text-muted-foreground mb-4">
-                Производство металлоконструкций и выездная сварка. Более 15 лет на рынке.
+                Производство металлоконструкций и выездная сварка. Более 10 лет на рынке.
               </p>
             </div>
             
