@@ -243,7 +243,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-50 metal-texture border-b border-border/50 backdrop-blur-sm">
-        <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-2 flex items-center justify-between">
+        <div className="container mx-auto px-3 sm:px-4 py-1 sm:py-1 flex items-center justify-between">
           <div className="flex items-center gap-1.5 sm:gap-2">
             <img 
               src="https://cdn.poehali.dev/files/осе.png" 
@@ -1959,7 +1959,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 sm:py-12 px-4 border-t border-border/50 metal-texture">
+      <footer className="py-4 sm:py-6 px-4 border-t border-border/50 metal-texture">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             {/* Company Info */}
