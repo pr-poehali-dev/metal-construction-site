@@ -246,7 +246,7 @@ const Index = () => {
         <div className="container mx-auto px-3 sm:px-4 py-1 sm:py-1 flex items-center justify-between">
           <div className="flex items-center gap-1.5 sm:gap-2">
             <img 
-              src="https://cdn.poehali.dev/files/осе.png" 
+              src="https://cdn.poehali.dev/files/лого5.png" 
               alt="Основа" 
               className="h-[82px] sm:h-[109px] w-auto object-contain"
             />
@@ -1966,7 +1966,7 @@ const Index = () => {
             <div>
               <div className="mb-4">
                 <img 
-                  src="https://cdn.poehali.dev/files/осе.png" 
+                  src="https://cdn.poehali.dev/files/лого5.png" 
                   alt="Основа" 
                   className="h-[109px] w-auto object-contain"
                 />
