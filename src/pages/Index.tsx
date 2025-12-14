@@ -1232,7 +1232,7 @@ const Index = () => {
               <div className="relative rounded-2xl overflow-hidden shadow-2xl flex flex-col w-full">
                 <div className="relative h-[550px] sm:h-[600px]">
                   <img 
-                    src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/8ffb09ce-dc74-4edf-9227-4dc0c10d3fcb.jpg"
+                    src="https://cdn.poehali.dev/files/а.jpg"
                     alt="Сварка металлоконструкций"
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                   />
@@ -1297,7 +1297,7 @@ const Index = () => {
               <div className="relative rounded-2xl overflow-hidden shadow-2xl flex flex-col w-full">
                 <div className="relative h-[550px] sm:h-[600px]">
                   <img 
-                    src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/8ffb09ce-dc74-4edf-9227-4dc0c10d3fcb.jpg"
+                    src="https://cdn.poehali.dev/files/5.jpg"
                     alt="Выездные сварочные работы"
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                   />
