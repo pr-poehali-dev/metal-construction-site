@@ -213,11 +213,11 @@ const Index = () => {
   };
 
   const services = [
-    { title: 'Металлоконструкции', description: 'Металлоконструкции', image: 'https://cdn.poehali.dev/files/5.jpg' },
+    { title: 'Металлоконструкции', description: 'Металлоконструкции', image: 'https://cdn.poehali.dev/files/2.jpg' },
     { title: 'Ограждения', description: 'Заборы, перила, барьеры', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/f3cf71ee-dcce-4504-b474-a49ebbf19770.jpg' },
-    { title: 'Антресольные этажи', description: 'Изготовление под ключ', image: 'https://cdn.poehali.dev/files/56н.png' },
+    { title: 'Антресольные этажи', description: 'Изготовление под ключ', image: 'https://cdn.poehali.dev/files/3.jpg' },
     { title: 'Конструкции для дачи', description: 'Беседки, навесы, козырьки', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/615adba9-d99b-48eb-8826-bee065ce039b.jpg' },
-    { title: 'Выездные сварочные работы', description: 'Профессиональная аргонодуговая сварка', image: 'https://cdn.poehali.dev/files/56н.png' },
+    { title: 'Выездные сварочные работы', description: 'Профессиональная аргонодуговая сварка', image: 'https://cdn.poehali.dev/files/4.jpg' },
     { title: 'Порошковая покраска', description: 'Прочное и долговечное покрытие', image: 'https://cdn.poehali.dev/files/п.jpg' }
   ];
 
@@ -1110,7 +1110,7 @@ const Index = () => {
             {/* Card 1 - Top Left (2 cols wide) */}
             <div className="sm:col-span-2 group relative overflow-hidden rounded-2xl h-64 sm:h-80 animate-scale-in">
               <img 
-                src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/4e7663e3-7955-426e-af78-f7af02052a0a.jpg"
+                src="https://cdn.poehali.dev/files/Construction manager for metal buildings.jpg"
                 alt="Надежный партнер"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
