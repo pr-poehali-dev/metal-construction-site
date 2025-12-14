@@ -235,8 +235,12 @@ const Index = () => {
     { title: 'Ангар для сельхозтехники', image: 'https://cdn.poehali.dev/files/2.jpg' },
     { title: 'Металлическая лестница на второй этаж', image: 'https://cdn.poehali.dev/files/3.jpg' },
     { title: 'Навес для автомобилей', image: 'https://cdn.poehali.dev/files/навес.jpg' },
-    { title: 'Ограждение промышленной территории', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/f526d998-8af1-469f-b8b4-f0c04f84f2f6.jpg' },
-    { title: 'Нестандартная металлоконструкция', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/d9095538-0347-4d00-9caa-1edf9ced5a80.jpg' }
+    { title: 'Ограждение промышленной территории', image: 'https://cdn.poehali.dev/files/8.jpg' },
+    { title: 'Нестандартная металлоконструкция', image: 'https://cdn.poehali.dev/files/а.jpg' },
+    { title: 'Ограждение лестницы', image: 'https://cdn.poehali.dev/files/8.jpg' },
+    { title: 'Изделия из нержавейки', image: 'https://cdn.poehali.dev/files/stainless-seat-large.jpg' },
+    { title: 'Козырек для здания', image: 'https://cdn.poehali.dev/files/к.jpg' },
+    { title: 'Каркас предприятия', image: 'https://cdn.poehali.dev/files/г.jpg' }
   ];
 
   return (
