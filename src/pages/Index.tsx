@@ -231,11 +231,11 @@ const Index = () => {
   ];
 
   const gallery = [
-    { title: 'Металлокаркас производственного цеха', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/0696cc2a-f54c-4a1f-8c07-49f706517e2e.jpg' },
+    { title: 'Металлокаркас производственного цеха', image: 'https://cdn.poehali.dev/files/ее.jpg' },
     { title: 'Ангар для сельхозтехники', image: 'https://cdn.poehali.dev/files/2.jpg' },
     { title: 'Металлическая лестница на второй этаж', image: 'https://cdn.poehali.dev/files/3.jpg' },
     { title: 'Навес для автомобилей', image: 'https://cdn.poehali.dev/files/навес.jpg' },
-    { title: 'Ограждение промышленной территории', image: 'https://cdn.poehali.dev/files/8.jpg' },
+    { title: 'Ограждение промышленной территории', image: 'https://cdn.poehali.dev/files/00.png' },
     { title: 'Нестандартная металлоконструкция', image: 'https://cdn.poehali.dev/files/а.jpg' },
     { title: 'Ограждение лестницы', image: 'https://cdn.poehali.dev/files/8.jpg' },
     { title: 'Изделия из нержавейки', image: 'https://cdn.poehali.dev/files/stainless-seat-large.jpg' },
