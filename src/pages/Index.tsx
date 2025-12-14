@@ -213,12 +213,12 @@ const Index = () => {
   };
 
   const services = [
-    { title: 'Металлоконструкции', description: 'Металлоконструкции', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/491e11c5-2b4e-49a1-8541-44600cef5812.jpg' },
+    { title: 'Металлоконструкции', description: 'Металлоконструкции', image: 'https://cdn.poehali.dev/files/5.jpg' },
     { title: 'Ограждения', description: 'Заборы, перила, барьеры', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/f3cf71ee-dcce-4504-b474-a49ebbf19770.jpg' },
-    { title: 'Антресольные этажи', description: 'Изготовление под ключ', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/f90cb058-f64b-4847-963d-61b80ab0b3ef.jpg' },
+    { title: 'Антресольные этажи', description: 'Изготовление под ключ', image: 'https://cdn.poehali.dev/files/56н.png' },
     { title: 'Конструкции для дачи', description: 'Беседки, навесы, козырьки', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/615adba9-d99b-48eb-8826-bee065ce039b.jpg' },
-    { title: 'Выездные сварочные работы', description: 'Профессиональная аргонодуговая сварка', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/8ffb09ce-dc74-4edf-9227-4dc0c10d3fcb.jpg' },
-    { title: 'Порошковая покраска', description: 'Прочное и долговечное покрытие', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/0fc0183d-d180-4cb6-ac18-804254b3eea1.jpg' }
+    { title: 'Выездные сварочные работы', description: 'Профессиональная аргонодуговая сварка', image: 'https://cdn.poehali.dev/files/56н.png' },
+    { title: 'Порошковая покраска', description: 'Прочное и долговечное покрытие', image: 'https://cdn.poehali.dev/files/п.jpg' }
   ];
 
   const works = [
@@ -376,7 +376,7 @@ const Index = () => {
           {/* Right Side - Image with Parallax */}
           <div className="flex-1 relative">
             <img 
-              src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/4ea4c64f-c726-4453-8227-e4d18ec3d3a9.jpg"
+              src="https://cdn.poehali.dev/files/gemini-image-2_сделать_реалистичное_фото_для_обложки_сайт-0 (1).jpg"
               alt="Металлоконструкции"
               className="w-full h-full object-cover"
               style={{ transform: `translateY(${parallaxOffset}px)` }}
