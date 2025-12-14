@@ -232,9 +232,9 @@ const Index = () => {
 
   const gallery = [
     { title: 'Металлокаркас производственного цеха', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/0696cc2a-f54c-4a1f-8c07-49f706517e2e.jpg' },
-    { title: 'Ангар для сельхозтехники', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/869a3b03-68bd-4f14-8749-fc9c26d0f50f.jpg' },
-    { title: 'Металлическая лестница на второй этаж', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/2a5a9fe8-27fe-4f4e-8ba0-c55d15bb6397.jpg' },
-    { title: 'Навес для автомобилей', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/456f9748-2124-461d-b788-a1a259553f2c.jpg' },
+    { title: 'Ангар для сельхозтехники', image: 'https://cdn.poehali.dev/files/2.jpg' },
+    { title: 'Металлическая лестница на второй этаж', image: 'https://cdn.poehali.dev/files/3.jpg' },
+    { title: 'Навес для автомобилей', image: 'https://cdn.poehali.dev/files/навес.jpg' },
     { title: 'Ограждение промышленной территории', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/f526d998-8af1-469f-b8b4-f0c04f84f2f6.jpg' },
     { title: 'Нестандартная металлоконструкция', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/d9095538-0347-4d00-9caa-1edf9ced5a80.jpg' }
   ];
