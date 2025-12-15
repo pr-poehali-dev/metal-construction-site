@@ -130,7 +130,7 @@ const Assistant = () => {
             {/* Avatar button */}
             <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full overflow-hidden shadow-2xl ring-4 ring-card group-hover:ring-primary transition-all duration-300 group-hover:scale-110 bg-card">
               <img 
-                src="https://cdn.poehali.dev/files/2025-12-08_00-26-02.png" 
+                src="https://cdn.poehali.dev/files/edited_image_20251215102416.png" 
                 alt="Виктория - Онлайн консультант"
                 className="w-full h-full object-cover"
                 loading="eager"
@@ -156,7 +156,7 @@ const Assistant = () => {
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <img 
-                    src="https://cdn.poehali.dev/files/2025-12-08_00-26-02.png" 
+                    src="https://cdn.poehali.dev/files/edited_image_20251215102416.png" 
                     alt="Виктория"
                     className="w-11 h-11 rounded-full object-cover ring-2 ring-primary/30"
                   />

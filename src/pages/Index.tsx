@@ -1174,7 +1174,7 @@ const Index = () => {
             {/* Card 5 - Bottom Right (3 cols wide) */}
             <div className="sm:col-span-2 md:col-span-3 group relative overflow-hidden rounded-2xl h-64 sm:h-80 animate-scale-in" style={{ animationDelay: '0.4s', opacity: 0, animationFillMode: 'forwards' }}>
               <img 
-                src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/e4bdbcad-4666-434e-8bdd-e0c70943b60e.jpg"
+                src="https://cdn.poehali.dev/files/x.jpg"
                 alt="Современное производство"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
