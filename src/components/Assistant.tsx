@@ -212,6 +212,13 @@ const Assistant = () => {
                     />
                   </div>
                   
+                  <p className="text-xs text-muted-foreground">
+                    Нажимая на кнопку "Начать диалог", вы соглашаетесь с{' '}
+                    <a href="/personal-data" className="text-primary hover:underline">
+                      Политикой обработки персональных данных
+                    </a>
+                  </p>
+
                   <Button type="submit" className="w-full metal-shine h-11">
                     <Icon name="MessageSquare" size={18} className="mr-2" />
                     Начать диалог

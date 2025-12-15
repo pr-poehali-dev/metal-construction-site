@@ -1087,6 +1087,14 @@ const Index = () => {
                   </div>
                 )}
 
+                {quizStep === totalSteps - 1 && (
+                  <p className="text-xs text-muted-foreground text-center mb-4">
+                    Нажимая на кнопку "Отправить", вы соглашаетесь с{' '}
+                    <a href="/personal-data" className="text-primary hover:underline">
+                      Политикой обработки персональных данных
+                    </a>
+                  </p>
+                )}
                 <div className="flex gap-4">
                   {quizStep > 0 && (
                     <Button 
@@ -1910,6 +1918,12 @@ const Index = () => {
                     <Label htmlFor="contact-message" className="text-base">Сообщение (необязательно)</Label>
                     <Input id="contact-message" name="contact-message" placeholder="Опишите ваш проект" className="h-12 text-base mt-2" />
                   </div>
+                  <p className="text-xs text-muted-foreground">
+                    Нажимая на кнопку "Отправить заявку", вы соглашаетесь с{' '}
+                    <a href="/personal-data" className="text-primary hover:underline">
+                      Политикой обработки персональных данных
+                    </a>
+                  </p>
                   <Button type="submit" className="w-full metal-shine h-12 text-base mt-auto">
                     Отправить заявку
                   </Button>
