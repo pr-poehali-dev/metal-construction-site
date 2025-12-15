@@ -676,23 +676,26 @@ const Index = () => {
                 {quizStep === 1 && !isWeldingFlow && (
                   <div className="space-y-4">
                     <Label className="text-lg">Какой тип металла требуется?</Label>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('material', 'конструкционная')}>
-                        <img src="https://cdn.poehali.dev/files/dbf0f0d2-320e-41f7-8fc4-1303ab8384c4.png" alt="Конструкционная сталь" className="w-full h-32 object-cover rounded mb-3" />
-                        <div className="font-semibold mb-2">Конструкционная (черная) сталь</div>
-                        {quizData.material === 'конструкционная' && <Icon name="CheckCircle" size={20} className="text-primary" />}
+                    <RadioGroup value={quizData.material}>
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('material', 'конструкционная')}>
+                        <RadioGroupItem value="конструкционная" id="конструкционная" />
+                        <Label htmlFor="конструкционная" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Конструкционная (черная) сталь</div>
+                        </Label>
                       </div>
-                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('material', 'нержавеющая')}>
-                        <img src="https://cdn.poehali.dev/files/dbf0f0d2-320e-41f7-8fc4-1303ab8384c4.png" alt="Нержавеющая сталь" className="w-full h-32 object-cover rounded mb-3" />
-                        <div className="font-semibold mb-2">Нержавеющая сталь</div>
-                        {quizData.material === 'нержавеющая' && <Icon name="CheckCircle" size={20} className="text-primary" />}
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('material', 'нержавеющая')}>
+                        <RadioGroupItem value="нержавеющая" id="нержавеющая" />
+                        <Label htmlFor="нержавеющая" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Нержавеющая сталь</div>
+                        </Label>
                       </div>
-                      <div className="border border-border rounded-lg p-4 hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('material', 'цветные')}>
-                        <img src="https://cdn.poehali.dev/files/dbf0f0d2-320e-41f7-8fc4-1303ab8384c4.png" alt="Цветные металлы" className="w-full h-32 object-cover rounded mb-3 mx-auto" />
-                        <div className="font-semibold mb-2">Цветные металлы</div>
-                        {quizData.material === 'цветные' && <Icon name="CheckCircle" size={20} className="text-primary" />}
+                      <div className="flex items-center space-x-2 p-4 border border-border rounded-md hover:border-primary transition-colors cursor-pointer" onClick={() => handleRadioSelect('material', 'цветные')}>
+                        <RadioGroupItem value="цветные" id="цветные" />
+                        <Label htmlFor="цветные" className="cursor-pointer flex-1">
+                          <div className="font-semibold">Цветные металлы</div>
+                        </Label>
                       </div>
-                    </div>
+                    </RadioGroup>
                   </div>
                 )}
 
