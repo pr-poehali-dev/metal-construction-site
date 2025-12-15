@@ -25,7 +25,7 @@ const Index = () => {
     fileUrls: [] as string[]
   });
   
-  const [currentGalleryIndex, setCurrentGalleryIndex] = useState(2);
+  const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
   const [parallaxOffset, setParallaxOffset] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isQuizTransitioning, setIsQuizTransitioning] = useState(false);
@@ -231,8 +231,8 @@ const Index = () => {
   ];
 
   const gallery = [
-    { title: 'Металлокаркас производственного цеха', image: 'https://cdn.poehali.dev/files/ее.jpg' },
     { title: 'Ангар для сельхозтехники', image: 'https://cdn.poehali.dev/files/2.jpg' },
+    { title: 'Металлокаркас производственного цеха', image: 'https://cdn.poehali.dev/files/ее.jpg' },
     { title: 'Металлическая лестница на второй этаж', image: 'https://cdn.poehali.dev/files/3.jpg' },
     { title: 'Навес для автомобилей', image: 'https://cdn.poehali.dev/files/навес.jpg' },
     { title: 'Ограждение промышленной территории', image: 'https://cdn.poehali.dev/files/00.png' },
@@ -934,7 +934,7 @@ const Index = () => {
                       <div className="flex items-start gap-3">
                         <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary flex-shrink-0">
                           <img 
-                            src="https://cdn.poehali.dev/files/b6b780d9-3b7f-42d3-af9d-5b721bdb61fd.jpg"
+                            src="https://cdn.poehali.dev/files/edited_image_20251215102416.png"
                             alt="Владислав"
                             className="w-full h-full object-cover"
                           />
@@ -1905,7 +1905,7 @@ const Index = () => {
               <CardContent className="p-0 flex flex-col h-full">
                 <div className="relative h-56 sm:h-72 overflow-hidden flex-shrink-0">
                   <img 
-                    src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&h=800&fit=crop&crop=faces,top"
+                    src="https://cdn.poehali.dev/files/фото менеджера.jpg"
                     alt="Вероника - Менеджер"
                     className="w-full h-full object-cover"
                     style={{ objectPosition: 'center 30%' }}
