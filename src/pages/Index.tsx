@@ -30,10 +30,24 @@ const Index = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isQuizTransitioning, setIsQuizTransitioning] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showCookieNotice, setShowCookieNotice] = useState(true);
   const galleryRef = useRef<HTMLDivElement>(null);
   const quizRef = useRef<HTMLDivElement>(null);
 
   const isWeldingFlow = quizData.type === 'выездная';
+
+  // Check if user already accepted cookies
+  useEffect(() => {
+    const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+    if (cookiesAccepted === 'true') {
+      setShowCookieNotice(false);
+    }
+  }, []);
+
+  const handleAcceptCookies = () => {
+    localStorage.setItem('cookiesAccepted', 'true');
+    setShowCookieNotice(false);
+  };
 
   // Detect mobile for gallery positioning
   useEffect(() => {
@@ -2034,6 +2048,38 @@ const Index = () => {
 
       {/* Assistant Widget */}
       <Assistant />
+
+      {/* Cookie Notice */}
+      {showCookieNotice && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-card/95 backdrop-blur-sm border-t border-border shadow-lg animate-in slide-in-from-bottom duration-300">
+          <div className="container mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-start gap-3 flex-1">
+              <Icon name="Cookie" size={24} className="text-primary flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Мы используем cookies для улучшения работы сайта и персонализации сервиса. Продолжая использовать сайт, вы соглашаетесь с нашей{' '}
+                <a href="/privacy" className="text-primary hover:underline">политикой конфиденциальности</a>.
+              </p>
+            </div>
+            <div className="flex gap-3 flex-shrink-0">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowCookieNotice(false)}
+                className="whitespace-nowrap"
+              >
+                Отклонить
+              </Button>
+              <Button
+                size="sm"
+                onClick={handleAcceptCookies}
+                className="whitespace-nowrap"
+              >
+                Принять
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
