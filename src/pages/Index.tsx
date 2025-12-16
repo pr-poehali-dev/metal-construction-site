@@ -1786,7 +1786,7 @@ const Index = () => {
                   <div className="text-sm sm:text-base text-muted-foreground">Довольных клиентов</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl sm:text-5xl font-bold text-primary mb-2">24/7</div>
+                  <div className="text-3xl sm:text-5xl font-bold text-primary mb-2">с 9 до 21</div>
                   <div className="text-sm sm:text-base text-muted-foreground">Техподдержка</div>
                 </div>
               </div>
