@@ -2021,11 +2021,11 @@ const Index = () => {
                 </a>
                 <a href="mailto:info@metallprom.ru" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                   <Icon name="Mail" size={18} />
-                  <span>info@metallprom.ru</span>
+                  <span>osnova-steel@mail.ru</span>
                 </a>
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Icon name="MapPin" size={18} />
-                  <span>г. Москва, ул. Промышленная, 15</span>
+                  <span>г. Москва, Егорьевский проезд 35</span>
                 </div>
               </div>
             </div>
@@ -2055,7 +2055,7 @@ const Index = () => {
           </div>
           
           <div className="border-t border-border/50 pt-6 text-center text-muted-foreground">
-            <p>© 2024 Основа. Все права защищены.</p>
+            <p>© 2025 Основа. Все права защищены.</p>
           </div>
         </div>
       </footer>
