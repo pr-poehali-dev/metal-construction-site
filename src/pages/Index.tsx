@@ -2065,28 +2065,28 @@ const Index = () => {
 
       {/* Cookie Notice */}
       {showCookieNotice && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-card/95 backdrop-blur-sm border-t border-border shadow-lg animate-in slide-in-from-bottom duration-300">
-          <div className="container mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-start gap-3 flex-1">
-              <Icon name="Cookie" size={24} className="text-primary flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-muted-foreground leading-relaxed">
+        <div className="fixed bottom-0 left-0 right-0 z-50 p-2 sm:p-3 bg-card/95 backdrop-blur-sm border-t border-border shadow-lg animate-in slide-in-from-bottom duration-300">
+          <div className="container mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3">
+            <div className="flex items-start gap-2 flex-1">
+              <Icon name="Cookie" size={16} className="text-primary flex-shrink-0 mt-0.5 sm:w-5 sm:h-5" />
+              <p className="text-xs sm:text-sm text-muted-foreground leading-snug sm:leading-relaxed">
                 Мы используем cookies для улучшения работы сайта и персонализации сервиса. Продолжая использовать сайт, вы соглашаетесь с нашей{' '}
                 <a href="/privacy" className="text-primary hover:underline">политикой конфиденциальности</a>.
               </p>
             </div>
-            <div className="flex gap-3 flex-shrink-0">
+            <div className="flex gap-2 flex-shrink-0">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setShowCookieNotice(false)}
-                className="whitespace-nowrap"
+                className="whitespace-nowrap text-xs sm:text-sm h-7 sm:h-9 px-2 sm:px-4"
               >
                 Отклонить
               </Button>
               <Button
                 size="sm"
                 onClick={handleAcceptCookies}
-                className="whitespace-nowrap"
+                className="whitespace-nowrap text-xs sm:text-sm h-7 sm:h-9 px-2 sm:px-4"
               >
                 Принять
               </Button>
