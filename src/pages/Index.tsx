@@ -227,12 +227,12 @@ const Index = () => {
   };
 
   const services = [
-    { title: 'Металлоконструкции', description: 'Металлоконструкции', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/006ba7f4-b3c7-44e7-b23e-1be4496340ff.jpg' },
-    { title: 'Ограждения', description: 'Заборы, перила, барьеры', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/0bef5969-6283-4203-8259-3de5114a90d4.jpg' },
-    { title: 'Антресольные этажи', description: 'Изготовление под ключ', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/44d5d5ff-bf03-4511-bd5f-93e23526994b.jpg' },
-    { title: 'Конструкции для дачи', description: 'Беседки, навесы, козырьки', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/cffb54f2-580f-4aab-85d3-55077b7f8719.jpg' },
-    { title: 'Выездные сварочные работы', description: 'Профессиональная аргонодуговая сварка', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/07139b5c-d0bc-499e-bbe8-24fc2e00fe78.jpg' },
-    { title: 'Порошковая покраска', description: 'Прочное и долговечное покрытие', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/123c71ad-2561-4580-acbe-85a461629ffa.jpg' }
+    { title: 'Металлоконструкции', description: 'Металлоконструкции', image: 'https://cdn.poehali.dev/files/2.jpg' },
+    { title: 'Ограждения', description: 'Заборы, перила, барьеры', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/f3cf71ee-dcce-4504-b474-a49ebbf19770.jpg' },
+    { title: 'Антресольные этажи', description: 'Изготовление под ключ', image: 'https://cdn.poehali.dev/files/3.jpg' },
+    { title: 'Конструкции для дачи', description: 'Беседки, навесы, козырьки', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/615adba9-d99b-48eb-8826-bee065ce039b.jpg' },
+    { title: 'Выездные сварочные работы', description: 'Профессиональная аргонодуговая сварка', image: 'https://cdn.poehali.dev/files/4.jpg' },
+    { title: 'Порошковая покраска', description: 'Прочное и долговечное покрытие', image: 'https://cdn.poehali.dev/files/п.jpg' }
   ];
 
   const works = [
@@ -245,16 +245,16 @@ const Index = () => {
   ];
 
   const gallery = [
-    { title: 'Ангар для сельхозтехники', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/006ba7f4-b3c7-44e7-b23e-1be4496340ff.jpg' },
-    { title: 'Металлокаркас производственного цеха', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/07139b5c-d0bc-499e-bbe8-24fc2e00fe78.jpg' },
-    { title: 'Металлическая лестница на второй этаж', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/44d5d5ff-bf03-4511-bd5f-93e23526994b.jpg' },
-    { title: 'Навес для автомобилей', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/cffb54f2-580f-4aab-85d3-55077b7f8719.jpg' },
-    { title: 'Ограждение промышленной территории', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/0bef5969-6283-4203-8259-3de5114a90d4.jpg' },
-    { title: 'Нестандартная металлоконструкция', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/123c71ad-2561-4580-acbe-85a461629ffa.jpg' },
-    { title: 'Ограждение лестницы', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/0bef5969-6283-4203-8259-3de5114a90d4.jpg' },
-    { title: 'Изделия из нержавейки', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/123c71ad-2561-4580-acbe-85a461629ffa.jpg' },
-    { title: 'Козырек для здания', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/cffb54f2-580f-4aab-85d3-55077b7f8719.jpg' },
-    { title: 'Каркас предприятия', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/006ba7f4-b3c7-44e7-b23e-1be4496340ff.jpg' }
+    { title: 'Ангар для сельхозтехники', image: 'https://cdn.poehali.dev/files/2.jpg' },
+    { title: 'Металлокаркас производственного цеха', image: 'https://cdn.poehali.dev/files/ее.jpg' },
+    { title: 'Металлическая лестница на второй этаж', image: 'https://cdn.poehali.dev/files/3.jpg' },
+    { title: 'Навес для автомобилей', image: 'https://cdn.poehali.dev/files/навес.jpg' },
+    { title: 'Ограждение промышленной территории', image: 'https://cdn.poehali.dev/files/00.png' },
+    { title: 'Нестандартная металлоконструкция', image: 'https://cdn.poehali.dev/files/а.jpg' },
+    { title: 'Ограждение лестницы', image: 'https://cdn.poehali.dev/files/8.jpg' },
+    { title: 'Изделия из нержавейки', image: 'https://cdn.poehali.dev/files/stainless-seat-large.jpg' },
+    { title: 'Козырек для здания', image: 'https://cdn.poehali.dev/files/к.jpg' },
+    { title: 'Каркас предприятия', image: 'https://cdn.poehali.dev/files/г.jpg' }
   ];
 
   return (

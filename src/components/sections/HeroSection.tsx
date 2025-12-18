@@ -18,7 +18,7 @@ const HeroSection = ({ parallaxOffset }: HeroSectionProps) => {
         
         <div className="flex-1 relative">
           <img 
-            src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/07139b5c-d0bc-499e-bbe8-24fc2e00fe78.jpg"
+            src="https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/4ea4c64f-c726-4453-8227-e4d18ec3d3a9.jpg"
             alt="Металлоконструкции"
             className="w-full h-full object-cover"
             style={{ transform: `translateY(${parallaxOffset}px)` }}
