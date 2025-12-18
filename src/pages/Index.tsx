@@ -1345,9 +1345,7 @@ const Index = () => {
                       <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
                         Выездные сварочные работы
                       </h3>
-                      <p className="text-base text-gray-200 font-medium leading-relaxed mb-5">
-                        Профессиональная аргонодуговая сварка с выездом на ваш объект. Работаем со всеми типами металлов круглосуточно.
-                      </p>
+                      <p className="text-base text-gray-200 font-medium leading-relaxed mb-5">Профессиональная аргонодуговая сварка с выездом на ваш объект. Работаем со всеми типами металлов.</p>
                       
                       <div className="grid grid-cols-2 gap-3 mb-6">
                         <div className="flex items-start gap-2 text-white">
