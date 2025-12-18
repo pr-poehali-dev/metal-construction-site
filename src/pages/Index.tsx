@@ -231,7 +231,7 @@ const Index = () => {
     { title: 'Ограждения', description: 'Заборы, перила, барьеры', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/f3cf71ee-dcce-4504-b474-a49ebbf19770.jpg' },
     { title: 'Антресольные этажи', description: 'Изготовление под ключ', image: 'https://cdn.poehali.dev/files/46346362.jpg' },
     { title: 'Конструкции для дачи', description: 'Беседки, навесы, козырьки', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/615adba9-d99b-48eb-8826-bee065ce039b.jpg' },
-    { title: 'Выездные сварочные работы', description: 'Профессиональная аргонодуговая сварка с выездом на ваш объект. Работаем со всеми типами металлов круглосуточно', image: 'https://cdn.poehali.dev/files/647647.jpg' },
+    { title: 'Выездные сварочные работы', description: 'Профессиональная аргонодуговая сварка с выездом на ваш объект. Работаем со всеми типами металлов круглосуточно', image: 'https://cdn.poehali.dev/files/776787.jpg' },
     { title: 'Порошковая покраска', description: 'Прочное и долговечное покрытие', image: 'https://cdn.poehali.dev/files/776787.jpg' }
   ];
 
@@ -247,11 +247,11 @@ const Index = () => {
   const gallery = [
     { title: 'Ангар для сельхозтехники', image: 'https://cdn.poehali.dev/files/5363.jpg' },
     { title: 'Металлокаркас производственного цеха', image: 'https://cdn.poehali.dev/files/ее.jpg' },
-    { title: 'Металлическая лестница на второй этаж', image: 'https://cdn.poehali.dev/files/3.jpg' },
+    { title: 'Металлическая лестница на второй этаж', image: 'https://cdn.poehali.dev/files/сьсл.jpg' },
     { title: 'Навес для автомобилей', image: 'https://cdn.poehali.dev/files/навес.jpg' },
     { title: 'Ограждение промышленной территории', image: 'https://cdn.poehali.dev/files/00.png' },
     { title: 'Нестандартная металлоконструкция', image: 'https://cdn.poehali.dev/files/а.jpg' },
-    { title: 'Ограждение лестницы', image: 'https://cdn.poehali.dev/files/8.jpg' },
+    { title: 'Ограждение лестницы', image: 'https://cdn.poehali.dev/files/34е.jpg' },
     { title: 'Изделия из нержавейки', image: 'https://cdn.poehali.dev/files/stainless-seat-large.jpg' },
     { title: 'Козырек для здания', image: 'https://cdn.poehali.dev/files/к.jpg' },
     { title: 'Каркас предприятия', image: 'https://cdn.poehali.dev/files/г.jpg' }
@@ -1326,7 +1326,7 @@ const Index = () => {
               <div className="relative rounded-2xl overflow-hidden shadow-2xl flex flex-col w-full">
                 <div className="relative h-[550px] sm:h-[600px]">
                   <img 
-                    src="https://cdn.poehali.dev/files/5.jpg"
+                    src="https://cdn.poehali.dev/files/ао.jpg"
                     alt="Выездные сварочные работы"
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                   />
