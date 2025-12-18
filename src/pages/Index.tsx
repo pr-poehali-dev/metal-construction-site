@@ -232,7 +232,7 @@ const Index = () => {
     { title: 'Антресольные этажи', description: 'Изготовление под ключ', image: 'https://cdn.poehali.dev/files/46346362.jpg' },
     { title: 'Конструкции для дачи', description: 'Беседки, навесы, козырьки', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/615adba9-d99b-48eb-8826-bee065ce039b.jpg' },
     { title: 'Выездные сварочные работы', description: 'Профессиональная сварка с выездом на ваш объект', image: 'https://cdn.poehali.dev/files/776787.jpg' },
-    { title: 'Порошковая покраска', description: 'Прочное и долговечное покрытие', image: 'https://cdn.poehali.dev/files/776787.jpg' }
+    { title: 'Порошковая покраска', description: 'Прочное и долговечное покрытие', image: 'https://cdn.poehali.dev/files/порошковая.jpg' }
   ];
 
   const works = [
