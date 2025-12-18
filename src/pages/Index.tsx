@@ -227,12 +227,12 @@ const Index = () => {
   };
 
   const services = [
-    { title: 'Металлоконструкции', description: 'Металлоконструкции', image: 'https://cdn.poehali.dev/files/2.jpg' },
+    { title: 'Металлоконструкции', description: 'Металлоконструкции', image: 'https://cdn.poehali.dev/files/2453535.jpg' },
     { title: 'Ограждения', description: 'Заборы, перила, барьеры', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/f3cf71ee-dcce-4504-b474-a49ebbf19770.jpg' },
-    { title: 'Антресольные этажи', description: 'Изготовление под ключ', image: 'https://cdn.poehali.dev/files/3.jpg' },
+    { title: 'Антресольные этажи', description: 'Изготовление под ключ', image: 'https://cdn.poehali.dev/files/46346362.jpg' },
     { title: 'Конструкции для дачи', description: 'Беседки, навесы, козырьки', image: 'https://cdn.poehali.dev/projects/cbf1034a-431b-4f0d-b734-d7ed016f4fe3/files/615adba9-d99b-48eb-8826-bee065ce039b.jpg' },
-    { title: 'Выездные сварочные работы', description: 'Профессиональная аргонодуговая сварка', image: 'https://cdn.poehali.dev/files/4.jpg' },
-    { title: 'Порошковая покраска', description: 'Прочное и долговечное покрытие', image: 'https://cdn.poehali.dev/files/п.jpg' }
+    { title: 'Выездные сварочные работы', description: 'Профессиональная аргонодуговая сварка с выездом на ваш объект. Работаем со всеми типами металлов круглосуточно', image: 'https://cdn.poehali.dev/files/647647.jpg' },
+    { title: 'Порошковая покраска', description: 'Прочное и долговечное покрытие', image: 'https://cdn.poehali.dev/files/776787.jpg' }
   ];
 
   const works = [
@@ -245,7 +245,7 @@ const Index = () => {
   ];
 
   const gallery = [
-    { title: 'Ангар для сельхозтехники', image: 'https://cdn.poehali.dev/files/2.jpg' },
+    { title: 'Ангар для сельхозтехники', image: 'https://cdn.poehali.dev/files/5363.jpg' },
     { title: 'Металлокаркас производственного цеха', image: 'https://cdn.poehali.dev/files/ее.jpg' },
     { title: 'Металлическая лестница на второй этаж', image: 'https://cdn.poehali.dev/files/3.jpg' },
     { title: 'Навес для автомобилей', image: 'https://cdn.poehali.dev/files/навес.jpg' },
